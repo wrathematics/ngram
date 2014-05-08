@@ -78,6 +78,7 @@ ngram_t* process(wordlist_t *words, int n, int *size){
 	tmp->nextword=NULL;
 	add_node(tmp->nextword);
 	tmp->nextword->word.word=NULL;
+	tmp->nextword->word.count=0;
 	sorted[0]=tmp;
 
 	qsort(sorted,len,sizeof(*sorted),cmp_ngram);
