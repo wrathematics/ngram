@@ -51,6 +51,7 @@ ngram_t* process(wordlist_t *words, int n, int *size){
 	for(i=1;i<len;i++){
 		q=p=nw->next;
 		tmp[i].tok=get_token(p,n);
+		tmp[i].words=NULL;
 		for(j=0;j<n;j++){
 			add_node(tmp[i].words);
 			tmp[i].words->word=q->word;
@@ -68,11 +69,13 @@ ngram_t* process(wordlist_t *words, int n, int *size){
 
 	q=p=words;
 	tmp->tok=get_token(p,n);
+	tmp->words=NULL;
 	for(j=0;j<n;j++){
 		add_node(tmp->words);
 		tmp->words->word=q->word;
 		q=q->next;
 	}
+	tmp->nextword=NULL;
 	add_node(tmp->nextword);
 	tmp->nextword->word.word=NULL;
 	sorted[0]=tmp;
