@@ -1,3 +1,9 @@
 useDynLib("ngram")
 
 exportPattern("^[[:alpha:]]+") 
+
+exportClasses("ngram")
+
+exportMethods(
+  "print", "show"
+)

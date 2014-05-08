@@ -12,6 +12,10 @@
 #include "ngram/src/print.h"
 #include "ngram/src/wordcmp.h"
 
+// External pointer shorthand
+#define newRptr(ptr,Rptr,fin) PROTECT(Rptr = R_MakeExternalPtr(ptr, R_NilValue, R_NilValue));R_RegisterCFinalizerEx(Rptr, fin, TRUE)
+#define getRptr(ptr) R_ExternalPtrAddr(ptr);
+
 // Obtain character pointers
 #define CHARPT(x,i)	((char*)CHAR(STRING_ELT(x,i)))
 
