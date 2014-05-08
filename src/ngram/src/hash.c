@@ -12,6 +12,7 @@ tok_t get_token(wordlist_t *word, const int num){
 			ret += (ret<<10);
 			ret ^= (ret>>6);
 		}
+		word=word->next;
 	}
 	ret += (ret<<3);
 	ret ^= (ret>>11);
