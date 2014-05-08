@@ -20,7 +20,7 @@ int main(){
 		print_ngram(ng+i);
 	}
 	
-	printf("%d\n", ngram_counts_total(ng, ngsize));
+/*	printf("%d\n", ngram_counts_total(ng, ngsize));*/
 
 	free_wordlist(wl);
 

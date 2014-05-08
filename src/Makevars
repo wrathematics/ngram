@@ -1,6 +1,8 @@
 #######################################################
 
-PKG_CFLAGS = -O0 -Wall -g
+#PKG_LIBS = ngram/libngram.a
+
+PKG_CFLAGS = -Wall -g
 
 NGRAM_OBJS = \
 	ngram/src/hash.o \
@@ -11,9 +13,16 @@ NGRAM_OBJS = \
 
 R_OBJS = ngram.o
 
+OBJECTS = $(R_OBJS) $(NGRAM_OBJS)
+
 all: $(SHLIB)
 
-$(SHLIB): $(R_OBJS) $(NGRAM_OBJS)
+$(SHLIB): $(OBJECTS) 
+
+#ngram/src/hash.o:
+#	$(CC) -O0 -c -o ngram/src/hash.o ngram/src/hash.c
+#ngram/src/lex.o:
+#	$(CC) -O0 -o ngram/src/lex.o ngram/src/lex.c
 
 
 clean:
