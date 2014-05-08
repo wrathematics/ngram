@@ -10,14 +10,14 @@
 typedef uint32_t tok_t;
 
 typedef struct word_t{
-	const char *s;
-	int len;
-	tok_t tok;
+	const char *s; /* a pointer to the start of the word */
+	int len; /* number of characters in the word */
+	tok_t tok; /* word hash */
 } word_t;
 
 typedef struct wordlist_t{
-	struct wordlist_t *next;
-	word_t *word;
+	struct wordlist_t *next; /* pointer to the next element in the list or NULL */
+	word_t *word; /* pointer to the word for this element in the list */
 } wordlist_t;
 
 #include "hash.h"
