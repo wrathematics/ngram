@@ -19,10 +19,11 @@ typedef struct ngram_t{
 	nextwordlist_t *nextword;
 }ngram_t;
 
-typedef struct ngramlist_t{
-	struct ngramlist_t *next;
-	ngram_t ngram;
-}ngramlist_t;
+//Not used
+//typedef struct ngramlist_t{
+//	struct ngramlist_t *next;
+//	ngram_t ngram;
+//}ngramlist_t;
 
 ngram_t* process(wordlist_t *words, int n, int *size);
 

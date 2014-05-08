@@ -1,0 +1,20 @@
+#######################################################
+
+PKG_CFLAGS = -O0 -Wall -g
+
+NGRAM_OBJS = \
+	ngram/src/hash.o \
+	ngram/src/lex.o \
+	ngram/src/print.o \
+	ngram/src/process.o \
+	ngram/src/wordcmp.o
+
+R_OBJS = ngram.o
+
+all: $(SHLIB)
+
+$(SHLIB): $(R_OBJS) $(NGRAM_OBJS)
+
+
+clean:
+	rm -rf *.o *.so *.dll

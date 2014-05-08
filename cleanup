@@ -1,0 +1,8 @@
+#! /bin/sh
+rm -rf ./src/*.dylib
+rm -rf ./src/*.so*
+rm -rf ./src/*.o
+rm -rf ./src/*.d
+rm -rf ./src/*.dll
+
+rm -rf ./src/ngram/src/*.o

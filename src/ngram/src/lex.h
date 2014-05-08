@@ -13,12 +13,12 @@ typedef struct word_t{
 	const char *s;
 	int len;
 	tok_t tok;
-}word_t;
+} word_t;
 
 typedef struct wordlist_t{
 	struct wordlist_t *next;
 	word_t *word;
-}wordlist_t;
+} wordlist_t;
 
 #include "hash.h"
 

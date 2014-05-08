@@ -1,0 +1,8 @@
+*.o
+*.lo
+*.so
+*.log
+*.status
+*~
+*.swp
+
