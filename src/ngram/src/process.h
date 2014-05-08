@@ -4,19 +4,19 @@
 #include "lex.h"
 
 typedef struct nextword_t{
-	word_t *word;
-	int count;
+	word_t *word; /* pointer to the word */
+	int count; /* number of times this word was seen */
 }nextword_t;
 
 typedef struct nextwordlist_t{
-	struct nextwordlist_t *next;
-	nextword_t word;
+	struct nextwordlist_t *next; /* pointer to the next element in the list or NULL */
+	nextword_t word; /* the data for this list element */
 }nextwordlist_t;
 
 typedef struct ngram_t{
-	tok_t tok;
-	wordlist_t *words;
-	nextwordlist_t *nextword;
+	tok_t tok; /* complete ngram hash */
+	wordlist_t *words; /* list of words in the ngram */
+	nextwordlist_t *nextword; /* list of possible next-words and their counts for this ngram */
 }ngram_t;
 
 //Not used
