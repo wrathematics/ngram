@@ -16,8 +16,13 @@ int main(){
 	wl=lex(str,strlen(str));
 	ng=process(wl,n,&ngsize);
 
-	for(i=0;i<ngsize;i++){
-		print_ngram(ng+i);
+	if(ng==NULL){
+		printf("No ngrams\n");
+	}
+	else{
+		for(i=0;i<ngsize;i++){
+			print_ngram(ng+i);
+		}
 	}
 	
 /*	printf("%d\n", ngram_counts_total(ng, ngsize));*/

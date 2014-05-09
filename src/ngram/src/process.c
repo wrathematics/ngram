@@ -30,6 +30,9 @@ ngram_t* process(wordlist_t *words, int n, int *size){
 	wordlist_t *p,*q,*nw;
 	ngram_t *ret,*tmp,**sorted;
 
+	if(n<1)
+		return NULL;
+
 	len=0;
 	p=words;
 	while(p){
@@ -37,6 +40,9 @@ ngram_t* process(wordlist_t *words, int n, int *size){
 		p=p->next;
 	}
 	len-=n-1;
+
+	if(len<1)
+		return NULL;
 
 	if((ret=malloc(sizeof(*ret)*len))==NULL)
 		exit(1);
