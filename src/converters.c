@@ -43,3 +43,19 @@ SEXP ng_extract_ngrams(SEXP ng_ptr, SEXP ngsize_)
 }
 
 
+
+
+SEXP ng_extract_str(SEXP str_ptr, SEXP R_strlen)
+{
+  SEXP RET;
+  char *str = (char *) getRptr(str_ptr);
+  
+  PROTECT(RET = allocVector(STRSXP, 1));
+  
+  SET_STRING_ELT(RET, 0, mkCharLen(str, INTEGER(R_strlen)[0]));
+  
+  UNPROTECT(1);
+  return RET;
+}
+
+

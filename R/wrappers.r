@@ -25,3 +25,10 @@ ng.extract.ngrams <- function(ng)
 {
   .Call("ng_extract_ngrams", ng@ng_ptr, ng@ngsize)
 }
+
+
+
+ng.extract.str <- function(ng)
+{
+  .Call("ng_extract_str", ng@str_ptr, ng@strlen)
+}

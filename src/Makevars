@@ -11,7 +11,7 @@ NGRAM_OBJS = \
 	ngram/src/process.o \
 	ngram/src/wordcmp.o
 
-R_OBJS = converters.o ngram.o
+R_OBJS = constructor.o converters.o print.o
 
 OBJECTS = $(R_OBJS) $(NGRAM_OBJS)
 
