@@ -30,6 +30,8 @@ ngram_t* process(wordlist_t *words, int n, int *size){
 	wordlist_t *p,*q,*nw;
 	ngram_t *ret,*tmp,**sorted;
 
+	*size=0;
+
 	if(n<1)
 		return NULL;
 
