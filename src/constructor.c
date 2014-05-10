@@ -58,6 +58,14 @@ SEXP ng_process(SEXP R_str, SEXP R_str_len, SEXP n_)
   wl = lex(str, strlen(str));
   ng = process(wl, n, &ngsize);
   
+  if (NULL == ng)
+  {
+    PROTECT(RET = allocVector(INTSXP, 1));
+    INTEGER(RET)[0] = -1;
+    UNPROTECT(1);
+    return RET;
+  }
+  
   newRptr(str, str_ptr, str_finalize);
   newRptr(wl, wl_ptr, wl_finalize);
   newRptr(ng, ng_ptr, ng_finalize);
