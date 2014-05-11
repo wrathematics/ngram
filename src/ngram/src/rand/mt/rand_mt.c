@@ -4,7 +4,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "rand.h"
+#include "../rand.h"
 #include "rand_mt.h"
 
 // ###################### //

@@ -16,7 +16,7 @@ int sample(rng_state_t *rs, const int min, const int max)
   // Check that the RNG has been initialized; if not, start it
   rng_check(rs);
   
-  ret = min + (max-min)*rng_extract(rs)*I32BIT;
+  ret = min + (int) ((double)(max-min + 1) * rng_extract(rs)*I32BIT);
   
   return ret;
 }
