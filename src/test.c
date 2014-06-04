@@ -18,7 +18,8 @@ SEXP ng_test(SEXP ng_ptr, SEXP ngsize_, SEXP genlen)
   len = gen(&rs, ng, ngsize, INTEGER(genlen)[0], &ret);
   
   PROTECT(RET = allocVector(STRSXP, 1));
-  SET_STRING_ELT(RET, 0, mkCharLen(ret, len-1));
+  SET_STRING_ELT(RET, 0, mkCharLen(ret, len));
+/*  SET_STRING_ELT(RET, 0, mkChar(ret));*/
   
   UNPROTECT(1);
   return RET;

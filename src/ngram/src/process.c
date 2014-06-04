@@ -111,6 +111,7 @@ ngram_t* process(wordlist_t *words, int n, int *size){
 			sorted[i]->nextword->word.count=1;
 		ret[reti].words=sorted[i]->words;
 		ret[reti].nextword=sorted[i]->nextword;
+		ret[reti].tok=sorted[i]->tok;
 		reti++;
 	}
 
