@@ -134,7 +134,7 @@ int get_new_ng_index(ngram_t *ng, const int ngsize, const int ng_ind, word_t *wo
   int i;
   tok_t hash;
   wordlist_t *wl;
-  wordlist_t *wl_old = ng[ng_ind].words;
+  wordlist_t *wl_old = ng[ng_ind].words->next;
   
   
   wl = NULL;
@@ -200,7 +200,7 @@ int gen(rng_state_t *rs, ngram_t *ng, int ngsize, int genlen, char **ret)
     
     word = get_rand_nextword(rs, &ng[ng_ind]);
     n += cp_word_to_char(word, ret_ind, tmp);
-    ng_ind = word->len + 1;
+    ret_ind += word->len + 1;
     
     // Reset ng and cycle
 /*    n += cp_ng_to_char(&ng[ng_ind], &ret_ind, tmp);*/
