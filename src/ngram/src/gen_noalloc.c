@@ -128,31 +128,32 @@ int cp_word_to_char(word_t *word, int start, char *str)
 
 
 
-int get_new_ng_index(ngram_t *ng, const int ngsize, const int ng_ind, word_t *word)
+// Reverse-fill wordlist
+wordlist_t* fill_wordlist_reverse(wordlist_t *dst, wordlist_t *src)
+{
+  if(src->next!=NULL)
+    dst = fill_wordlist_reverse(dst,src->next);
+  
+  dst->word = src->word;
+  
+  return dst->next;
+}
+
+
+int get_new_ng_index(wordlist_t *wl, ngram_t *ng, const int ngsize, const int ng_ind, word_t *word)
 {
   const int n = 3; //FIXME
   int i;
   tok_t hash;
-  wordlist_t *wl;
+/*  wordlist_t *wl;*/
   wordlist_t *wl_old = ng[ng_ind].words->next;
   
-  
-  wl = NULL;
-  
-  for(i=0; i<n-1; i++)
-  {
-    add_node(wl);
-    wl->word = wl_old->word;
-    
-    wl_old = wl_old->next;
-  }
-  
-  add_node(wl);
-  wl->word = word;
+  fill_wordlist_reverse(wl->next,wl_old); 
+  wl->word=word;
   
   hash = get_token(wl, n);
   
-  free(wl);
+/*  free(wl);*/
   
   for (i=0; i<ngsize; i++)
   {
@@ -176,8 +177,13 @@ int gen(rng_state_t *rs, ngram_t *ng, int ngsize, int genlen, char **ret)
   bool init = true;
   char *tmp;
   word_t *word;
+  wordlist_t *wl;
   
   tmp = malloc(OVERALLOC * genlen * sizeof(tmp));
+  
+  wl = NULL;
+  for(i=0; i<3; i++)
+    add_node(wl);
   
   while (genlen)
   {
@@ -185,7 +191,7 @@ int gen(rng_state_t *rs, ngram_t *ng, int ngsize, int genlen, char **ret)
     while (init)
     {
       ng_ind = sample(rs, 0, ngsize-1);
-      printf("------------%d------------\n", ng_ind);
+/*      printf("------------%d------------\n", ng_ind);*/
       //ng_ind = 29718; //FIXME DELETEME
       //ng_ind = 102277;
       init = check_ngram_for_null(&ng[ng_ind]); //TODO do something with this
@@ -205,7 +211,7 @@ int gen(rng_state_t *rs, ngram_t *ng, int ngsize, int genlen, char **ret)
     // Reset ng and cycle
 /*    n += cp_ng_to_char(&ng[ng_ind], &ret_ind, tmp);*/
     
-    ng_ind = get_new_ng_index(ng, ngsize, ng_ind, word);
+    ng_ind = get_new_ng_index(wl, ng, ngsize, ng_ind, word);
     
 /*    printf("%d\n", ng_ind);*/
 /*    if (ng_ind != -1)*/
