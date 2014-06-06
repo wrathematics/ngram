@@ -69,7 +69,7 @@ word_t* _ngram_get_rand_nextword(rng_state_t *rs, ngram_t *ng)
 
 
 
-int _ngram_cp_ng_to_char(ngram_t *ng, int *start, char *str)
+int _ngram_cp_ng_to_char(ngram_t *ng, int start, char *str)
 {
   int i;
   int n = 0;
@@ -86,12 +86,11 @@ int _ngram_cp_ng_to_char(ngram_t *ng, int *start, char *str)
       return n;
     
     for (i=0; i<len; i++)
-      str[*start + i] = word->s[i];
+      str[start + n + i] = word->s[i];
     
-    str[*start + len] = ' ';
+    str[start + n + len] = ' ';
     n += len + 1;
     
-    *start += len+1;
     wl = wl->next;
   }
   
@@ -165,16 +164,22 @@ int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen,
   word_t *word;
   wordlist_t *wl;
   
+  if (genlen < 1)
+    return -1;
+  else if (n > genlen)
+    genlen = n;
+  
   tmp = malloc(maxlen * sizeof(tmp));
   
   wl = NULL;
   for(i=0; i<n; i++)
     add_node(wl);
   
-/*  printf("genlen = ");*/
+  printf("genlen = ");
   while (genlen > 0 && retlen < maxlen)
   {
     printf("%d ", genlen);
+    
     // Initialize and/or restart after discovering NULL
     if (init)
     {
@@ -184,23 +189,26 @@ int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen,
         init = _ngram_check_ngram_for_null(&ng[ng_ind]);
       }
       
-      genlen -= n-1;
-      retlen += _ngram_cp_ng_to_char(&ng[ng_ind], &ret_ind, tmp);
+      genlen -= n;
+      retlen += _ngram_cp_ng_to_char(&ng[ng_ind], ret_ind, tmp);
+      ret_ind += retlen;
     }
-    
-    // Get next word and put it into tmp
-    word = _ngram_get_rand_nextword(rs, &ng[ng_ind]);
-    if (word == NULL)
+    else
     {
-      init = true;
-      continue;
+      // Get next word and put it into tmp
+      word = _ngram_get_rand_nextword(rs, &ng[ng_ind]);
+      if (word == NULL)
+      {
+        init = true;
+        continue;
+      }
+      
+      retlen += _ngram_cp_word_to_char(word, ret_ind, tmp);
+      ret_ind += word->len + 1;
+      ng_ind = _ngram_get_new_ng_index(n, wl, ng, ngsize, ng_ind, word);
+      
+      genlen--;
     }
-    
-    retlen += _ngram_cp_word_to_char(word, ret_ind, tmp);
-    ret_ind += word->len + 1;
-    ng_ind = _ngram_get_new_ng_index(n, wl, ng, ngsize, ng_ind, word);
-    
-    genlen--;
   }
   
   // Fix overallocation

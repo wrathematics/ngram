@@ -59,7 +59,7 @@ int ngram_counts_total(ngram_t *ng, int ngsize)
 
 int ngram_wordcount(const char *str, const char sep)
 {
-  int i;
+  int i = 0;
   int ct = 0;
   
   if (str[0] == '\0')
