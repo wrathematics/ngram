@@ -1,5 +1,3 @@
-// I apologize to the world for the abomination that is this file
-
 #include <stdbool.h>
 
 #include "process.h"
@@ -15,7 +13,7 @@
 
 static void *vptr;
 
-bool check_ngram_for_null(ngram_t *ng)
+bool _ngram_check_ngram_for_null(ngram_t *ng)
 {
   wordlist_t *wl = ng->words;
   
@@ -32,7 +30,7 @@ bool check_ngram_for_null(ngram_t *ng)
 
 
 
-word_t *get_rand_nextword(rng_state_t *rs, ngram_t *ng)
+word_t* _ngram_get_rand_nextword(rng_state_t *rs, ngram_t *ng)
 {
   int wordtot = 0;
   int ind;
@@ -42,28 +40,21 @@ word_t *get_rand_nextword(rng_state_t *rs, ngram_t *ng)
   nextwordlist_t *nwl = ng->nextword;
   
   
+  // Get "index" of next word
   while(nwl)
   {
-/*    if(wl->word == NULL)*/
-/*      return wordtot;*/
-    
     wordtot += nwl->word.count;
     nwl = nwl->next;
   }
   
   ind = sample(rs, 0, wordtot-1) + 1;
-/*  printf("%d\n", ind);*/
   nwl = ng->nextword;
   
+  // Get the word
   while(1)
   {
-    // FIXME
-/*    if(word == NULL)*/
-/*      return wordtot;*/
-    
     tmp += nwl->word.count;
     
-/*    printf("%d %d %d\n", tmp, nwl->word.count, ind);*/
     if (tmp >= ind)
     {
       word = nwl->word.word;
@@ -73,14 +64,12 @@ word_t *get_rand_nextword(rng_state_t *rs, ngram_t *ng)
     nwl = nwl->next;
   }
   
-/*  print_word(word);*/
-  
   return word;
 }
 
 
 
-int cp_ng_to_char(ngram_t *ng, int *start, char *str)
+int _ngram_cp_ng_to_char(ngram_t *ng, int *start, char *str)
 {
   int i;
   int n = 0;
@@ -111,7 +100,7 @@ int cp_ng_to_char(ngram_t *ng, int *start, char *str)
 
 
 
-int cp_word_to_char(word_t *word, int start, char *str)
+int _ngram_cp_word_to_char(word_t *word, int start, char *str)
 {
   int i;
   int n = 0;
@@ -129,10 +118,10 @@ int cp_word_to_char(word_t *word, int start, char *str)
 
 
 // Reverse-fill wordlist
-wordlist_t* fill_wordlist_reverse(wordlist_t *dst, wordlist_t *src)
+wordlist_t* _ngram_reverse_fill_wordlist(wordlist_t *dst, wordlist_t *src)
 {
   if(src->next!=NULL)
-    dst = fill_wordlist_reverse(dst,src->next);
+    dst = _ngram_reverse_fill_wordlist(dst,src->next);
   
   dst->word = src->word;
   
@@ -140,20 +129,16 @@ wordlist_t* fill_wordlist_reverse(wordlist_t *dst, wordlist_t *src)
 }
 
 
-int get_new_ng_index(wordlist_t *wl, ngram_t *ng, const int ngsize, const int ng_ind, word_t *word)
+int _ngram_get_new_ng_index(const int n, wordlist_t *wl, ngram_t *ng, const int ngsize, const int ng_ind, word_t *word)
 {
-  const int n = 3; //FIXME
   int i;
   tok_t hash;
-/*  wordlist_t *wl;*/
   wordlist_t *wl_old = ng[ng_ind].words->next;
   
-  fill_wordlist_reverse(wl->next,wl_old); 
+  _ngram_reverse_fill_wordlist(wl->next,wl_old); 
   wl->word=word;
   
   hash = get_token(wl, n);
-  
-/*  free(wl);*/
   
   for (i=0; i<ngsize; i++)
   {
@@ -168,66 +153,66 @@ int get_new_ng_index(wordlist_t *wl, ngram_t *ng, const int ngsize, const int ng
 
 
 // genlen = #words
-int gen(rng_state_t *rs, ngram_t *ng, int ngsize, int genlen, char **ret)
+int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen, char **ret)
 {
   int i;
   int ret_ind = 0;
   int ng_ind = 0;
-  int n = 0;
+  int retlen = 0;
   bool init = true;
+  const int maxlen = OVERALLOC * genlen;
   char *tmp;
   word_t *word;
   wordlist_t *wl;
   
-  tmp = malloc(OVERALLOC * genlen * sizeof(tmp));
+  tmp = malloc(maxlen * sizeof(tmp));
   
   wl = NULL;
-  for(i=0; i<3; i++)
+  for(i=0; i<n; i++)
     add_node(wl);
   
-  while (genlen)
+/*  printf("genlen = ");*/
+  while (genlen > 0 && retlen < maxlen)
   {
+    printf("%d ", genlen);
     // Initialize and/or restart after discovering NULL
-    while (init)
+    if (init)
     {
-      ng_ind = sample(rs, 0, ngsize-1);
-/*      printf("------------%d------------\n", ng_ind);*/
-      //ng_ind = 29718; //FIXME DELETEME
-      //ng_ind = 102277;
-      init = check_ngram_for_null(&ng[ng_ind]); //TODO do something with this
-      init = false; //FIXME
+      while(init)
+      {
+        ng_ind = sample(rs, 0, ngsize-1);
+        init = _ngram_check_ngram_for_null(&ng[ng_ind]);
+      }
       
-/*      print_ngram(&ng[ng_ind]);*/
-      
-      n += cp_ng_to_char(&ng[ng_ind], &ret_ind, tmp);
+      genlen -= n-1;
+      retlen += _ngram_cp_ng_to_char(&ng[ng_ind], &ret_ind, tmp);
     }
     
     // Get next word and put it into tmp
+    word = _ngram_get_rand_nextword(rs, &ng[ng_ind]);
+    if (word == NULL)
+    {
+      init = true;
+      continue;
+    }
     
-    word = get_rand_nextword(rs, &ng[ng_ind]);
-    n += cp_word_to_char(word, ret_ind, tmp);
+    retlen += _ngram_cp_word_to_char(word, ret_ind, tmp);
     ret_ind += word->len + 1;
-    
-    // Reset ng and cycle
-/*    n += cp_ng_to_char(&ng[ng_ind], &ret_ind, tmp);*/
-    
-    ng_ind = get_new_ng_index(wl, ng, ngsize, ng_ind, word);
-    
-/*    printf("%d\n", ng_ind);*/
-/*    if (ng_ind != -1)*/
-/*      print_ngram(&ng[ng_ind]);*/
+    ng_ind = _ngram_get_new_ng_index(n, wl, ng, ngsize, ng_ind, word);
     
     genlen--;
   }
   
   // Fix overallocation
-  *ret = malloc(n * sizeof(**ret));
-  for (i=0; i<n; i++)
+  *ret = malloc(retlen * sizeof(**ret));
+  for (i=0; i<retlen; i++)
     (*ret)[i] = tmp[i];
+  
+  printf("\n%d\n", retlen/2);
   
   free(tmp);
   
-  return n;
+  return retlen;
 }
 
 

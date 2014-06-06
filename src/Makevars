@@ -2,9 +2,10 @@
 
 #PKG_LIBS = ngram/libngram.a
 
-PKG_CFLAGS = -Wall -g
+PKG_CFLAGS = -Wall
 
 NGRAM_OBJS = \
+	ngram/src/counts.o \
 	ngram/src/gen_noalloc.o \
 	ngram/src/hash.o \
 	ngram/src/lex.o \
@@ -14,10 +15,10 @@ NGRAM_OBJS = \
 	ngram/src/rand/mt/rand_mt.o \
 	ngram/src/rand/mrg/rand_mrg.o \
 	ngram/src/rand/rng_interface.o \
+	ngram/src/rand/hash.o \
 	ngram/src/rand/samplers.o
 
-R_OBJS = constructor.o converters.o print.o \
-		test.o
+R_OBJS = constructor.o converters.o gen.o count.o hash.o print.o
 
 OBJECTS = $(R_OBJS) $(NGRAM_OBJS)
 

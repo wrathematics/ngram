@@ -1,0 +1,6 @@
+#!/bin/sh
+
+rm example
+make example
+./example
+

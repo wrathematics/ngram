@@ -1,5 +1,6 @@
 #include "ngram.h"
 
+
 SEXP ng_print(SEXP ng_ptr, SEXP ngsize_)
 {
   int i;
