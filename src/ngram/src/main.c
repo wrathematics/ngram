@@ -4,6 +4,8 @@
 #include "rand/rand.h"
 
 
+int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen, char **ret);
+
 int simple_example()
 {
   const char *str = "A A A B A B B A";
@@ -33,8 +35,13 @@ int simple_example()
 
 int gen_example()
 {
-  const int n = 2;
-  const char *str = "A A A B A B B A C";
+  const int n = 3;
+/*  const char *str = "A A A B A B B A";*/
+/*  const int genlen = 20;*/
+  
+  const char *str = "A B C";
+  const int genlen = 10;
+  
   wordlist_t *wl;
   ngram_t *ng;
   int ngsize;
@@ -47,7 +54,7 @@ int gen_example()
   rng_set_type(&rs, RNG_TYPE_MT);
   rng_init(&rs, seed);
   
-  const int genlen = 20;
+  
   char *ret;
   int retlen;
   
@@ -63,7 +70,7 @@ int gen_example()
 
 int main()
 {
-  simple_example();
+/*  simple_example();*/
   
   gen_example();
   

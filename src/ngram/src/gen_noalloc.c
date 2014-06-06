@@ -10,6 +10,8 @@
 
 #define OVERALLOC 20
 
+#define MIN(x,y) (x<y?x:y)
+
 
 static void *vptr;
 
@@ -69,7 +71,7 @@ word_t* _ngram_get_rand_nextword(rng_state_t *rs, ngram_t *ng)
 
 
 
-int _ngram_cp_ng_to_char(ngram_t *ng, int start, char *str)
+int _ngram_cp_ng_to_char(int num, ngram_t *ng, int start, char *str)
 {
   int i;
   int n = 0;
@@ -77,7 +79,7 @@ int _ngram_cp_ng_to_char(ngram_t *ng, int start, char *str)
   wordlist_t *wl = ng->words;
   word_t *word;
   
-  while(wl)
+  while(wl && num > 0)
   {
     word = wl->word;
     len = word->len;
@@ -89,9 +91,11 @@ int _ngram_cp_ng_to_char(ngram_t *ng, int start, char *str)
       str[start + n + i] = word->s[i];
     
     str[start + n + len] = ' ';
+    
     n += len + 1;
     
     wl = wl->next;
+    num--;
   }
   
   return n;
@@ -155,7 +159,6 @@ int _ngram_get_new_ng_index(const int n, wordlist_t *wl, ngram_t *ng, const int 
 int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen, char **ret)
 {
   int i;
-  int ret_ind = 0;
   int ng_ind = 0;
   int retlen = 0;
   bool init = true;
@@ -179,7 +182,6 @@ int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen,
   while (genlen > 0 && retlen < maxlen)
   {
     printf("%d ", genlen);
-    
     // Initialize and/or restart after discovering NULL
     if (init)
     {
@@ -189,9 +191,8 @@ int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen,
         init = _ngram_check_ngram_for_null(&ng[ng_ind]);
       }
       
+      retlen += _ngram_cp_ng_to_char(MIN(n, genlen), &ng[ng_ind], retlen, tmp);
       genlen -= n;
-      retlen += _ngram_cp_ng_to_char(&ng[ng_ind], ret_ind, tmp);
-      ret_ind += retlen;
     }
     else
     {
@@ -203,8 +204,7 @@ int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen,
         continue;
       }
       
-      retlen += _ngram_cp_word_to_char(word, ret_ind, tmp);
-      ret_ind += word->len + 1;
+      retlen += _ngram_cp_word_to_char(word, retlen, tmp);
       ng_ind = _ngram_get_new_ng_index(n, wl, ng, ngsize, ng_ind, word);
       
       genlen--;
