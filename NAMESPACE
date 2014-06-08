@@ -1,5 +1,7 @@
 useDynLib("ngram")
 
+import(methods)
+
 exportClasses("ngram")
 
 export(wordcount)

@@ -1,8 +1,7 @@
 #######################################################
 
 #PKG_LIBS = ngram/libngram.a
-
-PKG_CFLAGS = -Wall
+#PKG_CFLAGS = -Wall
 
 NGRAM_OBJS = \
 	ngram/src/counts.o \
@@ -10,7 +9,6 @@ NGRAM_OBJS = \
 	ngram/src/gen_noalloc.o \
 	ngram/src/hash.o \
 	ngram/src/lex.o \
-	ngram/src/print.o \
 	ngram/src/process.o \
 	ngram/src/wordcmp.o \
 	ngram/src/rand/mt/rand_mt.o \
@@ -19,7 +17,7 @@ NGRAM_OBJS = \
 	ngram/src/rand/get_seed.o \
 	ngram/src/rand/samplers.o
 
-R_OBJS = constructor.o converters.o gen.o count.o hash.o print.o
+R_OBJS = constructor.o converters.o gen.o count.o hash.o ng_print.o print.o
 
 OBJECTS = $(R_OBJS) $(NGRAM_OBJS)
 

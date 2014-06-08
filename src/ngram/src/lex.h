@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#define add_node(l) {vptr=l;if((l=malloc(sizeof(*l)))==NULL)exit(1);l->next=vptr;}
+//#define add_node(l) {vptr=l;if((l=malloc(sizeof(*l)))==NULL)exit(1);l->next=vptr;}
+#define add_node(l) {vptr=l;l=malloc(sizeof(*l));l->next=vptr;}
 #define free_list(l) {while(l){vptr=l->next;free(l);l=vptr;}}
 
 typedef uint32_t tok_t;
