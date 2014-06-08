@@ -14,7 +14,7 @@ void print_word(word_t *word)
   }
   
   for(i=0; i<word->len; i++)
-    putchar(word->s[i]);
+    Rprintf("%c", word->s[i]);
   
   Rprintf("%c", ' ');
 }
