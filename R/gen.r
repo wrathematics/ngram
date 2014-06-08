@@ -20,7 +20,7 @@ ng.generate <- function(ng, genlen=150, seed=getseed())
 
 
 
-#setMethod("get.ngrams", signature(ng="ngram"),
-#  function(ng)
-#    ng.extract.ngrams(ng)
-#)
+setMethod("babble", signature(ng="ngram"),
+  function(ng, genlen=150, seed=getseed())
+    ng.generate(ng, genlen=genlen, seed=seed)
+)

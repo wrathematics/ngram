@@ -1,4 +1,4 @@
-ng.process <- function(str, n=2, sep=" ")
+ng.process <- function(str, n=2)
 {
   if (n > 2^31)
     stop(paste("n=", n, " is too large", sep=""))
@@ -10,7 +10,7 @@ ng.process <- function(str, n=2, sep=" ")
   
   nwords <- wordcount(str)
   if (nwords < n)
-    stop(paste("input 'str' has ", "nwords=", nwords, " and ", n, "=n words", sep=""))
+    stop(paste("input 'str' has ", "nwords=", nwords, " and ", "n=", n, "; must have nwords >= n", sep=""))
   
   strlen <- nchar(str) ## always an integer due to STRSXP restrictions
   
@@ -24,6 +24,6 @@ ng.process <- function(str, n=2, sep=" ")
 
 
 setMethod("ngram", signature(str="character"),
-  function(str, n=2, sep=" ")
-    ng.process(str=str, n=n, sep=sep)
+  function(str, n=2)
+    ng.process(str=str, n=n)
 )

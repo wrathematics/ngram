@@ -7,5 +7,6 @@ export(wordcount)
 exportMethods(
   "print", "show",
   "ngram",
+  "babble",
   "get.ngrams", "get.string", "get.nextwords"
 )

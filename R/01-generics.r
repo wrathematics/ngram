@@ -4,6 +4,12 @@ setGeneric(name="ngram",
   package="ngram"
 )
 
+setGeneric(name="babble", 
+  function(ng,  ...) 
+    standardGeneric("babble"), 
+  package="ngram"
+)
+
 setGeneric(name="get.ngrams", 
   function(ng, ...) 
     standardGeneric("get.ngrams"), 
