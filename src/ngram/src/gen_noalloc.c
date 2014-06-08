@@ -178,10 +178,10 @@ int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen,
   for(i=0; i<n; i++)
     add_node(wl);
   
-  printf("genlen = ");
+/*  printf("genlen = ");*/
   while (genlen > 0 && retlen < maxlen)
   {
-    printf("%d ", genlen);
+/*    printf("%d ", genlen);*/
     // Initialize and/or restart after discovering NULL
     if (init)
     {
@@ -216,7 +216,7 @@ int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen,
   for (i=0; i<retlen; i++)
     (*ret)[i] = tmp[i];
   
-  printf("\n%d\n", retlen/2);
+/*  printf("\n%d\n", retlen/2);*/
   
   free(tmp);
   

@@ -1,9 +1,33 @@
-extract.ngrams <- function(ng)
+ng.extract.ngrams <- function(ng)
 {
-  ng.extract.ngrams(ng)
+  .Call("ng_extract_ngrams", ng@ng_ptr, ng@ngsize)
 }
 
-extract.str <- function(ng)
+
+
+setMethod("get.ngrams", signature(ng="ngram"),
+  function(ng)
+    ng.extract.ngrams(ng=ng)
+)
+
+
+
+ng.extract.str <- function(ng)
 {
-  ng.extract.str(ng)
+  .Call("ng_extract_str", ng@str_ptr, ng@strlen)
 }
+
+
+
+setMethod("get.string", signature(ng="ngram"),
+  function(ng)
+    ng.extract.str(ng=ng)
+)
+
+
+
+setMethod("get.nextwords", signature(ng="ngram"),
+  function(ng)
+    stop("Not yet implemented")
+)
+

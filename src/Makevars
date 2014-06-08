@@ -6,6 +6,7 @@ PKG_CFLAGS = -Wall
 
 NGRAM_OBJS = \
 	ngram/src/counts.o \
+	ngram/src/gen_check.o \
 	ngram/src/gen_noalloc.o \
 	ngram/src/hash.o \
 	ngram/src/lex.o \

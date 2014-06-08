@@ -1,9 +1,11 @@
 useDynLib("ngram")
 
-exportPattern("^[[:alpha:]]+") 
-
 exportClasses("ngram")
 
+export(wordcount)
+
 exportMethods(
-  "print", "show"
+  "print", "show",
+  "ngram",
+  "get.ngrams", "get.string", "get.nextwords"
 )

@@ -3,7 +3,7 @@ hash96 <- function(a, b, c)
   .Call("R_mix_96", as.integer(a), as.integer(b), as.integer(c), PACKAGE="ngram")
 }
 
-ngram.getseed <- function()
+getseed <- function()
 {
   date <- as.integer(Sys.Date())
   time <- as.integer(Sys.time())

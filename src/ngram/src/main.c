@@ -2,6 +2,7 @@
 #include "process.h"
 #include "strings.h"
 #include "rand/rand.h"
+#include "generate.h"
 
 
 #if 0
@@ -107,11 +108,31 @@ int main_gen(const int n, const char *str, const int genlen, const int seed)
 
 
 
+void ngram_set_main_flags(ngram_opts_t *opts, int argc, char **argv)
+{
+  int i;
+  
+  opts->n = 3;
+  opts->genlen = 10;
+  opts->infile = "";
+  opts->outfile = "";
+  
+  for (i=1; i<argc; i++)
+  {
+    if (0 == strcmp(argv[i], "--n"))
+      opts->n = (int)(argv[i+1][0] - '0');
+    else if (0 == strcmp(argv[i], "--genlen"))
+      opts->genlen = (int)(argv[i+1][0] - '0');
+    else if (0 == strcmp(argv[i], "--infile"))
+      opts->infile = argv[i+1];
+    else if (0 == strcmp(argv[i], "--outfile"))
+      opts->outfile = argv[i+1];
+  }
+}
 
 
 
-
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
   int n = 3;
   /*  const char *str = "A A A B A B B A";*/
@@ -120,7 +141,11 @@ int main(int argc, char *argv[])
   const int genlen = 10;
   const uint32_t seed = 1234;
   
-  main_gen(n, str, genlen, seed);
+  ngram_opts_t opts;
+  
+  ngram_set_main_flags(&opts, argc, argv);
+  
+  main_gen(opts.n, str, opts.genlen, seed);
   
   return 0;
 }

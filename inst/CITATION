@@ -1,0 +1,14 @@
+citHeader("To cite the ngram package:")
+
+citEntry(
+  entry = "Misc",
+  title = "ngram: An n-gram Babbler.",
+  author = personList(as.person("Drew Schmidt"),
+                      as.person("Christian Heckendorf")),
+  year = "2014",
+  note = "{R} Package",
+  url = "https://github.com/wrathematics/ngram",
+  textVersion = "Schmidt, D. (2014) ngram: An n-gram Babbler. R Package, URL https://github.com/wrathematics/ngram",
+  key = "ngramRPackage"
+)
+

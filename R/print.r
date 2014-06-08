@@ -1,3 +1,12 @@
+ng.print <- function(ng)
+{
+  .Call("ng_print", ng@ng_ptr, ng@ngsize)
+  
+  invisible()
+}
+
+
+
 setMethod("print", signature(x="ngram"),
   function(x, full=FALSE)
   {
