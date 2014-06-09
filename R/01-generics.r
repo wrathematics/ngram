@@ -1,5 +1,5 @@
 setGeneric(name="ngram", 
-  function(str, n=2, ...) 
+  function(x, n=2, ...) 
     standardGeneric("ngram"), 
   package="ngram"
 )
@@ -28,4 +28,9 @@ setGeneric(name="get.nextwords",
   package="ngram"
 )
 
+setGeneric(name="wordcount", 
+  function(x, ...) 
+    standardGeneric("wordcount"), 
+  package="ngram"
+)
 

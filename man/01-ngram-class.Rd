@@ -1,9 +1,31 @@
 \name{ngram-class}
 \docType{class}
-\alias{ngram}
 \alias{ngram-class}
 \title{Class ngram}
-\description{The ngram Class}
+\description{
+  An n-gram is an ordered sequence of n "words" taken from a body of
+  "text".  The terms "words" and "text" can easily be interpreted
+  literally, or with a more loose interpretation.
+  
+  For example, consider the sequence "A B A C A B B".  If we
+  examine the 2-grams (or bigrams) of this sequence, they are
+  
+  A B, B A, A C, C A, A B, B B
+  
+  or without repetition:
+  
+  A B, B A, A C, C A, B B
+  
+  That is, we take the input string and group the "words" 2 at a
+  time (because \code{n=2}).  Notice that the number of n-grams
+  and the number of words are not obviously related; counting
+  repetition, the number of n-grams is equal to 
+  \code{nwords - n + 1}; bounds ignoring repetition are highly 
+  dependent on the input.  A correct but useless bound is
+  \code{\# ngrams = nwords - (\# repeats - 1) - (n - 1)}
+  
+  
+}
 \section{Creating Objects}{
   \code{ new('ddmatrix', Data = ..., dim = ..., ldim = ..., 
   bldim = ..., ICTXT = ...)}
@@ -20,9 +42,14 @@
 }
 }
 \section{Details}{
-  Deets.
+  The \code{ngram} class is a container for the output of the processing
+  routine \code{ngram()}, most of which are external pointers.  
+  As such, does not store much data (a few KiB), regardless of the 
+  input data size.  Additionally, this makes saving such objects
+  via \code{save()} and then loading them later with \code{load()} 
+  useless at best, and dangerous at worst.
 }
 \seealso{
-  \code{\link{SlotAccessors}}
+  \code{\link{Process}}
 }
 \keyword{Class}

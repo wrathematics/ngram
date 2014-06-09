@@ -23,7 +23,8 @@ ng.process <- function(str, n=2)
 
 
 
-setMethod("ngram", signature(str="character"),
-  function(str, n=2)
-    ng.process(str=str, n=n)
+setMethod("ngram", signature(x="character"),
+  function(x, n=2)
+    ng.process(str=x, n=n)
 )
+

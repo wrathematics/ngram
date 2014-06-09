@@ -7,6 +7,7 @@ Description: This package offers utilities for creating, displaying,
       process.
 License: BSD 2-clause License + file LICENSE
 Depends: R (>= 2.14.0), methods
+Enhances: rgutenberg
 LazyData: yes
 LazyLoad: yes
 NeedsCompilation: yes

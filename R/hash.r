@@ -5,12 +5,14 @@ hash96 <- function(a, b, c)
 
 getseed <- function()
 {
-  date <- as.integer(Sys.Date())
-  time <- as.integer(Sys.time())
-  pid <- as.integer(Sys.getpid())
+#  date <- as.integer(Sys.Date())
+#  time <- as.integer(Sys.time())
+#  pid <- as.integer(Sys.getpid())
+#  
+#  ret <- hash96(time, pid, date)
+#  ret <- as.integer(ret)
   
-  ret <- hash96(time, pid, date)
-  ret <- as.integer(ret)
+  ret <- .Call("R_ngram_get_seed")
   
   return( ret )
 }

@@ -17,7 +17,7 @@
 }
 }
 \usage{
-\S4method{babble}{ngram}(ng, genlen=150, seed=getseed()))
+\S4method{babble}{ngram}(ng, genlen=150, seed=getseed())
 }
 \arguments{
   \item{ng}{An ngram object.}

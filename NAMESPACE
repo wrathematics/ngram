@@ -4,11 +4,12 @@ import(methods)
 
 exportClasses("ngram")
 
-export(wordcount, concat)
+export(concat)
 
 exportMethods(
   "print", "show",
   "ngram",
   "babble",
+  "wordcount",
   "get.ngrams", "get.string", "get.nextwords"
 )

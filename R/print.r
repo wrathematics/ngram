@@ -13,9 +13,7 @@ setMethod("print", signature(x="ngram"),
     if (full)
       ng.print(x)
     else
-    {
       print(paste("An ngram object with ", x@ngsize, " ", x@n, "-grams", sep=""))
-    }
     
     invisible()
   }

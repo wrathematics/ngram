@@ -17,15 +17,15 @@
 }
 \section{Methods}{
 \describe{
-\item{\code{signature(ng = "ngram")}}{}
+\item{\code{signature(x = "ngram")}}{}
 }
 }
 \usage{
-\S4method{print}{ngram}(ng, full=FALSE)
-\S4method{show}{ngram}(ng)
+\S4method{print}{ngram}(x, full=FALSE)
+\S4method{show}{ngram}(object)
 }
 \arguments{
-  \item{ng}{An ngram object.}
+  \item{x,object}{An ngram object.}
   \item{full}{.}
 }
 \details{
