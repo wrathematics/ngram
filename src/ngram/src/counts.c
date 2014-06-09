@@ -56,7 +56,7 @@ int ngram_counts_total(ngram_t *ng, int ngsize)
 }
 
 
-
+// FIXME sep does nothing ???
 int ngram_wordcount(const char *str, const char sep)
 {
   int i = 0;
