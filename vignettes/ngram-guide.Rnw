@@ -1,0 +1,38 @@
+%\VignetteIndexEntry{pbdPROF-guide}
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\newcommand{\thispackage}{\pkg{ngram}\xspace}
+
+\input{./include/preamble}
+
+
+\mytitle{Guide to the\\ \thispackage Package}
+\mysubtitle{An n-gram Babbler}
+\myversion{0.1-0}
+\myauthor{
+\centering
+Drew Schmidt
+}
+
+
+\begin{document}
+
+\begin{figure}[h]
+\vspace{-.5in}
+  \begin{minipage}[c]{8.5in}
+  \hspace{-1.0in}
+  \includegraphics[width=8in,height=10in]{./cover/cover.pdf}
+  \end{minipage}
+\end{figure}
+
+\makefirstfew
+
+\input{./include/01-introduction}
+
+% \newpage
+% \phantomsection
+% \bibliography{./include/pbdPAPI}
+
+\end{document}
+
+

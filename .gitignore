@@ -6,3 +6,11 @@
 *~
 *.swp
 
+### Latex
+*.aux
+*.bbl
+*.blg
+*.out
+*.toc
+*.tex.backup
+

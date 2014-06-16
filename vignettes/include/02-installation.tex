@@ -1,0 +1,90 @@
+\section{Installation}
+\label{sec:installation}
+
+In this section, we will describe the various ways that one can install the 
+\thispackage package.
+
+
+\subsection{Important Notes}
+
+It is possible for \PAPI and/or \thispackage to build, but still have no access
+to any counter information.  For example, the package will build on the popular 
+Arm architecture device 
+Raspberry Pi\footnote{\url{http://www.raspberrypi.org/}};
+however, it does not have any hardware counters, and as such, \thispackage 
+effectively can not be used.  If the package installs without error, you can 
+see how many hardware counters you have available by calling:
+\begin{lstlisting}[language=rr]
+library(pbdPAPI)
+system.ncounters()
+\end{lstlisting}
+
+However, this too has some caveats.  Those with Intel Sandy Bridge and/or Intel 
+Ivy Bridge architectures should be aware that flops counts are unreliable on 
+these platforms.  This is a problem with the hardware returning incorrect 
+values, not with \PAPI or \thispackage.  For more details, see: 
+\href{http://icl.cs.utk.edu/projects/papi/wiki/PAPITopics:SandyFlops}%
+{the \PAPI documentation} on this matter.
+
+
+Additionally, not all platforms support all counters.  For the high-level 
+interface, this simply means that some things you may wish to try simply can 
+not physically work, and as such will return an error.  
+
+For a detailed list of all counters and whether or not your particular platform 
+supports them, simply call 
+\begin{lstlisting}[language=rr]
+library(pbdPAPI)
+papi.avail()
+\end{lstlisting}
+
+
+
+
+
+\subsection{Installing WITHOUT a System Installation of PAPI}
+
+This is the default method of installation.  Here, the \PAPI library will  
+automatically be built first as a static library, and then the \thispackage 
+package will be built and linked against that static library.  All of this is 
+handled completely transparently, and should only go wrong if your system is not 
+supported by \PAPI.  This is the simplest approach, and should cover most users. 
+ Simply build the package as you would any other:
+\begin{Command}
+R CMD INSTALL pbdPAPI_0.1-0.tar.gz
+\end{Command}
+and using the \pkg{devtools} package:
+\begin{lstlisting}[language=rr]
+library(devtools)
+install_github(username="wrathematics", repo="pbdPAPI")
+\end{lstlisting}
+
+
+
+
+\subsection{Installing WITH an Existing System Installation of PAPI}
+
+If you already have a system installation of \PAPI available, it makes more  
+sense to link with that existing library.  The one catch is that the static 
+library \emph{must} have been compiled with \code{-fPIC}, which is non-standard. 
+ To build an external \PAPI library in this way, you should do so by first 
+setting:
+\begin{Command}
+export CC="${CC} -fPIC"
+\end{Command}
+Assuming that \code{CC} is set; if not, you can use \code{cc} in the right hand 
+side.
+
+To link with an external installation of \PAPI, from the command line, execute:
+\begin{Command}
+R CMD INSTALL pbdPAPI_0.1-0.tar.gz \ 
+    --configure-args="--enable-system-papi \ 
+    --with-papi-home=location/of/PAPI/install"
+\end{Command}
+and using the \pkg{devtools} package:
+\begin{lstlisting}
+library(devtools)
+install_github(username="wrathematics", repo="pbdPAPI", 
+    args="--configure-args='--enable-system-papi 
+          --with-papi-home=location/of/PAPI/install'")
+\end{lstlisting}

@@ -1,0 +1,54 @@
+\newcommand*{\plogo}{\includegraphics[scale=.5]{./include/pics/uch_small}} 
+
+\makeatletter
+\newcommand\mytitle[1]{\renewcommand\@mytitle{#1}}
+\newcommand\@mytitle{}
+\makeatother
+
+\makeatletter
+\newcommand\mysubtitle[1]{\renewcommand\@mysubtitle{#1}}
+\newcommand\@mysubtitle{}
+\makeatother
+
+\makeatletter
+\newcommand\myversion[1]{\renewcommand\@myversion{#1}}
+\newcommand\@myversion{}
+\makeatother
+
+
+\newcommand{\myauthor}[1]{\author{#1}}
+
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\makeatletter
+\newcommand*{\titleGP}{\begingroup 
+\centering
+\vspace*{\baselineskip} 
+
+\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} 
+\rule{\textwidth}{0.4pt}\\[\baselineskip]
+
+{\Huge \scshape\@mytitle \\[0.2\baselineskip] }
+
+\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} 
+\rule{\textwidth}{1.6pt}\\[\baselineskip] 
+
+\scshape % Small caps
+\@mysubtitle \\[\baselineskip] % Tagline(s) or further 
+\today\par % Location and year
+
+\vspace*{2\baselineskip} % Whitespace between location/year and editors
+
+{\large \@author \par}
+
+\vfill % Whitespace between editor names and publisher logo
+
+\plogo \\[0.3\baselineskip] % Publisher logo
+{Version \@myversion} \\[0.3\baselineskip] % Year published
+% {\large THE PUBLISHER}\par % Publisher
+
+\endgroup}
+\makeatother
