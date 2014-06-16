@@ -10,7 +10,7 @@ setMethod("ngram", signature(x="book"),
 setMethod("wordcount", signature(x="book"),
   function(x, n=2)
   {
-    str <- rgutenberg::text(words=x, with.license=FALSE)
+    str <- rgutenberg::text(words=x)
     
     return( ngram(x=str, n=n) )
   }

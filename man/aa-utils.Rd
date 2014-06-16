@@ -6,6 +6,7 @@
 
 \alias{wordcount-method}
 \alias{wordcount,character-method}
+\alias{wordcount,book-method}
 \alias{wordcount,ngram-method}
 \alias{wordcount}
 
@@ -17,6 +18,7 @@
 \section{Methods}{
 \describe{
 \item{\code{signature(x = "character")}}{}
+\item{\code{signature(x = "book")}}{}
 \item{\code{signature(x = "ngram")}}{}
 }
 }
