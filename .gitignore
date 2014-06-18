@@ -13,4 +13,4 @@
 *.out
 *.toc
 *.tex.backup
-
+inst/doc/ngram-guide.pdf

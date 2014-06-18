@@ -5,10 +5,10 @@
 
 The canonical input is a string (character vector of length 1).  
 
-To aid in what could be a repetitive task, the package offeres 
+To aid in what could be a repetitive task, the package offers 
 the \code{concat()} function.  For example:
 
-\begin{lstlisting}[language=rr]
+\begin{lstlisting}[language=inteRactive]
 > letters
  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
 [20] "t" "u" "v" "w" "x" "y" "z"
@@ -17,7 +17,20 @@ the \code{concat()} function.  For example:
 [1] "abcdefghijklmnopqrstuvwxyz"
 \end{lstlisting}
 
-%% preprocessing with gsub, etc.
+So if data is coming from multiple files, the simplest way to merge them 
+together would be to call
+
+\begin{lstlisting}[language=rr]
+x <- readLines("file1")
+y <- readLines("file2")
+
+str <- concat(x, y)
+\end{lstlisting}
+
+Splitting of n-grams with the processor \code{ngram()} always occurs at a 
+space. You can preprocess the string with \R's regular expression 
+utilities, such as \code{gsub()}, to modify this behavior to some degree.
+
 
 
 \subsection{Package Use and Example}
@@ -50,14 +63,14 @@ ng <- ngram(x, n=2)
 
 We can then inspect the sequence:
 
-\begin{lstlisting}[language=rr]
+\begin{lstlisting}[language=inteRactive]
 > ng
 [1] "An ngram object with 5 2-grams"
 \end{lstlisting}
 
 If you don't have too many n-grams, you can print all of them by calling 
 \code{print()} directly, with option \code{full=TRUE}:
-\begin{lstlisting}[language=rr]
+\begin{lstlisting}[language=inteRactive]
 > print(ng, full=TRUE)
 C A 
 B {1} | 
@@ -86,7 +99,7 @@ terminal, i.e. followed by nothing; we treat this case specially.
 Next, we might want to generate some new strings.  We for this, we use 
 \code{babble()}:
 
-\begin{lstlisting}[language=rr]
+\begin{lstlisting}[language=inteRactive]
 > babble(ng, 10)
 [1] "A C A B B B A C A B "
 > babble(ng, 10)
@@ -98,7 +111,7 @@ Next, we might want to generate some new strings.  We for this, we use
 This generation includes a random process.  For this, we developed our own 
 implementation of MT19937, and so R's seed management does not apply.  To 
 specify your own seed, use the \code{seed=} argument:
-\begin{lstlisting}[language=rr]
+\begin{lstlisting}[language=inteRactive]
 > babble(ng, 10, seed=10)
 [1] "A C A B A C A B B B "
 > babble(ng, 10, seed=10)
@@ -109,6 +122,29 @@ specify your own seed, use the \code{seed=} argument:
 
 
 
-\subsection{Notes About the Internal Representation}
 
-%% save()
+\subsection{Important Notes About the Internal Representation}
+
+The entirety of the interesting bits of the \thispackage package take place 
+outside of \R (completely in \C).  Observe:
+\begin{lstlisting}[language=inteRactive]
+> str(ng)
+Formal class 'ngram' [package "ngram"] with 6 slots
+  ..@ str_ptr:<externalptr> 
+  ..@ strlen : int 13
+  ..@ n      : int 2
+  ..@ ng_ptr :<externalptr> 
+  ..@ ngsize : int 5
+  ..@ wl_ptr :<externalptr> 
+\end{lstlisting}
+
+So everything is wrangled up top as an S4 class, and underneath the data is 
+stored as 2 linked lists, outside the purview of \R.  This means that, for 
+example, that you cannot save the n-gram object with a call to \code{save()}.  
+If you do and you shut down and restart \R, the pointers will no longer be 
+valid.
+
+Extracting a the data into a native \R data structure is not currently 
+possible.  Full support is planned for a later release.  Some pieces can be 
+extracted.  At this time, \code{get.ngrams()} and \code{get.string()} are 
+implemented, but \code{get.nextwords()} is not.
