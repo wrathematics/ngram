@@ -1,0 +1,114 @@
+\section{Using the Package}
+
+
+\subsection{Background}
+
+The canonical input is a string (character vector of length 1).  
+
+To aid in what could be a repetitive task, the package offeres 
+the \code{concat()} function.  For example:
+
+\begin{lstlisting}[language=rr]
+> letters
+ [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
+[20] "t" "u" "v" "w" "x" "y" "z"
+> library(ngram)
+> concat(letters)
+[1] "abcdefghijklmnopqrstuvwxyz"
+\end{lstlisting}
+
+%% preprocessing with gsub, etc.
+
+
+\subsection{Package Use and Example}
+
+The general process goes
+\begin{enumerate}
+  \item Prepare the input string.
+  \item Process with \code{ngram()}.
+  \item Generate nonesense with \code{babble()} and/or
+  \item[3.5] Extract pieces of the processed ngram data with the \code{get.*()} 
+functions.
+\end{enumerate}
+
+
+
+For example, consider the string \code{A B A C A B B}. This is the blood code 
+for Mortal Kombat 1, but you can pretend it's a biological sequence or 
+something boring if you prefer.  If we store this string in \code{x}:
+
+\begin{lstlisting}[language=rr]
+library(ngram)
+x <- "A B A C A B B"
+\end{lstlisting}
+
+then the next step is to process with \code{ngram()}:
+
+\begin{lstlisting}[language=rr]
+ng <- ngram(x, n=2)
+\end{lstlisting}
+
+We can then inspect the sequence:
+
+\begin{lstlisting}[language=rr]
+> ng
+[1] "An ngram object with 5 2-grams"
+\end{lstlisting}
+
+If you don't have too many n-grams, you can print all of them by calling 
+\code{print()} directly, with option \code{full=TRUE}:
+\begin{lstlisting}[language=rr]
+> print(ng, full=TRUE)
+C A 
+B {1} | 
+
+B A 
+C {1} | 
+
+B B 
+NULL {1} | 
+
+A C 
+A {1} | 
+
+A B 
+A {1} | B {1} | 
+\end{lstlisting}
+
+Here we see each 3-gram, followed by its next possible ``words'' and each 
+word's frequency of occurrence (occurrence following the given n-gram).  So in 
+the above, the first n-gram printed \code{C A} has \code{B} as a next 
+possible word, because the sequence \code{C A} is only ever followed by the 
+``word'' \code{B} in the input string.  On the other hand, \code{A B} is 
+followed by \code{A} once and \code{B} once.  The sequence \code{B B} is 
+terminal, i.e. followed by nothing; we treat this case specially.
+
+Next, we might want to generate some new strings.  We for this, we use 
+\code{babble()}:
+
+\begin{lstlisting}[language=rr]
+> babble(ng, 10)
+[1] "A C A B B B A C A B "
+> babble(ng, 10)
+[1] "B B C A B A C A B A "
+> babble(ng, 10)
+[1] "A C A B A C A B A C "
+\end{lstlisting}
+
+This generation includes a random process.  For this, we developed our own 
+implementation of MT19937, and so R's seed management does not apply.  To 
+specify your own seed, use the \code{seed=} argument:
+\begin{lstlisting}[language=rr]
+> babble(ng, 10, seed=10)
+[1] "A C A B A C A B B B "
+> babble(ng, 10, seed=10)
+[1] "A C A B A C A B B B "
+> babble(ng, 10, seed=10)
+[1] "A C A B A C A B B B "
+\end{lstlisting}
+
+
+
+\subsection{Notes About the Internal Representation}
+
+%% save()
