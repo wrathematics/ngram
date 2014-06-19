@@ -1,9 +1,12 @@
-concat <- function(str)
+concat <- function(str, collapse="", rm.space=FALSE)
 {
   if (length(str) > 1)
-    return( paste(sapply(str, concat), collapse="") )
+    str <- paste(sapply(str, concat), collapse=collapse)
   
-  gsub(x=str, pattern=" ", replacement="")
+  if (rm.space)
+    str <- gsub(x=str, pattern=" ", replacement="")
+  
+  return( str )
 }
 
 

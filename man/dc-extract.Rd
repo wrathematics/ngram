@@ -17,7 +17,8 @@
 \title{ngram Getters}
 
 \description{
-  Getters
+  Some simple "getters" for \code{ngram} objects. Necessary since
+  the internal representation is not a native R object.
 }
 \section{Methods}{
 \describe{
@@ -26,21 +27,31 @@
 }
 \usage{
 \S4method{get.ngrams}{ngram}(ng)
+
 \S4method{get.string}{ngram}(ng)
+
 \S4method{get.nextwords}{ngram}(ng)
 }
 \arguments{
   \item{ng}{An ngram object.}
 }
 \details{
-  deets.
+  \code{get.ngrams()} returns an R vector of all n-grams.
+  
+  \code{get.nextwords()} does nothing at the moment; it will be
+  implemented in future releases.
+  
+  \code{getnstring()} recovers the input string as an R string.
 }
-\value{
-  something
+\examples{
+library(ngram)
+
+str <- "A B A C A B B"
+ng <- ngram(str)
+get.ngrams(ng)
 }
 \seealso{
   \code{\link{ngram}}
 }
-\keyword{Data Generation}
 
 

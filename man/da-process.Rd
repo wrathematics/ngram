@@ -29,13 +29,25 @@
   \item{n}{The 'n' as in 'n-gram'.}
 }
 \details{
-  deets.
+  The \code{ngram()} function is the main workhorse of this package.
+  It takes an input string and converts it into the internal n-gram
+  representation.
+  
+  On evaluation, a copy of the input string is produced and stored
+  as an external pointer.  This is necessary because the internal 
+  list representation just points to the first char of each word 
+  in the input string.  So if you (or R's gc) deletes the input
+  string, basically all hell breaks loose.
 }
-\value{
-  something
+\examples{
+library(ngram)
+
+str <- "A B A C A B B"
+ng <- ngram(str, n=2)
+ng
 }
 \seealso{
-  \code{\link{ngram}}
+  \code{\link{ngram-class}}
 }
 \keyword{Data Generation}
 

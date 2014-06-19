@@ -23,16 +23,28 @@
 }
 }
 \usage{
-  concat(str)
+concat(str, collapse="", rm.space=FALSE)
+
 \S4method{wordcount}{character}(x)
 \S4method{wordcount}{ngram}(x)
 }
 \arguments{
-  \item{x}{The input text.}
+  \item{x}{Input text.}
   \item{str}{A string or vector of strings.}
+  \item{collapse}{A character to separate the input strings if a 
+  vector of strings is supplied; otherwisethis does nothing.}
+  \item{rm.space}{logical; determines if spaces should be removed
+  from the final string.}
 }
 \details{
-  deets.
+  \code{concat()} is a utility for concatenating strings together.
+  This is handy because if you want to generate the n-grams for
+  several different texts, you must first put them into a single
+  string.
+  
+  \code{wordcount()} counts words.  Currently a "word" is a 
+  clustering of characters separated from another clustering of 
+  charactersby at least 1 space.  That is the law.
 }
 \value{
   \code{concat()} returns 
@@ -41,12 +53,11 @@
   \code{\link{ngram-class}}
 }
 \examples{
-\dontrun{
 library(ngram)
 
-str <- "a b c"
-concat(str)
+words <- c("a", "b", "c")
+wordcount(words)
+str <- concat(words)
 wordcount(str)
-}
 }
 

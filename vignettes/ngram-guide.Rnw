@@ -9,7 +9,7 @@
 \myauthor{Drew Schmidt\\ \texttt{wrathematics@gmail.com} }
 \mytitle{Guide to the\\ \thispackage Package}
 \mysubtitle{An n-gram Babbler}
-\myversion{0.1-0}
+\myversion{1.0}
 
 
 \begin{document}

@@ -8,7 +8,18 @@ citEntry(
   year = "2014",
   note = "{R} Package",
   url = "https://github.com/wrathematics/ngram",
-  textVersion = "Schmidt, D. (2014) ngram: An n-gram Babbler. R Package, URL https://github.com/wrathematics/ngram",
+  textVersion = "Schmidt, D. and C. Heckendorf. (2014) ngram: An n-gram Babbler. R Package, URL https://github.com/wrathematics/ngram",
   key = "ngramRPackage"
 )
 
+citEntry(
+  entry = "Manual",
+  title = "Guide to the ngram Package",
+  author = personList(as.person("Drew Schmidt"),
+                      as.person("Christian Heckendorf")),
+  year = "2014",
+  note = "{R} Package",
+  url = "https://github.com/wrathematics/ngram",
+  textVersion = "Schmidt, D. (2014) Guide to the ngram package. R Vignette, URL https://github.com/wrathematics/ngram",
+  key = "ngramRvignette"
+)

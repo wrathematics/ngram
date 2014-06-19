@@ -1,4 +1,4 @@
-\name{ngram Babbler}
+\name{Babble}
 
 \docType{methods}
 
@@ -9,7 +9,7 @@
 \title{ngram Getters}
 
 \description{
-  babbler
+  A markov chain babbler.
 }
 \section{Methods}{
 \describe{
@@ -21,18 +21,23 @@
 }
 \arguments{
   \item{ng}{An ngram object.}
-  \item{genlen}{.}
-  \item{seed}{.}
+  \item{genlen}{Generated length, i.e., the number of words to
+  babble.}
+  \item{seed}{Seed for the random number generator.}
 }
 \details{
-  deets.
-}
-\value{
-  something
+  The babbler uses its own internal PRNG (i.e., not R's), so seeds
+  cannot be managed as with R's seeds.  The generator is an 
+  implementation of MT19937.
 }
 \seealso{
   \code{\link{ngram}}
 }
-\keyword{Data Generation}
+\examples{
+library(ngram)
 
+str <- "A B A C A B B"
+ng <- ngram(str)
+babble(ng, genlen=5, seed=1234)
+}
 

@@ -13,7 +13,7 @@
 \title{ngram printing}
 
 \description{
-  Getters
+  Print methods.
 }
 \section{Methods}{
 \describe{
@@ -22,21 +22,16 @@
 }
 \usage{
 \S4method{print}{ngram}(x, full=FALSE)
+
 \S4method{show}{ngram}(object)
 }
 \arguments{
   \item{x,object}{An ngram object.}
-  \item{full}{.}
-}
-\details{
-  deets.
-}
-\value{
-  something
+  \item{full}{logical; determines if the complete set of n-grams
+  and their nextwords should be printed.}
 }
 \seealso{
-  \code{\link{ngram}}
+  \code{\link{ngram}, \link{babble}}
 }
-\keyword{Data Generation}
 
 

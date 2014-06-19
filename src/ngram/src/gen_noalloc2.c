@@ -8,8 +8,6 @@
 #include "rand/rand.h"
 
 
-#define OVERALLOC 20
-
 #define MIN(x,y) (x<y?x:y)
 
 
@@ -71,31 +69,27 @@ word_t* _ngram_get_rand_nextword(rng_state_t *rs, ngram_t *ng)
 
 
 
-int _ngram_cp_ng_to_char(int num, ngram_t *ng, int start, char *str)
+int _ngram_cp_ng_to_char(int num, ngram_t *ng, int *ind, char **str, int *len)
 {
-  int i;
   int n = 0;
-  int len;
   wordlist_t *wl = ng->words;
   word_t *word;
   
   while(wl && num > 0)
   {
     word = wl->word;
-    len = word->len;
+    len[*ind] = word->len;
     
     if (word == NULL)
       return n;
     
-    for (i=0; i<len; i++)
-      str[start + n + i] = word->s[i];
+    str[*ind] = (char *) word->s;
     
-    str[start + n + len] = ' ';
-    
-    n += len + 1;
+    n += len[*ind] + 1;
     
     wl = wl->next;
     num--;
+    (*ind)++;
   }
   
   return n;
@@ -103,24 +97,17 @@ int _ngram_cp_ng_to_char(int num, ngram_t *ng, int start, char *str)
 
 
 
-int _ngram_cp_word_to_char(word_t *word, int start, char *str)
+static inline int _ngram_cp_word_to_char(word_t *word, int *ind, char **str, int *len)
 {
-  int i;
-  int n = 0;
-  const int len = word->len;
+  len[*ind] = word->len;
   
-  for (i=0; i<len; i++)
-    str[start + i] = word->s[i];
-    
-  str[start + len] = ' ';
-  n += len + 1;
+  str[*ind] = (char *) word->s;
   
-  return n;
+  return len[*ind] + 1;
 }
 
 
 
-// Reverse-fill wordlist
 wordlist_t* _ngram_reverse_fill_wordlist(wordlist_t *dst, wordlist_t *src)
 {
   if(src->next!=NULL)
@@ -158,12 +145,13 @@ int _ngram_get_new_ng_index(const int n, wordlist_t *wl, ngram_t *ng, const int 
 // genlen = #words
 int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen, char **ret)
 {
-  int i;
+  int i, j, pos;
   int ng_ind = 0;
   int retlen = 0;
   bool init = true;
-  const int maxlen = OVERALLOC * genlen;
-  char *tmp;
+  char **tmp;
+  int *itmp;
+  const int genlencp = genlen; // this is the kind of shit you get when you plan ahead poorly
   word_t *word;
   wordlist_t *wl;
   
@@ -172,26 +160,26 @@ int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen,
   else if (n > genlen)
     genlen = n;
   
-  tmp = malloc(maxlen * sizeof(tmp));
+  tmp = malloc(genlen * sizeof(tmp));
+  itmp = malloc(genlen * sizeof(itmp));
   
   wl = NULL;
   for(i=0; i<n; i++)
     add_node(wl);
   
-/*  printf("genlen = ");*/
-  while (genlen > 0 && retlen < maxlen)
+  i = 0;
+  
+  while (genlen > 0)
   {
-/*    printf("%d ", genlen);*/
-    // Initialize and/or restart after discovering NULL
     if (init)
     {
-      while(init)
+      while (init)
       {
         ng_ind = sample(rs, 0, ngsize-1);
         init = _ngram_check_ngram_for_null(&ng[ng_ind]);
       }
       
-      retlen += _ngram_cp_ng_to_char(MIN(n, genlen), &ng[ng_ind], retlen, tmp);
+      retlen += _ngram_cp_ng_to_char(MIN(n, genlen), &ng[ng_ind], &i, tmp, itmp);
       genlen -= n;
     }
     else
@@ -204,23 +192,31 @@ int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen,
         continue;
       }
       
-      retlen += _ngram_cp_word_to_char(word, retlen, tmp);
+      retlen += _ngram_cp_word_to_char(word, &i, tmp, itmp);
       ng_ind = _ngram_get_new_ng_index(n, wl, ng, ngsize, ng_ind, word);
-      
+      i++;
       genlen--;
     }
   }
   
-  // Fix overallocation
-  *ret = malloc(retlen * sizeof(**ret));
-  for (i=0; i<retlen; i++)
-    (*ret)[i] = tmp[i];
   
-/*  printf("\n%d\n", retlen/2);*/
+  // Wrangle return string
+  pos = 0;
+  *ret = malloc(retlen * sizeof(**ret));
+  for (i=0; i<genlencp; i++)
+  {
+    for (j=0; j<itmp[i]; j++)
+    {
+      (*ret)[pos] = tmp[i][j];
+      pos++;
+    }
+    (*ret)[pos++] = ' ';
+  }
+  
   
   free(tmp);
+  free(itmp);
   
   return retlen;
 }
-
 

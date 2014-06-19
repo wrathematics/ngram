@@ -20,24 +20,31 @@
   time (because \code{n=2}).  Notice that the number of n-grams
   and the number of words are not obviously related; counting
   repetition, the number of n-grams is equal to 
-  \code{nwords - n + 1}; bounds ignoring repetition are highly 
+  
+  \code{nwords - n + 1}
+  
+  Bounds ignoring repetition are highly 
   dependent on the input.  A correct but useless bound is
+  
   \code{\# ngrams = nwords - (\# repeats - 1) - (n - 1)}
   
-  
+  An \code{ngram} object is an S4 class container that stores
+  some basic summary information (e.g., n), and several external
+  pointers.  For information on how to construct an \code{ngram}
+  object, see \code{\link{ngram}}.
 }
 \section{Creating Objects}{
-  \code{ new('ddmatrix', Data = ..., dim = ..., ldim = ..., 
-  bldim = ..., ICTXT = ...)}
+  \code{ new('ngram', str_ptr = ..., strlen = ..., n = ..., 
+  ng_ptr = ..., ngsize = ..., wl_ptr = ...)}
 }
 \section{Slots}{
 \describe{
 \item{\code{str_ptr}:}{An external pointer to a copy of the input
   string.}
-\item{\code{strlen}:}{The number of chars of the input string.}
-\item{\code{n}:}{The canonical 'n' in 'n-gram'.}
-\item{\code{ng_ptr}:}{External pointer to the array of n-grams.}
-\item{\code{ngsize}:}{Number of n-grams}
+\item{\code{strlen}:}{The number of characters of the input string.}
+\item{\code{n}:}{The canonical 'n', as in 'n-gram'.}
+\item{\code{ng_ptr}:}{External pointer to the list of n-grams.}
+\item{\code{ngsize}:}{The total number of n-grams}
 \item{\code{wl_ptr}:}{External pointer to the list of words.}
 }
 }

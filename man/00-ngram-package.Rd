@@ -15,9 +15,6 @@
   The package has its own PRNG; we use an implementation of MT1997
   for all non-deterministic choices.
 }
-\references{
-  ref
-}
 \author{
   Drew Schmidt \email{wrathematics AT gmail.com}, Christian
   Heckendorf.
