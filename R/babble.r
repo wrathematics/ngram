@@ -13,7 +13,7 @@ ng.generate <- function(ng, genlen=150, seed=getseed())
   
   seed <- as.integer(seed)
   
-  ret <- .Call("R_ngram_gen", ng@n, ng@ng_ptr, ng@ngsize, genlen, seed)
+  ret <- .Call("R_ngram_gen", ng@n, ng@ng_ptr, ng@ngsize, genlen, seed, PACKAGE="ngram")
   
   return( ret )
 }

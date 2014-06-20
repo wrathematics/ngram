@@ -12,7 +12,7 @@ getseed <- function()
 #  ret <- hash96(time, pid, date)
 #  ret <- as.integer(ret)
   
-  ret <- .Call("R_ngram_get_seed")
+  ret <- .Call("R_ngram_get_seed", PACKAGE="ngram")
   
   return( ret )
 }

@@ -1,6 +1,6 @@
 ng.print <- function(ng)
 {
-  .Call("ng_print", ng@ng_ptr, ng@ngsize)
+  .Call("ng_print", ng@ng_ptr, ng@ngsize, PACKAGE="ngram")
   
   invisible()
 }

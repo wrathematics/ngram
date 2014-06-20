@@ -14,7 +14,7 @@ ng.process <- function(str, n=2)
   
   strlen <- nchar(str) ## always an integer due to STRSXP restrictions
   
-  out <- .Call("ng_process", str, strlen, n)
+  out <- .Call("ng_process", str, strlen, n, PACKAGE="ngram")
   
   ret <- new("ngram", str_ptr=out$str_ptr, strlen=strlen, n=n, ngsize=out$ngsize, wl_ptr=out$wl_ptr, ng_ptr=out$ng_ptr)
   

@@ -1,6 +1,6 @@
 ng.extract.ngrams <- function(ng)
 {
-  .Call("ng_extract_ngrams", ng@ng_ptr, ng@ngsize)
+  .Call("ng_extract_ngrams", ng@ng_ptr, ng@ngsize, PACKAGE="ngram")
 }
 
 
@@ -14,7 +14,7 @@ setMethod("get.ngrams", signature(ng="ngram"),
 
 ng.extract.str <- function(ng)
 {
-  .Call("ng_extract_str", ng@str_ptr, ng@strlen)
+  .Call("ng_extract_str", ng@str_ptr, ng@strlen, PACKAGE="ngram")
 }
 
 
