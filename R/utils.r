@@ -27,7 +27,7 @@ preprocess <- function(x, case=NULL, split.at.punct=FALSE)
     x <- gsub(x=x, pattern="([[:punct:]])", replacement=" \\1 ")
   
   # fix spacing
-  x <- gsub(pattern="(\\t| +|[\\h\\v])", replacement=" ", x=x)
+  x <- gsub(pattern="(\\t| +)", replacement=" ", x=x)
   # remove trailing whitespace
   x <- sub(pattern=" +$", replacement="", x=x)
   

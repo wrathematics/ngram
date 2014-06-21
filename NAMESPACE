@@ -4,7 +4,7 @@ import(methods)
 
 exportClasses("ngram")
 
-export(concat)
+export(concat, preprocess)
 
 exportMethods(
   "print", "show",

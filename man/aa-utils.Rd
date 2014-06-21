@@ -23,13 +23,13 @@
 }
 }
 \usage{
-concat(str, collapse="", rm.space=FALSE)
+concat(..., collapse="", rm.space=FALSE)
 
 \S4method{wordcount}{character}(x)
 \S4method{wordcount}{ngram}(x)
 }
 \arguments{
-  \item{x}{Input text.}
+  \item{...}{Input text(s).}
   \item{str}{A string or vector of strings.}
   \item{collapse}{A character to separate the input strings if a 
   vector of strings is supplied; otherwisethis does nothing.}
@@ -50,7 +50,7 @@ concat(str, collapse="", rm.space=FALSE)
   \code{concat()} returns 
 }
 \seealso{
-  \code{\link{ngram-class}}
+  \code{\link{Preprocess}}
 }
 \examples{
 library(ngram)
