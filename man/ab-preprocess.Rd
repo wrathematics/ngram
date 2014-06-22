@@ -1,4 +1,5 @@
-\name{Utilities}
+\name{Preprocess}
+\alias{Preprocess}
 
 \alias{preprocess}
 
@@ -8,7 +9,7 @@
   A simple text preprocessor for use with the \code{ngram()} function.
 }
 \usage{
-preprocess <- function(x, case=NULL, split.at.punct=FALSE)
+preprocess(x, case=NULL, split.at.punct=FALSE)
 }
 \arguments{
   \item{x}{Input text.}

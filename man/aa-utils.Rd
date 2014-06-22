@@ -1,4 +1,5 @@
 \name{Utilities}
+\alias{Utilities}
 
 \docType{methods}
 
