@@ -3,9 +3,8 @@
 
 \subsection{Background}
 
-The canonical input is a string (character vector of length 1).  
-
-To aid in what could be a repetitive task, the package offers 
+The input to the processor must be a single string (character vector of length 
+1).  To aid in what could be a repetitive task, the package offers 
 the \code{concat()} function.  For example:
 
 \begin{lstlisting}[language=inteRactive]
@@ -29,7 +28,8 @@ str <- concat(x, y)
 
 Splitting of n-grams with the processor \code{ngram()} always occurs at a 
 space. You can preprocess the string with \R's regular expression 
-utilities, such as \code{gsub()}, to modify this behavior to some degree.
+utilities, such as \code{gsub()}, or use the \code{preprocess()} utility in 
+the \thispackage package to modify this behavior to some degree.
 
 
 
@@ -37,7 +37,8 @@ utilities, such as \code{gsub()}, to modify this behavior to some degree.
 
 The general process goes
 \begin{enumerate}
-  \item Prepare the input string.
+  \item Prepare the input string; you may find \code{concat()} and 
+\code{preprocess()} useful.
   \item Process with \code{ngram()}.
   \item Generate nonesense with \code{babble()} and/or
   \item[3.5] Extract pieces of the processed ngram data with the \code{get.*()} 
@@ -46,9 +47,8 @@ functions.
 
 
 
-For example, consider the string \code{A B A C A B B}. This is the blood code 
-for Mortal Kombat 1, but you can pretend it's a biological sequence or 
-something boring if you prefer.  If we store this string in \code{x}:
+Let us return to the example sequence of letters from \secref{sec:intro}.  If 
+we store this string in \code{x}:
 
 \begin{lstlisting}[language=rr]
 library(ngram)
@@ -68,7 +68,8 @@ We can then inspect the sequence:
 [1] "An ngram object with 5 2-grams"
 \end{lstlisting}
 
-If you don't have too many n-grams, you can print all of them by calling 
+If you don't have too many n-grams, you may want to print all of them by 
+calling 
 \code{print()} directly, with option \code{full=TRUE}:
 \begin{lstlisting}[language=inteRactive]
 > print(ng, full=TRUE)
