@@ -1,3 +1,27 @@
 \section{Introduction}
-\label{sec:introduction}
+\label{sec:intro}
 
+An n-gram is an ordered sequence of n ``words'' taken from a body of
+text.  For example, consider the string \code{A B A C A B B}. This is the 
+``blood code'' for the video game Mortal Kombat for the Sega Genesis, but you 
+can pretend it's a biological sequence or something boring if you prefer.  If we
+examine the 2-grams (or bigrams) of this sequence, they are:
+\\
+\begin{Code}
+A B, B A, A C, C A, A B, B B
+\end{Code}
+or without repetition:
+\\
+\begin{Code}
+A B, B A, A C, C A, B B
+\end{Code}
+
+That is, we take the input string and group the ``words'' 2 at a time (because 
+\code{n=2}).  If we form all of the n-grams and record the next ``words'' for 
+each n-gram (and their frequency), then we can generate new text which has the 
+same statistical properties as the input.
+
+The \thispackage package an \R package for constructing n-grams and generating 
+new text as described above.  It also contains a few utilities to aid in this 
+process.  Additionally, the \C code underlying this library can be compiled as 
+a standalone shared library.
