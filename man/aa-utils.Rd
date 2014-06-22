@@ -6,7 +6,7 @@
 
 \alias{wordcount-method}
 \alias{wordcount,character-method}
-\alias{wordcount,book-method}
+%\alias{wordcount,book-method}
 \alias{wordcount,ngram-method}
 \alias{wordcount}
 
@@ -18,7 +18,7 @@
 \section{Methods}{
 \describe{
 \item{\code{signature(x = "character")}}{}
-\item{\code{signature(x = "book")}}{}
+%\item{\code{signature(x = "book")}}{}
 \item{\code{signature(x = "ngram")}}{}
 }
 }
@@ -30,7 +30,7 @@ concat(..., collapse="", rm.space=FALSE)
 }
 \arguments{
   \item{...}{Input text(s).}
-  \item{str}{A string or vector of strings.}
+  \item{x}{A string or vector of strings.}
   \item{collapse}{A character to separate the input strings if a 
   vector of strings is supplied; otherwisethis does nothing.}
   \item{rm.space}{logical; determines if spaces should be removed
