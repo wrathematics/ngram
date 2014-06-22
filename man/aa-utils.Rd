@@ -1,4 +1,5 @@
 \name{Utilities}
+\alias{Utilities}
 
 \docType{methods}
 
@@ -30,7 +31,7 @@ concat(..., collapse="", rm.space=FALSE)
 }
 \arguments{
   \item{...}{Input text(s).}
-  \item{str}{A string or vector of strings.}
+  \item{x}{A string or vector of strings.}
   \item{collapse}{A character to separate the input strings if a 
   vector of strings is supplied; otherwisethis does nothing.}
   \item{rm.space}{logical; determines if spaces should be removed
