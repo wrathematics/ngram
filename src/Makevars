@@ -17,7 +17,7 @@ NGRAM_OBJS = \
 	ngram/src/rand/get_seed.o \
 	ngram/src/rand/samplers.o
 
-R_OBJS = constructor.o converters.o gen.o count.o hash.o ng_print.o print.o
+R_OBJS = constructor.o converters.o gen.o count.o hash.o ng_print.o
 
 OBJECTS = $(R_OBJS) $(NGRAM_OBJS)
 

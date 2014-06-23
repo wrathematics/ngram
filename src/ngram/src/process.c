@@ -11,11 +11,13 @@ void free_nga(ng_arr_t *ng)
   {
     free_list(ng->ng[i].words);
     free_list(ng->ng[i].nextword);
+    
 /*    free(ng[i].ng->tok);*/
   }
-    
-    free(ng);
-    ng = vptr;
+  
+  free(ng->ng);
+  free(ng);
+  ng = vptr;
 }
 
 
