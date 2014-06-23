@@ -1,0 +1,20 @@
+======================= Log Before Release =====================================
+
+2014-06-22:
+  * Fixed memory leaks and Windows crashes (sorry CRAN!).
+
+2014-06-19:
+  * Improved memory footprint of generator.
+
+2014-06-04:
+  * Implemented markov generator.
+
+2014-05-11:
+  * Added PRNG.
+
+2014-05-08: 
+  * Added R wrappers, some extractors.
+
+2014-05-07:
+  * Package created.
+  * n-gram processor added.

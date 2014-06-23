@@ -49,10 +49,10 @@ SEXP ng_process(SEXP R_str, SEXP R_str_len, SEXP n_)
   wordlist_t *wl;
   ngram_t *ng;
   ng_arr_t *nga;
-  nga = malloc(sizeof(nga));
+  nga = malloc(sizeof(*nga));
   int ngsize;
   
-  str = malloc(INTEGER(R_str_len)[0] * sizeof(str));
+  str = malloc((INTEGER(R_str_len)[0]+1) * sizeof(*str));
   strcpy(str, CHARPT(R_str, 0));
   
   SEXP RET, RET_NAMES, NGSIZE;

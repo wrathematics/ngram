@@ -35,10 +35,11 @@ preprocess(x, case=NULL, split.at.punct=FALSE)
   \code{\link{Process}, \link{Utilities}}
 }
 \examples{
+\dontrun{
 library(ngram)
 
 x <- "Watch  out    for snakes!  "
 preprocess(x)
 preprocess(x, case="upper", split.at.punct=TRUE)
 }
-
+}

@@ -54,6 +54,7 @@ concat(..., collapse="", rm.space=FALSE)
   \code{\link{Preprocess}}
 }
 \examples{
+\dontrun{
 library(ngram)
 
 words <- c("a", "b", "c")
@@ -61,4 +62,4 @@ wordcount(words)
 str <- concat(words)
 wordcount(str)
 }
-
+}

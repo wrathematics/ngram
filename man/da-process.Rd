@@ -40,11 +40,13 @@
   string, basically all hell breaks loose.
 }
 \examples{
+\dontrun{
 library(ngram)
 
 str <- "A B A C A B B"
 ng <- ngram(str, n=2)
 ng
+}
 }
 \seealso{
   \code{\link{ngram-class}}

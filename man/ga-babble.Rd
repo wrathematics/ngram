@@ -34,10 +34,11 @@
   \code{\link{ngram}}
 }
 \examples{
+\dontrun{
 library(ngram)
 
 str <- "A B A C A B B"
 ng <- ngram(str)
 babble(ng, genlen=5, seed=1234)
 }
-
+}

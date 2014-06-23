@@ -44,11 +44,13 @@
   \code{getnstring()} recovers the input string as an R string.
 }
 \examples{
+\dontrun{
 library(ngram)
 
 str <- "A B A C A B B"
 ng <- ngram(str)
 get.ngrams(ng)
+}
 }
 \seealso{
   \code{\link{ngram}}
