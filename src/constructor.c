@@ -52,7 +52,7 @@ SEXP ng_process(SEXP R_str, SEXP R_str_len, SEXP n_)
   nga = malloc(sizeof(*nga));
   int ngsize;
   
-  str = malloc((INTEGER(R_str_len)[0]+1) * sizeof(*str));
+  str = malloc((INTEGER(R_str_len)[0]+1) * sizeof(str));
   strcpy(str, CHARPT(R_str, 0));
   
   SEXP RET, RET_NAMES, NGSIZE;
