@@ -10,7 +10,7 @@ static void str_finalize(SEXP ptr)
 /*  Rprintf("str\n");*/
   
   char *str = (char *) R_ExternalPtrAddr(ptr);
-  free(str);
+  Free(str);
   R_ClearExternalPtr(ptr);
 }
 
@@ -63,6 +63,9 @@ SEXP ng_process(SEXP R_str, SEXP R_str_len, SEXP n_)
     PROTECT(RET = allocVector(INTSXP, 1));
     INTEGER(RET)[0] = -1;
     UNPROTECT(1);
+    
+    free(str);
+    
     return RET;
   }
   

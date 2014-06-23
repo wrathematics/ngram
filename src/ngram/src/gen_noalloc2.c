@@ -214,6 +214,7 @@ int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen,
   }
   
   
+  free(wl);
   free(tmp);
   free(itmp);
   

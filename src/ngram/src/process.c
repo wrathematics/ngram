@@ -123,3 +123,5 @@ ngram_t* process(wordlist_t *words, int n, int *size){
   *size = reti;
   return ret;
 }
+
+
