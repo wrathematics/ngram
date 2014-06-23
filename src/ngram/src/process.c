@@ -4,6 +4,21 @@
 
 static void *vptr;
 
+
+void free_nga(ng_arr_t *ng)
+{
+  for (int i=0; i<ng->ngsize; i++)
+  {
+    free_list(ng->ng[i].words);
+    free_list(ng->ng[i].nextword);
+/*    free(ng[i].ng->tok);*/
+  }
+    
+    free(ng);
+    ng = vptr;
+}
+
+
 static int cmp_ngram(const void *a, const void *b){
   ngram_t **na = (ngram_t**)a;
   ngram_t **nb = (ngram_t**)b;

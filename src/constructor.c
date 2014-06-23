@@ -10,7 +10,7 @@ static void str_finalize(SEXP ptr)
 /*  Rprintf("str\n");*/
   
   char *str = (char *) R_ExternalPtrAddr(ptr);
-  Free(str);
+  free(str);
   R_ClearExternalPtr(ptr);
 }
 
@@ -26,6 +26,8 @@ static void wl_finalize(SEXP ptr)
   R_ClearExternalPtr(ptr);
 }
 
+void free_nga(ng_arr_t *ng);
+
 static void ng_finalize(SEXP ptr)
 {
   if (NULL == R_ExternalPtrAddr(ptr))
@@ -33,8 +35,8 @@ static void ng_finalize(SEXP ptr)
   
 /*  Rprintf("ng\n");*/
   
-  ngram_t *ng = (ngram_t *) R_ExternalPtrAddr(ptr);
-  Free(ng);
+  ng_arr_t *ng = (ng_arr_t *) R_ExternalPtrAddr(ptr);
+  free_nga(ng);
   R_ClearExternalPtr(ptr);
 }
 
@@ -46,6 +48,8 @@ SEXP ng_process(SEXP R_str, SEXP R_str_len, SEXP n_)
   const int n = INTEGER(n_)[0];
   wordlist_t *wl;
   ngram_t *ng;
+  ng_arr_t *nga;
+  nga = malloc(sizeof(nga));
   int ngsize;
   
   str = malloc(INTEGER(R_str_len)[0] * sizeof(str));
@@ -57,6 +61,9 @@ SEXP ng_process(SEXP R_str, SEXP R_str_len, SEXP n_)
   
   wl = lex(str, strlen(str));
   ng = process(wl, n, &ngsize);
+  
+  nga->ng = ng;
+  nga->ngsize = ngsize;
   
   if (NULL == ng)
   {
@@ -71,7 +78,7 @@ SEXP ng_process(SEXP R_str, SEXP R_str_len, SEXP n_)
   
   newRptr(str, str_ptr, str_finalize);
   newRptr(wl, wl_ptr, wl_finalize);
-  newRptr(ng, ng_ptr, ng_finalize);
+  newRptr(nga, ng_ptr, ng_finalize);
   
   // Wrangle the list
   PROTECT(NGSIZE = allocVector(INTSXP, 1));

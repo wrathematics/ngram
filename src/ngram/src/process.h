@@ -19,6 +19,11 @@ typedef struct ngram_t{
 	nextwordlist_t *nextword; /* list of possible next-words and their counts for this ngram */
 }ngram_t;
 
+typedef struct ng_arr_t{
+	ngram_t *ng;
+	int ngsize;
+}ng_arr_t;
+
 //Not used
 //typedef struct ngramlist_t{
 //	struct ngramlist_t *next;
