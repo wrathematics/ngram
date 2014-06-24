@@ -6,7 +6,11 @@
 \input{./include/preamble}
 
 
-\myauthor{Drew Schmidt\\ \texttt{wrathematics@gmail.com} }
+\myauthor{
+	Drew Schmidt\\ \texttt{wrathematics@gmail.com} 
+	\\[1.2cm] 
+	Christian Heckendorf
+}
 \mytitle{Guide to the\\ \thispackage Package}
 \mysubtitle{An n-gram Babbler}
 \myversion{1.1}
