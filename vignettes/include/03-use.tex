@@ -3,7 +3,7 @@
 
 \subsection{Background}
 
-The input to the processor must be a single string (character vector of length 
+The input to the n-gram processor must be a single string (character vector of length 
 1).  To aid in what could be a repetitive task, the package offers 
 the \code{concat()} function.  For example:
 
@@ -14,6 +14,8 @@ the \code{concat()} function.  For example:
 > library(ngram)
 > concat(letters)
 [1] "abcdefghijklmnopqrstuvwxyz"
+> concat(concat(letters), letters, collapse=" ")
+[1] "abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z"
 \end{lstlisting}
 
 So if data is coming from multiple files, the simplest way to merge them 
@@ -26,10 +28,12 @@ y <- readLines("file2")
 str <- concat(x, y)
 \end{lstlisting}
 
-Splitting of n-grams with the processor \code{ngram()} always occurs at a 
+The \code{ngram()} function (which does the processing and forms the n-grams) always splits words 
+at a 
 space. You can preprocess the string with \R's regular expression 
 utilities, such as \code{gsub()}, or use the \code{preprocess()} utility in 
-the \thispackage package to modify this behavior to some degree.
+the \thispackage package to be able to split at non-spaces for the purpose of n-gram generation (by 
+inserting your own beforehand).
 
 
 
@@ -38,9 +42,9 @@ the \thispackage package to modify this behavior to some degree.
 The general process goes
 \begin{enumerate}
   \item Prepare the input string; you may find \code{concat()} and 
-\code{preprocess()} useful.
+\code{preprocess()} useful (see the previous subsection).
   \item Process with \code{ngram()}.
-  \item Generate nonesense with \code{babble()} and/or
+  \item Generate new text with \code{babble()}, and/or
   \item[3.5] Extract pieces of the processed ngram data with the \code{get.*()} 
 functions.
 \end{enumerate}
@@ -51,13 +55,13 @@ Let us return to the example sequence of letters from \secref{sec:intro}.  If
 we store this string in \code{x}:
 
 \begin{lstlisting}[language=rr]
-library(ngram)
 x <- "A B A C A B B"
 \end{lstlisting}
 
 then the next step is to process with \code{ngram()}:
 
 \begin{lstlisting}[language=rr]
+library(ngram)
 ng <- ngram(x, n=2)
 \end{lstlisting}
 
@@ -149,3 +153,12 @@ Extracting a the data into a native \R data structure is not currently
 possible.  Full support is planned for a later release.  Some pieces can be 
 extracted.  At this time, \code{get.ngrams()} and \code{get.string()} are 
 implemented, but \code{get.nextwords()} is not.
+
+\begin{lstlisting}[language=inteRactive]
+> get.ngrams(ng)
+[1] "C A" "B A" "B B" "A C" "A B"
+> get.string(ng)
+[1] "A B A C A B B"
+> get.nextwords(ng)
+Error in .local(ng, ...) : Not yet implemented
+\end{lstlisting}
