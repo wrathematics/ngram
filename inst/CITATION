@@ -18,7 +18,7 @@ citEntry(
   author = personList(as.person("Drew Schmidt"),
                       as.person("Christian Heckendorf")),
   year = "2014",
-  note = "{R} Package",
+  note = "{R} Vignette",
   url = "https://github.com/wrathematics/ngram",
   textVersion = "Schmidt, D. (2014) Guide to the ngram package. R Vignette, URL https://github.com/wrathematics/ngram",
   key = "ngramRvignette"

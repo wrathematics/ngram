@@ -1,3 +1,5 @@
+// Copyright 2014, Heckendorf and Schmidt
+
 #include <string.h>
 
 #include "process.h"

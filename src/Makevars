@@ -1,7 +1,7 @@
 #######################################################
 
 #PKG_LIBS = ngram/libngram.a
-#PKG_CFLAGS = -Wall -g
+PKG_CFLAGS = -Wall #-g
 
 NGRAM_OBJS = \
 	ngram/src/counts.o \

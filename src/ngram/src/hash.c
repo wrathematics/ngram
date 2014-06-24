@@ -1,3 +1,5 @@
+// Copyright 2014, Heckendorf
+
 #include "hash.h"
 #include "lex.h"
 

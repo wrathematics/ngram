@@ -1,3 +1,5 @@
+// Copyright 2013-2014, Schmidt
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -48,8 +50,5 @@ uint32_t ngram_get_seed()
   
   return ret;
 }
-
-
-
 
 
