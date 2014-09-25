@@ -1,3 +1,5 @@
+ngram 1.1 (2014-6-25) --------------------------------------------------
+
 2014-06-23:
   * Fixed some package issues.
   * Clarified some statements in the vignette.
