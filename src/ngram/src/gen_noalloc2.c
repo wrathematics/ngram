@@ -113,6 +113,8 @@ static inline int ngram_cp_word_to_char(word_t *word, int *ind, char **str, int 
 
 static wordlist_t* ngram_reverse_fill_wordlist(wordlist_t *dst, wordlist_t *src)
 {
+  if (src == NULL) return dst;
+  
   if (src->next != NULL)
     dst = ngram_reverse_fill_wordlist(dst, src->next);
   
