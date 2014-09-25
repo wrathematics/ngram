@@ -1,6 +1,6 @@
-ng.print <- function(ng)
+ng.print <- function(ng, truncated=TRUE)
 {
-  .Call("ng_print", ng@ng_ptr, ng@ngsize, PACKAGE="ngram")
+  .Call("ng_print", ng@ng_ptr, ng@ngsize, as.integer(truncated), PACKAGE="ngram")
   
   invisible()
 }
@@ -8,12 +8,16 @@ ng.print <- function(ng)
 
 
 setMethod("print", signature(x="ngram"),
-  function(x, full=FALSE)
+  function(x, output="summary")
   {
-    if (full)
-      ng.print(x)
-    else
+    output <- match.arg(tolower(output), c("summary", "truncated", "full"))
+    
+    if (output == "summary")
       print(paste("An ngram object with ", x@ngsize, " ", x@n, "-grams", sep=""))
+    else if (output == "truncated")
+      ng.print(x, truncated=TRUE)
+    else if (output == "full")
+      ng.print(x, truncated=FALSE)
     
     invisible()
   }
@@ -23,6 +27,6 @@ setMethod("print", signature(x="ngram"),
 
 setMethod("show", signature(object="ngram"),
   function(object)
-    print(x=object, full=FALSE)
+    print(x=object, output="summary")
 )
 

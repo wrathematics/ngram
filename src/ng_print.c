@@ -1,7 +1,9 @@
 #include <R.h>
 #include <Rinternals.h>
 #include "ngram/src/print.h"
+#include "ngram.h"
 
+#define MIN(x,y) (x<y?x:y)
 
 void print_word(word_t *word)
 {
@@ -43,24 +45,26 @@ void print_ngram(ngram_t *ng)
   
   Rprintf("%c", '\n');
   Rprintf("%c", '\n');
-  
-/*  free_list(ng->words);*/
-/*  free_list(ng->nextword);*/
 }
 
 
 
-#include "ngram.h"
-
-
-SEXP ng_print(SEXP ng_ptr, SEXP ngsize_)
+#define TRUNCSIZE 5
+SEXP ng_print(SEXP ng_ptr, SEXP ngsize_, SEXP truncated)
 {
   int i;
   ng_arr_t *nga = (ng_arr_t *) getRptr(ng_ptr);
   const int ngsize = INTEGER(ngsize_)[0];
+  int maxiter;
   
-  for(i=0; i<ngsize; i++)
+  maxiter = INTEGER(truncated)[0] ? MIN(TRUNCSIZE,ngsize) : ngsize;
+  
+  
+  for(i=0; i<maxiter; i++)
     print_ngram(nga->ng + i);
+  
+  if (INTEGER(truncated)[0] && TRUNCSIZE < ngsize)
+    Rprintf("[[ ... results truncated ... ]]\n");
   
   return R_NilValue;
 }
