@@ -7,7 +7,7 @@ ng <- ngram(str, n=2)
 
 ### Print
 ng
-print(ng, full=TRUE)
+print(ng, output="truncated")
 
 ### Generate nonesense
 babble(ng, 10)

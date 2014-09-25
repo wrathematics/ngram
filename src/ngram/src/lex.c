@@ -5,11 +5,14 @@
 
 static void *vptr;
 
-void free_wordlist(wordlist_t *wl){
-  while(wl){
+void free_wordlist(wordlist_t *wl)
+{
+  while(wl)
+  {
     vptr = wl->next;
     if(wl->word)
       free(wl->word);
+    
     free(wl);
     wl = vptr;
   }
@@ -18,9 +21,10 @@ void free_wordlist(wordlist_t *wl){
 static wordlist_t* split(const char *s, const int len){
   int i,j;
   wordlist_t *ret = NULL;
-
-  for(i = 0;i<len;i = j){
-    for(j = i;j<len && s[j] != ' ';j++)
+  
+  for(i=0; i<len; i=j)
+  {
+    for(j=i; j<len && s[j] != ' '; j++)
       ;
     add_node(ret);
     
