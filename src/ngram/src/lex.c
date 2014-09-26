@@ -18,6 +18,20 @@ void free_wordlist(wordlist_t *wl)
   }
 }
 
+
+
+void free_wordlist_keepwords(wordlist_t *wl)
+{
+  while(wl)
+  {
+    vptr = wl->next;
+    free(wl);
+    wl = vptr;
+  }
+}
+
+
+
 static wordlist_t* split(const char *s, const int len){
   int i,j;
   wordlist_t *ret = NULL;

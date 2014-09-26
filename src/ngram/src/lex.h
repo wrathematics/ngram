@@ -1,6 +1,7 @@
 #ifndef NGRAM_LEX_H
 #define NGRAM_LEX_H
 
+
 #include <stdlib.h>
 #include <stdint.h>
 
@@ -24,6 +25,8 @@ typedef struct wordlist_t{
 #include "hash.h"
 
 void free_wordlist(wordlist_t *wl);
+void free_wordlist_keepwords(wordlist_t *wl);
 wordlist_t* lex(const char *s, const int len);
+
 
 #endif

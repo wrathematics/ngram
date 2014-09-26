@@ -120,6 +120,7 @@ static wordlist_t* ngram_reverse_fill_wordlist(wordlist_t *dst, wordlist_t *src)
   
   dst->word = src->word;
   
+  
   return dst->next;
 }
 
@@ -161,6 +162,7 @@ int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen,
   word_t *word;
   wordlist_t *wl;
   
+  
   if (genlen < 1)
     return -1;
   else if (n > genlen)
@@ -198,7 +200,6 @@ int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen,
         continue;
       }
       
-      
       retlen += ngram_cp_word_to_char(word, &i, tmp, itmp);
       ng_ind = ngram_get_new_ng_index(n, wl, ng, ngsize, ng_ind, word);
       i++;
@@ -221,7 +222,7 @@ int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen,
   }
   
   
-  free_wordlist(wl);
+  free_wordlist_keepwords(wl);
   free(tmp);
   free(itmp);
   
