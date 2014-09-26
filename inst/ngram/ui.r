@@ -26,9 +26,12 @@ shinyUI(
     sidebarPanel(
       sliderInput("the_n_in_ngram", "Number of words per 'gram' (n)", 1, 10, 3, step=1, ticks=TRUE),
       tags$textarea(id="inputbox", rows=8, cols=60, "a b a c a b b"),
+      br(),
       actionButton("button_process", "Process"),
       actionButton("button_inspect", "Inspect"),
       sliderInput("babble_len", "Number of words to 'babble'", 10, 250, 150, step=10, ticks=TRUE),
+      textInput("ng_seed", "Seed", ""),
+      br(),
       actionButton("button_babble", "Babble")
     ),
     mainPanel(

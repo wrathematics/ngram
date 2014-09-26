@@ -57,10 +57,10 @@ shinyServer(function(input, output, session){
       
       if (nchar(input$inputbox) > 1e7)
       {
-        "ERROR: please keep text sizes under 10 Mib, or about 10 
+        stop("Please keep text sizes under 10 Mib, or about 10 
         million characters.  The ngram package can handle (much)
         more, but please be polite to our generous hosting
-        provider."
+        provider.")
       }
       else
       {
@@ -74,7 +74,7 @@ shinyServer(function(input, output, session){
     else if (changed[2L])
     {
       if (!exists("ng", envir=session))
-        "ERROR: you must first process some input text."
+        stop("You must first process some input text.")
       else
         HTML(paste(capture.output(print(get("ng", envir=session), output="truncated")), collapse="<br/>"))
     }
@@ -82,9 +82,19 @@ shinyServer(function(input, output, session){
     else if (changed[3L])
     {
       if (!exists("ng", envir=session))
-        "ERROR: you must first process some input text."
+        stop("You must first process some input text.")
       else
-        capture.output(cat(babble(get("ng", envir=session), input$babble_len)))
+      {
+        seed <- input$ng_seed
+        if (seed == "")
+          seed <- ngram:::getseed()
+        else if (is.na(as.character(seed)))
+          stop("Seed must be a number.")
+        else
+          seed <- as.integer(seed)
+        
+        capture.output(cat(babble(ng=get("ng", envir=session), genlen=input$babble_len, seed=seed)))
+      }
     }
     else
     {
