@@ -13,7 +13,7 @@
 }
 \mytitle{Guide to the\\ \thispackage Package}
 \mysubtitle{An n-gram Babbler}
-\myversion{1.2}
+\myversion{1.3}
 
 
 \begin{document}

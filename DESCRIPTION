@@ -1,7 +1,7 @@
 Package: ngram
 Type: Package
 Title: An n-gram Babbler
-Version: 1.2
+Version: 1.3
 Description: This package offers utilities for creating, displaying,
       and "babbling" n-grams.  The babbler is a simple Markov
       process.
