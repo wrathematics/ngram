@@ -1,26 +1,16 @@
-ngram 1.1 (2014-6-25) --------------------------------------------------
+Release 1.2:
+  * Fixed segfault when n=1.
+  * Fixed memory allocation bug in the babbler.
+  * Added shiny demo.
+  * Improved ngram printing output and options.
 
-2014-06-23:
+Release 1.1 (2014-06-25):
   * Fixed some package issues.
   * Clarified some statements in the vignette.
 
-======================= Log Before Release =====================================
-
-2014-06-22:
+Release 1.0 (2014-06-22):
   * Fixed memory leaks and Windows crashes (sorry CRAN!).
-
-2014-06-19:
-  * Improved memory footprint of generator.
-
-2014-06-04:
   * Implemented markov generator.
-
-2014-05-11:
   * Added PRNG.
-
-2014-05-08: 
   * Added R wrappers, some extractors.
-
-2014-05-07:
-  * Package created.
   * n-gram processor added.
