@@ -10,8 +10,20 @@ about.thisapp <- HTML("
   where you can also find the 
   <a href='https://github.com/wrathematics/ngram/tree/master/inst/ngram'>source</a>
   for this shiny app.
-  <br><br>
+  </p>
   
+  <p>
+  The ngram package contains utilities for constructing n-grams, 
+  as well as generating new text based on the n-gram structure of 
+  a given text input.
+  The original purpose for the package was to combine the book
+  <i>Modern Applied Statistics in S</i> with the collected works of H. P.
+  Lovecraft and generate amusing nonsense.  This resulted in the post
+  <a href='http://librestats.com/2014/07/01/modern-applied-statistics-in-rlyeh/'>Modern Applied Statistics in R'lyeh</a>.
+  </p>
+  
+  
+  <p>
   Hosting is generously provided by 
   <a href='https://www.shinyapps.io/'>RStudio</a>.
   </p>"
