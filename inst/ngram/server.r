@@ -16,6 +16,14 @@ buttonfix <- function(session, ...)
   names <- paste0(".__shinyshim_", 1L:length(vals))
   changed <- rep(FALSE, length(names))
   
+  changednames <- deparse(substitute(list(...)))
+  changednames <- sub(x=changednames, pattern="list\\(", replacement="")
+  changednames <- sub(x=changednames, pattern=".$", replacement="")
+  changednames <- unlist(strsplit(changednames, ","))
+  changednames <- sub(x=changednames, pattern=" +", replacement="")
+  changednames <- sub(x=changednames, pattern="^[^\\$]*\\$", replacement="")
+  names(changed) <- changednames
+  
   if (!exists(names[1L], envir=session))
   {
     for (i in 1L:length(names))
@@ -37,7 +45,7 @@ buttonfix <- function(session, ...)
     }
   }
   
-  return(changed)
+  return(as.list(changed))
 }
 
 
@@ -46,8 +54,9 @@ shinyServer(function(input, output, session){
   output$text <- renderUI({
     changed <- buttonfix(session, input$button_process, input$button_inspect, input$button_babble)
     
+    
     ### Process
-    if (changed[1L])
+    if (changed$button_process)
     {
       if (exists("ng", envir=session))
       {
@@ -71,7 +80,7 @@ shinyServer(function(input, output, session){
       }
     }
     ### Inspect
-    else if (changed[2L])
+    else if (changed$button_inspect)
     {
       if (!exists("ng", envir=session))
         stop("You must first process some input text.")
@@ -79,7 +88,7 @@ shinyServer(function(input, output, session){
         HTML(paste(capture.output(print(get("ng", envir=session), output="truncated")), collapse="<br/>"))
     }
     ### Babble
-    else if (changed[3L])
+    else if (changed$button_babble)
     {
       if (!exists("ng", envir=session))
         stop("You must first process some input text.")
