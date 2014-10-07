@@ -1,8 +1,5 @@
 #######################################################
 
-#PKG_LIBS = ngram/libngram.a
-#PKG_CFLAGS = -Wall #-g
-
 NGRAM_OBJS = \
 	ngram/src/counts.o \
 	ngram/src/gen_noalloc2.o \
@@ -24,11 +21,6 @@ all: $(SHLIB)
 
 $(SHLIB): $(OBJECTS) 
 
-#ngram/src/hash.o:
-#	$(CC) -O0 -c -o ngram/src/hash.o ngram/src/hash.c
-#ngram/src/lex.o:
-#	$(CC) -O0 -o ngram/src/lex.o ngram/src/lex.c
-
 
 clean:
-	rm -rf *.o *.so *.dll
+	rm -rf *.o *.so *.dll ngram/src/*.o ngram/src/rand/*.o ngram/src/rand/mt/*.o ngram/src/rand/mrg/*.o
