@@ -23,7 +23,7 @@
 
 // ngram lib prototypes
 int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen, char **ret);
-int mix_96(int a, int b, int c);
+uint32_t mix_96(uint32_t a, uint32_t b, uint32_t c);
 int ngram_wordcount(const char *str, const char sep);
 
 

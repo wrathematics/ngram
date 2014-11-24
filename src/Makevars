@@ -10,10 +10,9 @@ NGRAM_OBJS = \
 	ngram/src/rand/mt/rand_mt.o \
 	ngram/src/rand/mrg/rand_mrg.o \
 	ngram/src/rand/rng_interface.o \
-	ngram/src/rand/get_seed.o \
 	ngram/src/rand/samplers.o
 
-R_OBJS = constructor.o converters.o gen.o count.o hash.o ng_print.o
+R_OBJS = constructor.o converters.o gen.o count.o get_seed.o hash.o ng_print.o
 
 OBJECTS = $(R_OBJS) $(NGRAM_OBJS)
 
@@ -23,4 +22,8 @@ $(SHLIB): $(OBJECTS)
 
 
 clean:
-	rm -rf *.o *.so *.dll ngram/src/*.o ngram/src/rand/*.o ngram/src/rand/mt/*.o ngram/src/rand/mrg/*.o
+	rm -rf *.o *.so *.dll 
+		ngram/src/*.o 
+		ngram/src/rand/*.o 
+		ngram/src/rand/mt/*.o 
+		ngram/src/rand/mrg/*.o
