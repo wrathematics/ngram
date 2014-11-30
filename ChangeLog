@@ -1,3 +1,6 @@
+Release 1.4:
+  * Improvements to the standalone library example programs.
+
 Release 1.3:
   * Added historical background to "About" tab in shiny demo.
   * Switched from C to R RNG for extra entropy in seeds.
