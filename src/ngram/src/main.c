@@ -2,7 +2,7 @@
 #include "process.h"
 #include "strings.h"
 #include "rand/rand.h"
-#include "generate.h"
+#include "gen.h"
 
 
 #if 0
