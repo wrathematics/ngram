@@ -21,10 +21,9 @@ void print_word(word_t *word)
 
 
 
-void print_ngram(ngram_t *ng)
+void print_ngram_nonext(ngram_t *ng)
 {
   wordlist_t *wl = ng->words;
-  nextwordlist_t *nwl = ng->nextword;
   
   while(wl)
   {
@@ -33,6 +32,15 @@ void print_ngram(ngram_t *ng)
   }
   
   putchar('\n');
+}
+
+
+
+void print_ngram(ngram_t *ng)
+{
+  nextwordlist_t *nwl = ng->nextword;
+  
+  print_ngram_nonext(ng);
   
   while(nwl)
   {
@@ -43,8 +51,5 @@ void print_ngram(ngram_t *ng)
   
   putchar('\n');
   putchar('\n');
-  
-/*  free_list(ng->words);*/
-/*  free_list(ng->nextword);*/
 }
 

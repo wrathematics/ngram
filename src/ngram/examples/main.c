@@ -1,8 +1,7 @@
-#include "print.h"
-#include "process.h"
-#include "strings.h"
-#include "rand/rand.h"
-#include "gen.h"
+#include "../src/print.h"
+#include "../src/process.h"
+#include "../src/rand/rand.h"
+#include "../src/gen.h"
 
 
 #if 0
@@ -137,7 +136,7 @@ int main(int argc, char **argv)
   int n = 3;
   /*  const char *str = "A A A B A B B A";*/
 /*  const int genlen = 20;*/
-  const char *str = "A B C";
+  const char *str = "A B A C A B B";
   const int genlen = 10;
   const uint32_t seed = 1234;
   

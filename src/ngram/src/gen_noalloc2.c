@@ -3,11 +3,9 @@
 #include <stdbool.h>
 
 #include "lex.h"
-#include "process.h"
 #include "hash.h"
-#include "print.h"
 #include "wordcmp.h"
-#include "hash.h"
+#include "process.h"
 #include "rand/rand.h"
 
 

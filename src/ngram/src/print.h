@@ -1,6 +1,7 @@
 #ifndef NGRAM_PRINT_H
 #define NGRAM_PRINT_H
 
+
 #include <stdio.h>
 #include <string.h>
 
@@ -10,5 +11,7 @@
 
 void print_word(word_t *word);
 void print_ngram(ngram_t *ng);
+void print_ngram_nonext(ngram_t *ng);
+
 
 #endif
