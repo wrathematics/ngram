@@ -5,9 +5,7 @@
 
 int main(int argc, char **argv)
 {
-  printf("asdf");
-  int n = 3;
-  /*  const char *str = "A A A B A B B A";*/
+  int n = 2;
   const char *str = "ABC D EF GHI J K LMNO";
   
   int num_commonest = 2;

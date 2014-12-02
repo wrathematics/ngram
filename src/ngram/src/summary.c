@@ -3,33 +3,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "lex.h"
-#include "process.h"
 #include "hash.h"
+#include "lex.h"
 #include "print.h"
-
-
-// sort in reverse order
-static int compare(const void *a, const void *b)
-{
-  int x = *(const int *)a;
-  int y = *(const int *)b;
-  
-  if (x == y)
-    return 0;
-  else
-    return (x<y)?1:-1;
-}
-
+#include "process.h"
+#include "sorts.h"
+#include "summary.h"
 
 
 static inline int ngram_nchar(const int n, const ngram_t *ng, int i)
 {
-  int j;
   int nch = 0;
   
-  for (j=0; j<n; i++)
-    nch += ng[i].words->word->len;
+  wordlist_t *wl = ng->words;
+  
+  while(wl)
+  {
+    nch += wl->word->len + 1; // for the space
+    wl = wl->next;
+  }
+  
+  nch--; // overcounted number of spaces by 1
   
   return nch;
 }
@@ -46,37 +40,36 @@ static inline void iswap(int *a, int *b)
 
 
 
-void ngram_summary_ptrs(const int n, const ngram_t *ng, const int ngsize, int *longest, int *shortest, int *commonest, int num_commonest)
+void ngram_summary_ptrs(const int n, const ngram_t *ng, const int ngsize, ngsummary_t *ngsummary)
 {
   int i, i_nch, tmp;
-  int longest_nch, shortest_nch;
   
-  longest = 0;
-  shortest = 0;
+  ngsummary->longest = 0;
+  ngsummary->shortest = 0;
   
-  longest_nch = ngram_nchar(n, ng, 0);
-  shortest_nch = longest_nch;
+  ngsummary->longest_nch = ngram_nchar(n, ng, 0);
+  ngsummary->shortest_nch = ngsummary->longest_nch;
   
+/*  for (i=0; i<num_commonest; i++)*/
+/*    commonest[i] = i;*/
   
-  for (i=0; i<num_commonest; i++)
-    commonest[i] = i;
   
   for (i=1; i<ngsize; i++)
   {
     i_nch = ngram_nchar(n, ng, i);
     
     // longest
-    if (i_nch > longest_nch)
+    if (i_nch > ngsummary->longest_nch)
     {
-      longest_nch = i_nch;
-      *longest = i;
+      ngsummary->longest_nch = i_nch;
+      ngsummary->longest = i;
     }
     
     //shortest
-    if (i_nch < shortest_nch)
+    if (i_nch < ngsummary->shortest_nch)
     {
-      shortest_nch = i_nch;
-      *shortest = i;
+      ngsummary->shortest_nch = i_nch;
+      ngsummary->shortest = i;
     }
     
     // top n
@@ -84,7 +77,7 @@ void ngram_summary_ptrs(const int n, const ngram_t *ng, const int ngsize, int *l
     if (i >= num_commonest)
     {
       
-      qsort(commonest, num_commonest, sizeof(int), compare);
+      ngram_sesort(ngsummary->num_commonest, int *y, ngsummary->commonest)
       
     }
     */
@@ -93,30 +86,30 @@ void ngram_summary_ptrs(const int n, const ngram_t *ng, const int ngsize, int *l
 
 
 
-void ngram_summary_printer(const int n, const ngram_t *ng, const int ngsize, int *longest, int *shortest, int *commonest, int num_commonest)
+static void ngram_summary_printer(const int n, ngram_t *ng, const int ngsize, ngsummary_t *ngsummary)
 {
-  printf("Longest:\t");
-  print_ngram_nonext(ng + *longest);
-  putchar('\n');
+  printf("Longest:\t%d chars\n", ngsummary->longest_nch);
+  print_ngram_nonext(ng + ngsummary->longest);
   
-  printf("Shortest:\t");
-/*  print_ngram_nonext(ng + shortest);*/
-  putchar('n');
+  printf("Shortest:\t%d chars\n", ngsummary->shortest_nch);
+  print_ngram_nonext(ng + ngsummary->shortest);
 }
 
 
 
-void ngram_summary(const int n, const ngram_t *ng, const int ngsize, int num_commonest)
+void ngram_summary(const int n, ngram_t *ng, const int ngsize, int num_commonest)
 {
-  int longest, shortest;
+  ngsummary_t ngsummary;
+  ngsummary.num_commonest = num_commonest;
   int *commonest = malloc(num_commonest * sizeof(*commonest));
+  ngsummary.commonest = commonest;
   
-  ngram_summary_ptrs(n, ng, ngsize, &longest, &shortest, commonest, num_commonest);
+/*  if (num_commonest > n)*/
   
-  
+  ngram_summary_ptrs(n, ng, ngsize, &ngsummary);
+  ngram_summary_printer(n, ng, ngsize, &ngsummary);
   
   free(commonest);
 }
-
 
 
