@@ -1,23 +1,27 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.8)
 project(ngram)
 enable_language(C)
 
 
 ### Flags
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wfatal-errors -O0 -fPIC")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wfatal-errors -O2 -fPIC")
 
 
 
 ### Source files
-set(SRC_FILES
+set(NGRAM_FILES
 	src/counts.c
 	src/gen_noalloc2.c
 	src/hash.c
 	src/lex.c
 	src/print.c
 	src/process.c
+	src/sorts.c
 	src/summary.c
 	src/wordcmp.c
+)
+
+set(RAND_FILES
 	src/rand/rng_interface.c
 	src/rand/samplers.c
 	src/rand/utils.c
@@ -26,13 +30,18 @@ set(SRC_FILES
 )
 
 
+set(SRC_FILES ${NGRAM_FILES} ${RAND_FILES})
+
+
 
 ### Make and install
-add_library(ngram SHARED ${SRC_FILES})
-add_library(ngram_static STATIC ${SRC_FILES})
+add_library(ngram_objs OBJECT ${SRC_FILES})
 
-add_executable(example examples/main.c ${SRC_FILES})
-add_executable(test examples/test.c ${SRC_FILES})
+add_library(ngram SHARED $<TARGET_OBJECTS:ngram_objs>)
+add_library(ngram_static STATIC $<TARGET_OBJECTS:ngram_objs>)
+
+add_executable(example examples/main.c $<TARGET_OBJECTS:ngram_objs>)
+add_executable(test examples/test.c $<TARGET_OBJECTS:ngram_objs>)
 
 set_target_properties(ngram PROPERTIES PREFIX "")
 if(NOT WIN32)
