@@ -10,5 +10,7 @@ typedef struct ngram_opts_t
   char *outfile;
 } ngram_opts_t;
 
+int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret);
+
 
 #endif

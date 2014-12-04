@@ -148,9 +148,12 @@ static int ngram_get_new_ng_index(const int n, wordlist_t *wl, ngram_t *ng, cons
 
 
 // genlen = #words
-int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen, char **ret)
+int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
 {
   int i, j, pos;
+  const int n = ngl->n;
+  const int ngsize = ngl->ngsize;
+  const ngram_t *ng = ngl->ng;
   int ng_ind = 0;
   int retlen = 0;
   bool init = true;

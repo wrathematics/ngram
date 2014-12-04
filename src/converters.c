@@ -5,8 +5,8 @@ SEXP ng_extract_ngrams(SEXP ng_ptr, SEXP ngsize_)
 {
   int i, j, len;
   char *buf;
-  ng_arr_t *nga = (ng_arr_t *) getRptr(ng_ptr);
-  ngram_t *ng = nga->ng;
+  ngramlist_t *ngl = (ngramlist_t *) getRptr(ng_ptr);
+  ngram_t *ng = ngl->ng;
   const int ngsize = INTEGER(ngsize_)[0];
   wordlist_t *wl;
   

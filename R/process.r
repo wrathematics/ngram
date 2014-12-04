@@ -16,7 +16,10 @@ ng.process <- function(str, n=2)
   
   out <- .Call("ng_process", str, strlen, n, PACKAGE="ngram")
   
-  ret <- new("ngram", str_ptr=out$str_ptr, strlen=strlen, n=n, ngsize=out$ngsize, wl_ptr=out$wl_ptr, ng_ptr=out$ng_ptr)
+  if (is.integer(out) && ret == -1L)
+    stop("There was a problem processing the input string!")
+  
+  ret <- new("ngram", str_ptr=out$str_ptr, strlen=strlen, n=n, ngsize=out$ngsize, wl_ptr=out$wl_ptr, ngl_ptr=out$ngl_ptr)
   
   return( ret )
 }

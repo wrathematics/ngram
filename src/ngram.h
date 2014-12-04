@@ -1,5 +1,5 @@
-#ifndef __NGRAM_H__
-#define __NGRAM_H__
+#ifndef __RPKG_NGRAM_H__
+#define __RPKG_NGRAM_H__
 
 
 #include <R.h>
@@ -13,6 +13,7 @@
 #include "ngram/src/wordcmp.h"
 #include "ngram/src/rand/rand.h"
 
+
 // External pointer shorthand
 #define newRptr(ptr,Rptr,fin) PROTECT(Rptr = R_MakeExternalPtr(ptr, R_NilValue, R_NilValue));R_RegisterCFinalizerEx(Rptr, fin, TRUE)
 #define getRptr(ptr) R_ExternalPtrAddr(ptr);
@@ -22,7 +23,6 @@
 #define INT(x) INTEGER(x)[0]
 
 // ngram lib prototypes
-int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen, char **ret);
 uint32_t mix_96(uint32_t a, uint32_t b, uint32_t c);
 int ngram_wordcount(const char *str, const char sep);
 

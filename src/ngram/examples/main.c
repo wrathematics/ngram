@@ -78,16 +78,16 @@ int main()
 #endif
 
 
-int ngram_gen(const int n, rng_state_t *rs, ngram_t *ng, int ngsize, int genlen, char **ret);
+int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret);
 
 
 int main_gen(const int n, const char *str, const int genlen, const int seed)
 {
   wordlist_t *wl;
-  ngram_t *ng;
+  ngramlist_t *ngl;
   int ngsize;
   wl = lex(str, strlen(str));
-  ng = process(wl, n, &ngsize);
+  ngl = process(wl, n);
   
   rng_state_t rs;
   rng_prepare(&rs);
@@ -97,7 +97,7 @@ int main_gen(const int n, const char *str, const int genlen, const int seed)
   char *ret;
   int retlen;
   
-  retlen = ngram_gen(n, &rs, ng, ngsize, genlen, &ret);
+  retlen = ngram_gen(&rs, ngl, genlen, &ret);
   
   printf("%s\n", ret);
   free(ret);
@@ -148,9 +148,5 @@ int main(int argc, char **argv)
   
   return 0;
 }
-
-
-
-
 
 
