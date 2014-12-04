@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 char* ngram_read_file(char *infile)
 {
   char *str;
