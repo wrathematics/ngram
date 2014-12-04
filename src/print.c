@@ -53,7 +53,7 @@ void print_ngram(ngram_t *ng)
 SEXP ng_print(SEXP ng_ptr, SEXP ngsize_, SEXP truncated)
 {
   int i;
-  ng_arr_t *nga = (ng_arr_t *) getRptr(ng_ptr);
+  ngramlist_t *ngl = (ngramlist_t *) getRptr(ng_ptr);
   const int ngsize = INTEGER(ngsize_)[0];
   int maxiter;
   
@@ -61,7 +61,7 @@ SEXP ng_print(SEXP ng_ptr, SEXP ngsize_, SEXP truncated)
   
   
   for(i=0; i<maxiter; i++)
-    print_ngram(nga->ng + i);
+    print_ngram(ngl->ng + i);
   
   if (INTEGER(truncated)[0] && TRUNCSIZE < ngsize)
     Rprintf("[[ ... results truncated ... ]]\n");
