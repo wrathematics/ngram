@@ -153,7 +153,7 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
   int i, j, pos;
   const int n = ngl->n;
   const int ngsize = ngl->ngsize;
-  const ngram_t *ng = ngl->ng;
+  ngram_t *ng = ngl->ng;
   int ng_ind = 0;
   int retlen = 0;
   bool init = true;
@@ -185,16 +185,16 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
       while (init)
       {
         ng_ind = sample(rs, 0, ngsize-1);
-        init = ngram_check_ngram_for_null(&ng[ng_ind]);
+        init = ngram_check_ngram_for_null(ng + ng_ind);
       }
       
-      retlen += ngram_cp_ng_to_char(MIN(n, genlen), &ng[ng_ind], &i, tmp, itmp);
+      retlen += ngram_cp_ng_to_char(MIN(n, genlen), ng + ng_ind, &i, tmp, itmp);
       genlen -= n;
     }
     else
     {
       // Get next word and put it into tmp
-      word = ngram_get_rand_nextword(rs, &ng[ng_ind]);
+      word = ngram_get_rand_nextword(rs, ng + ng_ind);
       if (word == NULL)
       {
         init = true;
