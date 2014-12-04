@@ -2,7 +2,7 @@
 #define NGRAM_SORTS_H
 
 
-void ngram_sesort(int n, int *x, *y)
+void ngram_sesort(int n, int *x, int *y);
 
 
 #endif
