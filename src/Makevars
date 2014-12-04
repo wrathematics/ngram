@@ -2,7 +2,7 @@
 
 NGRAM_OBJS = \
 	ngram/src/counts.o \
-	ngram/src/gen_noalloc2.o \
+	ngram/src/gen.o \
 	ngram/src/hash.o \
 	ngram/src/lex.o \
 	ngram/src/process.o \

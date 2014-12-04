@@ -11,7 +11,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wfatal-errors -O2 -fPIC")
 ### Source files
 set(NGRAM_FILES
 	src/counts.c
-	src/gen_noalloc2.c
+	src/gen.c
 	src/hash.c
 	src/lex.c
 	src/print.c
