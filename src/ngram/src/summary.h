@@ -11,7 +11,7 @@ typedef struct ngsummary_t {
   int num_commonest;
 } ngsummary_t;
 
-void ngram_summary(const int n, ngram_t *ng, const int ngsize, int num_commonest);
+void ngram_summary(ngramlist_t *ngl, int num_commonest);
 void ngram_summary_ptrs(const int n, const ngram_t *ng, const int ngsize, ngsummary_t *ngsummary);
 
 

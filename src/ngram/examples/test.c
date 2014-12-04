@@ -11,12 +11,11 @@ int main(int argc, char **argv)
   int num_commonest = 2;
   
   wordlist_t *wl;
-  ngram_t *ng;
-  int ngsize;
+  ngramlist_t *ngl;
   wl = lex(str, strlen(str));
-  ng = process(wl, n, &ngsize);
+  ngl = process(wl, n);
   
-  ngram_summary(n, ng, ngsize, num_commonest);
+  ngram_summary(ngl, num_commonest);
   
   return 0;
 }

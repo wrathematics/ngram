@@ -50,8 +50,8 @@ void ngram_summary_ptrs(const int n, const ngram_t *ng, const int ngsize, ngsumm
   ngsummary->longest_nch = ngram_nchar(n, ng, 0);
   ngsummary->shortest_nch = ngsummary->longest_nch;
   
-/*  for (i=0; i<num_commonest; i++)*/
-/*    commonest[i] = i;*/
+  for (i=0; i<ngsummary->num_commonest; i++)
+    ngsummary->commonest[i] = i;
   
   
   for (i=1; i<ngsize; i++)
@@ -73,14 +73,12 @@ void ngram_summary_ptrs(const int n, const ngram_t *ng, const int ngsize, ngsumm
     }
     
     // top n
-    /*
-    if (i >= num_commonest)
-    {
-      
-      ngram_sesort(ngsummary->num_commonest, int *y, ngsummary->commonest)
-      
-    }
-    */
+/*    if (i >= ngsummary->num_commonest)*/
+/*    {*/
+/*      */
+/*      ngram_sesort(ngsummary->num_commonest, int *y, ngsummary->commonest)*/
+/*      */
+/*    }*/
   }
 }
 
@@ -97,7 +95,7 @@ static void ngram_summary_printer(const int n, ngram_t *ng, const int ngsize, ng
 
 
 
-void ngram_summary(const int n, ngram_t *ng, const int ngsize, int num_commonest)
+void ngram_summary(ngramlist_t *ngl, int num_commonest)
 {
   ngsummary_t ngsummary;
   ngsummary.num_commonest = num_commonest;
@@ -106,8 +104,8 @@ void ngram_summary(const int n, ngram_t *ng, const int ngsize, int num_commonest
   
 /*  if (num_commonest > n)*/
   
-  ngram_summary_ptrs(n, ng, ngsize, &ngsummary);
-  ngram_summary_printer(n, ng, ngsize, &ngsummary);
+  ngram_summary_ptrs(ngl->n, ngl->ng, ngl->ngsize, &ngsummary);
+  ngram_summary_printer(ngl->n, ngl->ng, ngl->ngsize, &ngsummary);
   
   free(commonest);
 }
