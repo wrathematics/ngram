@@ -1,7 +1,4 @@
-#include "../src/print.h"
-#include "../src/process.h"
-#include "../src/rand/rand.h"
-#include "../src/gen.h"
+#include "../src/ngram.h"
 
 
 #if 0

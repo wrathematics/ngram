@@ -1,6 +1,4 @@
-#include "../src/print.h"
-#include "../src/process.h"
-#include "../src/summary.h"
+#include "../src/ngram.h"
 
 
 int main(int argc, char **argv)
