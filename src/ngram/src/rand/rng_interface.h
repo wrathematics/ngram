@@ -25,7 +25,7 @@
 */
 
 
-#ifndef NGRAM_RNG_INTERFACE_H
+#ifndef RAND_RNG_INTERFACE_H
 #define RAND_RNG_INTERFACE_H
 
 #include <stdint.h>
