@@ -25,8 +25,8 @@
 */
 
 
-#ifndef NGRAM_GENERATE_H
-#define NGRAM_GENERATE_H
+#ifndef _NGRAM_H_
+#define _NGRAM_H_
 
 
 typedef struct ngram_opts_t
@@ -37,18 +37,19 @@ typedef struct ngram_opts_t
   char *outfile;
 } ngram_opts_t;
 
-#include "gen.h"
-#include "hash.h"
-#include "lex.h"
-#include "print.h"
-#include "process.h"
-#include "sorts.h"
-#include "summary.h"
-#include "wordcmp.h"
-
 #include "rand/platform.h"
 #include "rand/rand.h"
 #include "rand/rng_interface.h"
+
+#include "hash.h"
+#include "lex.h"
+#include "process.h"
+#include "sorts.h"
+#include "wordcmp.h"
+
+#include "gen.h"
+#include "print.h"
+#include "summary.h"
 
 
 #endif
