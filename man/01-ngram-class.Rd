@@ -35,7 +35,7 @@
 }
 \section{Creating Objects}{
   \code{ new('ngram', str_ptr = ..., strlen = ..., n = ..., 
-  ng_ptr = ..., ngsize = ..., wl_ptr = ...)}
+  ngl_ptr = ..., ngsize = ..., wl_ptr = ...)}
 }
 \section{Slots}{
 \describe{
@@ -43,7 +43,7 @@
   string.}
 \item{\code{strlen}:}{The number of characters of the input string.}
 \item{\code{n}:}{The canonical 'n', as in 'n-gram'.}
-\item{\code{ng_ptr}:}{External pointer to the list of n-grams.}
+\item{\code{ngl_ptr}:}{External pointer to the list of n-grams (ngram list).}
 \item{\code{ngsize}:}{The total number of n-grams}
 \item{\code{wl_ptr}:}{External pointer to the list of words.}
 }
