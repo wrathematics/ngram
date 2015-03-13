@@ -1,4 +1,4 @@
-# ngram
+# ngram [![Build Status](https://travis-ci.org/wrathematics/ngram.png)](https://travis-ci.org/wrathematics/ngram) [![License](http://img.shields.io/badge/license-BSD%202--Clause-orange.svg?style=flat)](http://opensource.org/licenses/BSD-2-Clause)
 
 This is an R package for constructing n-grams, as well as generating 
 new text based on the n-gram structure of a given text input.
