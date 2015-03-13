@@ -10,7 +10,9 @@
 #' The package has its own PRNG; we use an implementation of MT1997 for all
 #' non-deterministic choices.
 #' 
-#' @useDynLib ngram
+#' @useDynLib ngram,
+#'   ng_extract_ngrams, ng_extract_str, ng_print, ng_process, 
+#'   R_mix_96, R_ngram_gen, R_ngram_get_seed, R_ngram_wordcount
 #' 
 #' @import methods
 #' 

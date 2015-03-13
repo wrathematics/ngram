@@ -53,7 +53,7 @@ setMethod("babble", signature(ng="ngram"),
     
     seed <- as.integer(seed)
     
-    ret <- .Call("R_ngram_gen", ng@ngl_ptr, genlen, seed, PACKAGE="ngram")
+    ret <- .Call(R_ngram_gen, ng@ngl_ptr, genlen, seed, PACKAGE="ngram")
     
     return( ret )
   }

@@ -1,6 +1,6 @@
 hash96 <- function(a, b, c)
 {
-  .Call("R_mix_96", as.integer(a), as.integer(b), as.integer(c), PACKAGE="ngram")
+  .Call(R_mix_96, as.integer(a), as.integer(b), as.integer(c), PACKAGE="ngram")
 }
 
 getseed <- function()
@@ -15,7 +15,7 @@ getseed <- function()
 #    ret <- as.integer(ret)
 #  }
 #  else
-    ret <- .Call("R_ngram_get_seed", PACKAGE="ngram")
+    ret <- .Call(R_ngram_get_seed, PACKAGE="ngram")
   
   return( ret )
 }
