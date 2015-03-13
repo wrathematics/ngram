@@ -9,3 +9,5 @@ rm -rf ./src/ngram/src/*.o
 rm -rf ./src/ngram/src/rand/*.o
 rm -rf ./src/ngram/src/rand/mrg/*.o
 rm -rf ./src/ngram/src/rand/mt/*.o
+
+rm -rf ./src/ngram/build

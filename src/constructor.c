@@ -69,15 +69,16 @@ SEXP ng_process(SEXP R_str, SEXP R_str_len, SEXP n_)
   const int n = INTEGER(n_)[0];
   wordlist_t *wl;
   ngramlist_t *ngl;
+  const size_t len = INTEGER(R_str_len)[0] +1 ;
   
   SEXP RET, RET_NAMES, NGSIZE;
   SEXP str_ptr, wl_ptr, ngl_ptr;
   
   
-  str = malloc((INTEGER(R_str_len)[0]+1) * sizeof(str));
-  strcpy(str, CHARPT(R_str, 0));
+  str = malloc(len * sizeof(str));
+  strncpy(str, CHARPT(R_str, 0), len);
   
-  wl = lex(str, strlen(str));
+  wl = lex(str, len-1);
   ngl = process(wl, n);
   
   if (NULL == ngl)
