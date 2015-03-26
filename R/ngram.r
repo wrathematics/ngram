@@ -120,7 +120,7 @@ setMethod("ngram", signature(str="character"),
     
     strlen <- nchar(str) ## always an integer due to STRSXP restrictions
     
-    out <- .Call("ng_process", str, strlen, n, PACKAGE="ngram")
+    out <- .Call(ng_process, str, strlen, n, PACKAGE="ngram")
     
     if (is.integer(out) && ret == -1L)
       stop("There was a problem processing the input string!")

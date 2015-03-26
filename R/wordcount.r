@@ -44,7 +44,7 @@ setMethod("wordcount", signature(x="character"),
       return( sum(sapply(x, wordcount)) )
     
     sep <- ' '
-    .Call("R_ngram_wordcount", x, sep, nchar(sep), PACKAGE="ngram")
+    .Call(R_ngram_wordcount, x, sep, nchar(sep), PACKAGE="ngram")
   }
 )
 

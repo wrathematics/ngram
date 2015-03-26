@@ -29,7 +29,7 @@
 #' }
 #' 
 #' @export
-concat <- function(..., collapse="", rm.space=FALSE)
+concatenate <- function(..., collapse="", rm.space=FALSE)
 {
   l <- list(...)
   

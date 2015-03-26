@@ -19,8 +19,7 @@ Maintainer: Drew Schmidt <wrathematics@gmail.com>
 Collate:
     'ngram.r'
     'babble.r'
-    'concat.r'
-    'getseed.r'
+    'concatenate.r'
     'getters.r'
     'ngram-package.R'
     'preprocess.r'
