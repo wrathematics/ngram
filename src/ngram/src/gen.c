@@ -43,9 +43,9 @@ static bool ngram_check_ngram_for_null(ngram_t *ng)
 {
   wordlist_t *wl = ng->words;
   
-  while(wl)
+  while (wl)
   {
-    if(wl->word == NULL)
+    if (wl->word == NULL)
       return true;
     
     wl = wl->next;
@@ -67,7 +67,7 @@ static word_t* ngram_get_rand_nextword(rng_state_t *rs, ngram_t *ng)
   
   
   // Get "index" of next word
-  while(nwl)
+  while (nwl)
   {
     wordtot += nwl->word.count;
     nwl = nwl->next;
@@ -77,7 +77,7 @@ static word_t* ngram_get_rand_nextword(rng_state_t *rs, ngram_t *ng)
   nwl = ng->nextword;
   
   // Get the word
-  while(1)
+  while (1)
   {
     tmp += nwl->word.count;
     
@@ -101,7 +101,7 @@ static int ngram_cp_ng_to_char(int num, ngram_t *ng, int *ind, char **str, int *
   wordlist_t *wl = ng->words;
   word_t *word;
   
-  while(wl && num > 0)
+  while (wl && num > 0)
   {
     word = wl->word;
     len[*ind] = word->len;
@@ -166,7 +166,6 @@ static int ngram_get_new_ng_index(const int n, wordlist_t *wl, ngram_t *ng, cons
       return i;
   }
   
-  // Something went wrong
   return -1;
 }
 
@@ -191,7 +190,7 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
   
   if (genlen < 1)
     return -1;
-  else if (n > genlen)
+  else if (genlen < n)
     genlen = n;
   
   tmp = malloc(genlen * sizeof(char*));
@@ -255,3 +254,39 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
   return retlen;
 }
 
+
+#if 0
+#define NGLOOKUP -1
+#define FIRSTRUN -2
+int ngram_gen1(rng_state_t *rs, ngramlist_t *ngl, int *ng_ind, char *input, char **ret)
+{
+  int i = 0;
+  const int n = ngl->n;
+  const int ngsize = ngl->ngsize;
+  ngram_t *ng = ngl->ng;
+  int retlen = 0;
+  word_t *word;
+  
+  
+  // find n-gram represented by 'input'
+  if (*ng_ind == NGLOOKUP)
+  {
+    
+  }
+  // Get a random n-gram
+  else if (*ng_ind == FIRSTRUN)
+  {
+    
+  }
+  
+  // Return random next word
+  word = ngram_get_rand_nextword(rs, ng + ng_ind);
+  retlen = word->len
+  *ret = malloc(retlen * sizeof(**ret));
+  
+  retlen = ngram_cp_word_to_char(word, &i, ret, retlen);
+  
+  
+  return retlen;
+}
+#endif

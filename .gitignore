@@ -8,11 +8,11 @@
 
 src/ngram/build/
 
-### Latex
 *.aux
 *.bbl
 *.blg
 *.out
 *.toc
 *.tex.backup
+
 inst/doc/ngram-guide.pdf

@@ -1,15 +1,29 @@
 Package: ngram
 Type: Package
 Title: An n-gram Babbler
-Version: 1.4
+Version: 2.0
 Description: This package offers utilities for creating, displaying,
-      and "babbling" n-grams.  The babbler is a simple Markov
-      process.
+    and "babbling" n-grams.  The babbler is a simple Markov
+    process.
 License: BSD 2-clause License + file LICENSE
-Depends: R (>= 2.14.0), methods
+Depends:
+    R (>= 2.14.0)
+Imports:
+    methods
 LazyData: yes
 LazyLoad: yes
 NeedsCompilation: yes
 ByteCompile: yes
 Author: Drew Schmidt [aut, cre], Christian Heckendorf [aut]
 Maintainer: Drew Schmidt <wrathematics@gmail.com>
+Collate:
+    'ngram.r'
+    'babble.r'
+    'concat.r'
+    'getseed.r'
+    'getters.r'
+    'ngram-package.R'
+    'preprocess.r'
+    'print.r'
+    'rgutenberg.r'
+    'wordcount.r'
