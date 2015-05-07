@@ -61,7 +61,7 @@ static word_t* ngram_get_rand_nextword(rng_state_t *rs, ngram_t *ng)
   int wordtot = 0;
   int ind;
   int tmp = 0;
-  word_t *word;
+  word_t *word = NULL;
   
   nextwordlist_t *nwl = ng->nextword;
   
@@ -77,7 +77,7 @@ static word_t* ngram_get_rand_nextword(rng_state_t *rs, ngram_t *ng)
   nwl = ng->nextword;
   
   // Get the word
-  while (1)
+  while (nwl)
   {
     tmp += nwl->word.count;
     
@@ -162,7 +162,7 @@ static int ngram_get_new_ng_index(const int n, wordlist_t *wl, ngram_t *ng, cons
   
   for (i=0; i<ngsize; i++)
   {
-    if (ng[i].tok == hash)
+    if (ng[i].tok == ohash)
       return i;
   }
   

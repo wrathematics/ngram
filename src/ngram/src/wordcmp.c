@@ -36,7 +36,7 @@ char *word_to_string(word_t *word)
   
   if(word != NULL)
   {
-    str = malloc(len * sizeof(str));
+    str = malloc(len * sizeof(*str));
     
     for(i=0; i<len; i++)
       str[i] = word->s[i];

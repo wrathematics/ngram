@@ -44,7 +44,6 @@ void free_ngl(ngramlist_t *ngl)
   
   free(ngl->ng);
   free(ngl);
-  ngl = vptr;
 }
 
 

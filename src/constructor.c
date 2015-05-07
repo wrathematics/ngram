@@ -75,7 +75,7 @@ SEXP ng_process(SEXP R_str, SEXP R_str_len, SEXP n_)
   SEXP str_ptr, wl_ptr, ngl_ptr;
   
   
-  str = malloc(len * sizeof(str));
+  str = malloc(len * sizeof(*str));
   strncpy(str, CHARPT(R_str, 0), len);
   
   wl = lex(str, len-1);
