@@ -162,7 +162,7 @@ static int ngram_get_new_ng_index(const int n, wordlist_t *wl, ngram_t *ng, cons
   
   for (i=0; i<ngsize; i++)
   {
-    if (ng[i].tok == ohash)
+    if (ng[i].tok == hash)
       return i;
   }
   
