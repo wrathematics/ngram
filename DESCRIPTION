@@ -25,4 +25,5 @@ Collate:
     'preprocess.r'
     'print.r'
     'rgutenberg.r'
+    'tablesort.r'
     'wordcount.r'
