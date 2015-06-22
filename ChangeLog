@@ -1,6 +1,7 @@
 Release 0.2:
   * Switched to roxygen2.
   * Improvements to the standalone library example programs.
+  * Now storing counts of the ngram itself.
 
 Release 1.4:
   * Added summary method to internal library.

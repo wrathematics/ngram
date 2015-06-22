@@ -1,5 +1,4 @@
-/*  Copyright (c) 2014, Heckendorf and Schmidt
-    2015 Schmidt
+/*  Copyright (c) 2015, Schmidt
     All rights reserved.
     
     Redistribution and use in source and binary forms, with or without
@@ -26,36 +25,49 @@
 */
 
 
-#ifndef NGRAM_PROCESS_H
-#define NGRAM_PROCESS_H
-
-#include "lex.h"
-
-typedef struct nextword_t{
-	word_t *word; // pointer to the word
-	int count; // number of times this word was seen
-} nextword_t;
-
-typedef struct nextwordlist_t{
-	struct nextwordlist_t *next; // pointer to the next element in the list or NULL
-	nextword_t word; // the data for this list element
-} nextwordlist_t;
-
-typedef struct ngram_t{
-	tok_t tok; // complete ngram hash
-	wordlist_t *words; // list of words in the ngram
-	nextwordlist_t *nextword; // list of possible next-words and their counts for this ngram
-	int count; // number of occurrences of ngram
-} ngram_t;
-
-typedef struct ngramlist_t{
-	ngram_t *ng;
-	int ngsize;
-	int n;
-} ngramlist_t;
-
-
-void free_ngl(ngramlist_t *ngl);
-ngramlist_t* process(wordlist_t *words, int n);
-
-#endif
+SEXP R_ng_get_phrasetable(SEXP ng_ptr, SEXP ngsize_)
+{
+  int i, j, len;
+  char *buf;
+  ngramlist_t *ngl = (ngramlist_t *) getRptr(ng_ptr);
+  ngram_t *ng = ngl->ng;
+  const int ngsize = INTEGER(ngsize_)[0];
+  wordlist_t *wl;
+  
+  SEXP RET, RETNAMES;
+  SEXP NGRAMS, FREQ, PROP;
+  PROTECT(NGRAMS = allocVector(STRSXP, ngsize));
+  PROTECT(FREQ = allocVector(INTSXP, ngsize));
+  PROTECT(PROP = allocVector(REALSXP, ngsize));
+  int *freq = INTEGER(freq);
+  double *prop = REAL(PROP);
+  
+  for(i=0; i<ngsize; i++)
+  {
+    freq[i] = 0;
+    len = 0;
+    wl = ng[i].words;
+    
+    while (wl)
+    {
+      len += wl->word->len;
+      len++; // spaces
+      wl = wl->next;
+    }
+    
+    len--; // apparently mkCharLen handles the NUL terminator for some reason
+    
+    buf = malloc(len * sizeof(*buf));
+    
+    for (j=0; j<len; j++)
+      buf[j] = ng[i].words->word->s[j];
+    
+    SET_STRING_ELT(NGRAMS, i, mkCharLen(buf, len));
+    
+    
+    free(buf);
+  }
+  
+  UNPROTECT(1);
+  return RET;
+}

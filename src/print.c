@@ -1,4 +1,4 @@
-/*  Copyright (c) 2014, Schmidt
+/*  Copyright (c) 2014-2015, Schmidt
     All rights reserved.
     
     Redistribution and use in source and binary forms, with or without
@@ -58,7 +58,7 @@ void print_ngram(ngram_t *ng)
     wl = wl->next;
   }
   
-  Rprintf("%c", '\n');
+  Rprintf("| %d %c", ng->count, '\n');
   
   while(nwl)
   {

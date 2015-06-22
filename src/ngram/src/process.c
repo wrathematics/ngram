@@ -1,4 +1,4 @@
-/*  Copyright (c) 2014, Heckendorf and Schmidt
+/*  Copyright (c) 2014-2015, Heckendorf and Schmidt
     All rights reserved.
     
     Redistribution and use in source and binary forms, with or without
@@ -96,15 +96,11 @@ ngramlist_t* process(wordlist_t *words, int n)
   
   // Hope this doesn't crash lol
   ng = malloc(sizeof(*ng)*len);
-/*  if( = NULL)*/
-/*    exit(1);*/
+  ng->count = 0;
+  
   tmp = malloc(sizeof(*tmp)*len);
-/*  if(() == NULL)*/
-/*    exit(1);*/
   sorted = malloc(sizeof(*sorted)*len);
-/*  if(() == NULL)*/
-/*    exit(1);*/
-
+  
   nw = words;
   for (i = 1;i<len;i++){
     q = p = nw->next;
@@ -159,6 +155,8 @@ ngramlist_t* process(wordlist_t *words, int n)
     }
     if (j == i+1)
       sorted[i]->nextword->word.count = 1;
+    
+    ng[ngsize].count = j-i;
     ng[ngsize].words = sorted[i]->words;
     ng[ngsize].nextword = sorted[i]->nextword;
     ng[ngsize].tok = sorted[i]->tok;
