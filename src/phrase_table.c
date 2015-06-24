@@ -25,6 +25,8 @@
 */
 
 
+#include "ngram.h"
+
 SEXP R_ng_get_phrasetable(SEXP ng_ptr, SEXP ngsize_)
 {
   int i, j, len;
@@ -33,16 +35,17 @@ SEXP R_ng_get_phrasetable(SEXP ng_ptr, SEXP ngsize_)
   ngram_t *ng = ngl->ng;
   const int ngsize = INTEGER(ngsize_)[0];
   wordlist_t *wl;
+  int tot = 0;
   
   SEXP RET, RETNAMES;
   SEXP NGRAMS, FREQ, PROP;
   PROTECT(NGRAMS = allocVector(STRSXP, ngsize));
   PROTECT(FREQ = allocVector(INTSXP, ngsize));
   PROTECT(PROP = allocVector(REALSXP, ngsize));
-  int *freq = INTEGER(freq);
+  int *freq = INTEGER(FREQ);
   double *prop = REAL(PROP);
   
-  for(i=0; i<ngsize; i++)
+  for (i=0; i<ngsize; i++)
   {
     freq[i] = 0;
     len = 0;
@@ -64,10 +67,28 @@ SEXP R_ng_get_phrasetable(SEXP ng_ptr, SEXP ngsize_)
     
     SET_STRING_ELT(NGRAMS, i, mkCharLen(buf, len));
     
+    freq[i] = ng[i].count;
+    tot += ng[i].count;
     
     free(buf);
   }
   
-  UNPROTECT(1);
+  for (i=0; i<ngsize; i++)
+  {
+    prop[i] = (double) freq[i]/tot;
+  }
+  
+  PROTECT(RET = allocVector(VECSXP, 3));
+  SET_VECTOR_ELT(RET, 0, NGRAMS);
+  SET_VECTOR_ELT(RET, 1, FREQ);
+  SET_VECTOR_ELT(RET, 2, PROP);
+  
+  PROTECT(RETNAMES = allocVector(STRSXP, 3));
+  SET_STRING_ELT(RETNAMES, 0, mkChar("ngrams"));
+  SET_STRING_ELT(RETNAMES, 1, mkChar("freq"));
+  SET_STRING_ELT(RETNAMES, 2, mkChar("prop"));
+  setAttrib(RET, R_NamesSymbol, RETNAMES);
+  
+  UNPROTECT(5);
   return RET;
 }
