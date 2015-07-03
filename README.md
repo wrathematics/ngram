@@ -1,6 +1,12 @@
-# ngram [![Build Status](https://travis-ci.org/wrathematics/ngram.png)](https://travis-ci.org/wrathematics/ngram) [![License](http://img.shields.io/badge/license-BSD%202--Clause-orange.svg?style=flat)](http://opensource.org/licenses/BSD-2-Clause)
+# ngram
 
-This is an R package for constructing n-grams, as well as generating 
+* **Version:** 2.0
+* **Status:** [![Build Status](https://travis-ci.org/wrathematics/ngram.png)](https://travis-ci.org/wrathematics/ngram)
+* **License:** [![License](http://img.shields.io/badge/license-BSD%202--Clause-orange.svg?style=flat)](http://opensource.org/licenses/BSD-2-Clause)
+* **Author:** Drew Schmidt and Christian Heckendorf
+
+
+ngram is an R package for constructing n-grams, as well as generating 
 new text based on the n-gram structure of a given text input.
 
 The original purpose for the package was to combine the book
@@ -32,10 +38,8 @@ x <- "a b a c a b b"
 
 Eagle-eyed readers will recognize this as the blood code from
 Mortal Kombat, but you can pretend it's something boring like an 
-amino acid sequence or something.
-
-We can form the n-gram structure of this sequence with the
-`ngram` function:
+amino acid sequence or something.  We can form the n-gram structure
+of this sequence with the `ngram` function:
 
 ```r
 library(ngram)
@@ -70,6 +74,21 @@ With `output="truncated"`, only the first 5 n-grams will be shown
 (here there are only 5 total).  To see all (in the case of having
 more than 5), you can set `output="full"`.
 
+There are several "getter" functions, but they are incomplete (see
+Notes section below).  Perhaps the most useful of them generates a
+"phrase table", or a list of n-grams by their frequency and
+proportion in the input text:
+
+```r
+get.phrasetable(ng)
+#   ngrams freq      prop
+# 1    a b    2 0.3333333
+# 2    b a    1 0.1666667
+# 3    c a    1 0.1666667
+# 4    a c    1 0.1666667
+# 5    b b    1 0.1666667
+```
+
 Finally, we can use the glory of Markov Chains to babble new
 sequences:
 
@@ -95,8 +114,7 @@ usage.
 Using the devtools package: 
 
 ```r
-library(devtools)
-install_github("wrathematics/ngram")
+devtools::install_github("wrathematics/ngram")
 ```
 
 An older version of this package is also available on the CRAN.
