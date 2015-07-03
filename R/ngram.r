@@ -122,7 +122,7 @@ setMethod("ngram", signature(str="character"),
     
     out <- .Call(ng_process, str, strlen, n, PACKAGE="ngram")
     
-    if (is.integer(out) && ret == -1L)
+    if (is.integer(out) && out == -1L)
       stop("There was a problem processing the input string!")
     
     ret <- new("ngram", str_ptr=out$str_ptr, strlen=strlen, n=n, ngsize=out$ngsize, wl_ptr=out$wl_ptr, ngl_ptr=out$ngl_ptr)
