@@ -1,2 +1,6 @@
 redocument
 ^\.travis\.yml$
+
+cover/build_cover.sh
+cover/cover.tex
+cover/hydra.png
