@@ -39,5 +39,8 @@ get.phrasetable <- function(ng)
     stop("argument 'ng' not of class 'ngram'")
   
   ret <- as.data.frame(.Call(R_ng_get_phrasetable, ng@ngl_ptr, ng@ngsize))
-  tablesort(ret, 2)
+  ret <- tablesort(ret, 2)
+  rownames(ret) <- NULL
+  
+  return(ret)
 }
