@@ -1,4 +1,4 @@
-Release 0.2:
+Release 2.0:
   * Switched to roxygen2.
   * Improvements to the standalone library example programs.
   * Now storing counts of the ngram itself.
@@ -12,17 +12,17 @@ Release 1.3:
   * Added historical background to "About" tab in shiny demo.
   * Switched from C to R RNG for extra entropy in seeds.
 
-Release 1.2 (2014-9-29):
+Release 1.2:
   * Fixed segfault when n=1.
   * Fixed memory allocation bug in the babbler.
   * Added shiny demo.
   * Improved ngram printing output and options.
 
-Release 1.1 (2014-06-25):
+Release 1.1:
   * Fixed some package issues.
   * Clarified some statements in the vignette.
 
-Release 1.0 (2014-06-22):
+Release 1.0:
   * Fixed memory leaks and Windows crashes (sorry CRAN!).
   * Implemented markov generator.
   * Added PRNG.
