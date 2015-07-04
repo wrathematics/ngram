@@ -1,4 +1,4 @@
-/*  Copyright (c) 2014, Schmidt
+/*  Copyright (c) 2014-2015, Schmidt
     All rights reserved.
     
     Redistribution and use in source and binary forms, with or without
@@ -25,10 +25,7 @@
 */
 
 
-#include "print.h"
-
-
-#define NOTNUL(x) (x[i] != '\0')
+#include "counts.h"
 
 
 int ngram_counts_maxind(ngram_t *ng, int ngsize)
@@ -85,6 +82,7 @@ int ngram_counts_total(ngram_t *ng, int ngsize)
 }
 
 
+
 int ngram_wordcount(const char *str, const char sep)
 {
   int i = 0;
@@ -111,52 +109,100 @@ int ngram_wordcount(const char *str, const char sep)
   return ct;
 }
 
-#if 0 // fuck this, I'll do it later
-void ngram_wordcount_checksep(int *i, const char *str, const char *sep, const int seplen)
+
+
+int ngram_stringsummary(char *str, const int wordlen_max, ngram_summary_t *ngsum)
 {
-  int j;
+  ngsum->chars = 0, ngsum->letters = 0, ngsum->whitespace = 0, ngsum->punctuation = 0, ngsum->digits = 0;
+  ngsum->words = 0, ngsum->sentences = 0, ngsum->lines = 1;
+  char c;
+  bool multispace_correction;
+  int i = 0;
+  int wordlen_current =  0;
+  int *wordlens = calloc(wordlen_max, sizeof(*wordlens));
   
-  while(1)
+  
+  while ((c=str[i]) != '\0')
   {
-    for (j=0; j<seplen && str[*i+j] == sep[j]; j++){}
+    ngsum->chars++;
     
-    if (j == seplen)
-      *i += j;
+    multispace_correction = false;
+    if (isspace(c))
+    {
+      if (c != '\n')
+        ngsum->whitespace++;
+      else
+        ngsum->lines++;
+      
+      ngsum->words++;
+      wordlens[MIN(wordlen_current, wordlen_max)-1]++;
+      wordlen_current =  0;
+    }
     else
-      break;
-  }
-}
-
-int ngram_wordcount(const char *str, const char *sep, const int seplen)
-{
-  int i, j, tmp;
-  int ct = 0;
-  
-  if (str == NULL || str[0] == '\0')
-    return 0;
-  
-  i = 0;
-  
-  ngram_wordcount_checksep(&i, str, sep, seplen);
-  
-  for (i=0; i<4; i++)
-/*  while (str[i] != '\0')*/
-  {
-    printf("%d", i);
-    ngram_wordcount_checksep(&i, str, sep, seplen);
-    printf("%d\n", i);
+    {
+      wordlen_current++;
+      
+      if (isalpha(c))
+        ngsum->letters++;
+      else if (isdigit(c))
+        ngsum->digits++;
+      else if (ispunct(c))
+      {
+        wordlen_current--;
+        ngsum->punctuation++;
+        
+        if (i>0 && !ispunct(str[i-1]) && !isspace(str[i+1]))
+        {
+          ngsum->words++;
+          wordlens[MIN(wordlen_current, wordlen_max)-1]++;
+          wordlen_current =  0;
+        }
+        
+        if (c=='.' || c==';' || c=='!' || c=='?')
+          ngsum->sentences++;
+      }
+    }
     
-    if (str[i] != '\0')
-      ct++;
+    // skip multiple spaces
+    do
+    {
+      if (isspace(c))
+      {
+        ngsum->chars++;
+        if (c != '\n')
+          ngsum->whitespace++;
+        else
+          ngsum->lines++;
+        
+        multispace_correction = true;
+        i++;
+      }
+      else
+        break;
+    } while ((c=str[i]) != '\0');
     
-    while (str[i] != sep[0] && str[i] != '\0')
+    if (!multispace_correction)
       i++;
+    else
+    {
+      ngsum->chars--;
+      if (c!='\n' && str[i-1]!='\n')
+        ngsum->whitespace--;
+      else if (c=='\n' && str[i-1]=='\n')
+        ngsum->lines--;
+    }
   }
   
-  return ct;
+  c = str[i-1];
+  if (!isspace(c))
+  {
+    ngsum->words++;
+    wordlens[MIN(wordlen_current, wordlen_max)-1]++;
+  }
+  
+  ngsum->wordlens = wordlens;
+  
+  return 0;
 }
-#endif
-
-
 
 

@@ -59,3 +59,17 @@ setMethod("wordcount", signature(x="ngram"),
   }
 )
 
+
+
+#' @export
+sumr <- function(string, wordlen_max=10)
+{
+  wordlen_max <- as.integer(wordlen_max)
+  
+  .Call(R_stringsummary, string, wordlen_max)
+}
+
+
+
+
+

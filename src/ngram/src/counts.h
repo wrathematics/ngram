@@ -1,4 +1,4 @@
-/*  Copyright (c) 2014, Schmidt
+/*  Copyright (c) 2014-2015, Schmidt
     All rights reserved.
     
     Redistribution and use in source and binary forms, with or without
@@ -25,32 +25,40 @@
 */
 
 
-#ifndef _NGRAM_H_
-#define _NGRAM_H_
+#ifndef NGRAM_COUNTS_H
+#define NGRAM_COUNTS_H
 
 
-typedef struct ngram_opts_t
-{
-  int n;
-  int genlen;
-  char *infile;
-  char *outfile;
-} ngram_opts_t;
+#define MIN(a,b) (a<b?a:b)
+#define NOTNUL(x) (x[i] != '\0')
 
-#include "rand/platform.h"
-#include "rand/rand.h"
-#include "rand/rng_interface.h"
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdbool.h>
 
 #include "hash.h"
 #include "lex.h"
 #include "process.h"
-#include "sorts.h"
-#include "wordcmp.h"
 
-#include "counts.h"
-#include "gen.h"
-#include "print.h"
-#include "summary.h"
+
+typedef struct ngram_summary_t
+{
+  int chars;
+  int letters;
+  int whitespace;
+  int punctuation;
+  int digits;
+  int words;
+  int sentences;
+  int lines;
+  int *wordlens;
+} ngram_summary_t;
+
+int ngram_counts_maxind(ngram_t *ng, int ngsize);
+int ngram_counts_total(ngram_t *ng, int ngsize);
+int ngram_wordcount(const char *str, const char sep);
+int ngram_stringsummary(char *str, const int wordlen_max, ngram_summary_t *ngsum);
 
 
 #endif

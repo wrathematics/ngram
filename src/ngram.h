@@ -46,7 +46,6 @@
 
 // ngram lib prototypes
 uint32_t mix_96(uint32_t a, uint32_t b, uint32_t c);
-int ngram_wordcount(const char *str, const char sep);
 
 
 #endif

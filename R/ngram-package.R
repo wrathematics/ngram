@@ -13,7 +13,7 @@
 #' @useDynLib ngram,  
 #'   ng_extract_ngrams, ng_extract_str, ng_print, ng_process,
 #'   R_mix_96, R_ngram_gen, R_ngram_get_seed, R_ngram_wordcount,
-#'   R_ng_get_phrasetable
+#'   R_ng_get_phrasetable, R_stringsummary
 #' 
 #' @import methods
 #' 
