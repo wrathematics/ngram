@@ -1,9 +1,15 @@
 #!/bin/sh
 
+### Fix versioning in vignette, rebuild cover
 PKGVER=`grep "Version:" ../DESCRIPTION | sed -e "s/Version: //"`
 sed -i -e "s/myversion{.*}/myversion{${PKGVER}}/" ngram-guide.Rnw
 
+cd cover
+./build_cover
+cd ..
 
+
+### Rebuild vignette
 rm *.aux *.bbl *.blg *.log *.out *.toc
 pdflatex ngram-guide.Rnw
 bibtex ngram-guide
@@ -14,3 +20,4 @@ rm -f *.aux *.bbl *.blg *.log *.out *.toc *.dvi
 
 mv -f *.pdf ../inst/doc/
 cp -f *.Rnw ../inst/doc/
+

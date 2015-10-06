@@ -51,6 +51,8 @@ functions.
 
 
 
+\subsubsection{Creating}
+
 Let us return to the example sequence of letters from \secref{sec:intro}.  If 
 we store this string in \code{x}:
 
@@ -64,6 +66,14 @@ then the next step is to process with \code{ngram()}:
 library(ngram)
 ng <- ngram(x, n=2)
 \end{lstlisting}
+
+Simple as that!  And the tokenization was designed to be extremely fast.
+
+TODO benchmark
+
+
+
+\subsubsection{Inspecting}
 
 We can then inspect the sequence:
 
@@ -100,6 +110,50 @@ possible word, because the sequence \code{C A} is only ever followed by the
 ``word'' \code{B} in the input string.  On the other hand, \code{A B} is 
 followed by \code{A} once and \code{B} once.  The sequence \code{B B} is 
 terminal, i.e. followed by nothing; we treat this case specially.
+
+
+
+\subsubsection{Summarizing}
+
+TODO word counter
+
+Once the \code{ngram} representation of the text has been generated, it is very 
+simple to get some interesting summary information.  The function 
+\code{get.phrasetable()} generates a ``phrasetable'', or more explicitly, a 
+table of n-grams, and their frequency and proportion in the text:
+
+\begin{lstlisting}[language=inteRactive]
+> get.phrasetable(ng)
+   ngrams freq      prop
+ 1    A B    2 0.3333333
+ 2    B A    1 0.1666667
+ 3    C A    1 0.1666667
+ 4    A C    1 0.1666667
+ 5    B B    1 0.1666667
+\end{lstlisting}
+
+
+We can perhaps better see the value of this in a more interesting string:
+
+\begin{lstlisting}[language=inteRactive]
+text <- concatenate(sample(LETTERS[1:3], size=100, replace=TRUE), collapse=" ")
+> text
+[1] "A A B B B A C B A B B B B C B C B A C C C B A B C A B B B A C A C B C C A B 
+B A A A C A C A C C A B C A A B B B B C A C A C B B B B C B A A C B A B A B B B 
+A B C C A A C C A A C B B A A C B B A A B B"
+> head(get.phrasetable(ngram(text, n=3)))
+  ngrams freq       prop
+1  B B B    9 0.09183673
+2  A B B    7 0.07142857
+3  A C B    6 0.06122449
+4  B B A    6 0.06122449
+5  B A B    5 0.05102041
+6  A A C    5 0.05102041
+\end{lstlisting}
+
+
+
+\subsubsection{Babbling}
 
 Next, we might want to generate some new strings.  We for this, we use 
 \code{babble()}:
