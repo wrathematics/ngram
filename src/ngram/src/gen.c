@@ -155,7 +155,8 @@ static int ngram_get_new_ng_index(const int n, wordlist_t *wl, ngram_t *ng, cons
   tok_t hash;
   wordlist_t *wl_old = ng[ng_ind].words->next;
   
-  ngram_reverse_fill_wordlist(wl->next, wl_old); 
+  if (wl->next != NULL)
+    ngram_reverse_fill_wordlist(wl->next, wl_old); 
   wl->word = word;
   
   hash = get_token(wl, n);
@@ -193,8 +194,11 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
   else if (genlen < n)
     genlen = n;
   
+  if (n < 1)
+    return -1;
+  
   tmp = malloc(genlen * sizeof(char*));
-  itmp = malloc(genlen * sizeof(int));
+  itmp = calloc(genlen, sizeof(int));
   
   wl = NULL;
   for (i=0; i<n; i++)
@@ -234,7 +238,7 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
   
   
   // Wrangle return string
-  retlen = retlen==0?1:retlen; // quiet the static analyzer
+  retlen = retlen==0 ? genlencp : retlen; // quiet the static analyzer
   
   pos = 0;
   *ret = malloc(retlen * sizeof(**ret));
@@ -257,38 +261,3 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
 }
 
 
-#if 0
-#define NGLOOKUP -1
-#define FIRSTRUN -2
-int ngram_gen1(rng_state_t *rs, ngramlist_t *ngl, int *ng_ind, char *input, char **ret)
-{
-  int i = 0;
-  const int n = ngl->n;
-  const int ngsize = ngl->ngsize;
-  ngram_t *ng = ngl->ng;
-  int retlen = 0;
-  word_t *word;
-  
-  
-  // find n-gram represented by 'input'
-  if (*ng_ind == NGLOOKUP)
-  {
-    
-  }
-  // Get a random n-gram
-  else if (*ng_ind == FIRSTRUN)
-  {
-    
-  }
-  
-  // Return random next word
-  word = ngram_get_rand_nextword(rs, ng + ng_ind);
-  retlen = word->len
-  *ret = malloc(retlen * sizeof(**ret));
-  
-  retlen = ngram_cp_word_to_char(word, &i, ret, retlen);
-  
-  
-  return retlen;
-}
-#endif

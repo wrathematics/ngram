@@ -27,8 +27,6 @@
 
 #include "ngram.h"
 
-#define MIN(x,y) (x<y?x:y)
-
 void print_word(word_t *word)
 {
   int i;
