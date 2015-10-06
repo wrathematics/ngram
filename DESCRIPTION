@@ -17,7 +17,9 @@ LazyData: yes
 LazyLoad: yes
 NeedsCompilation: yes
 ByteCompile: yes
-Author: Drew Schmidt [aut, cre], Christian Heckendorf [aut]
+Authors@R: c(person("Drew", "Schmidt", role=c("aut", "cre"), 
+    email="wrathematics@gmail.com"),
+    person("Christian", "Heckendorf", role="aut"))
 Maintainer: Drew Schmidt <wrathematics@gmail.com>
 URL: https://github.com/wrathematics/ngram
 BugReports: https://github.com/wrathematics/ngram/issues
