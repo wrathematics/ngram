@@ -1,6 +1,6 @@
 Package: ngram
 Type: Package
-Title: Fast n-gram Tokenization
+Title: Fast n-Gram Tokenization
 Version: 2.0
 Description: An n-gram is a sequence of n "words" taken from a
     body of text.  This package offers utilities for creating,
@@ -31,5 +31,4 @@ Collate:
     'preprocess.r'
     'print.r'
     'rcorpus.r'
-    'rgutenberg.r'
     'wordcount.r'
