@@ -7,12 +7,14 @@
 
 
 \myauthor{
-	Drew Schmidt\\ \texttt{wrathematics@gmail.com} 
-	\\[1.2cm] 
-	Christian Heckendorf
+  Drew Schmidt \\ 
+  \texttt{wrathematics@gmail.com} 
+  \\[1.2cm] 
+  Christian Heckendorf \\ 
+  \texttt{heckendorfc@gmail.com} 
 }
 \mytitle{Guide to the\\ \thispackage Package}
-\mysubtitle{An n-gram Babbler}
+\mysubtitle{Fast n-gram Tokenization}
 \myversion{2.0}
 
 
@@ -31,10 +33,12 @@
 \input{./include/01-introduction}
 \input{./include/02-installation}
 \input{./include/03-use}
+\input{./include/04-benchmarks}
 
-% \newpage
-% \phantomsection
-% \bibliography{./include/pbdPAPI}
+\newpage
+\phantomsection
+\bibliography{./include/ngram}
+\bibliographystyle{plainnat}
 
 \end{document}
 

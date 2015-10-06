@@ -1,0 +1,60 @@
+\section{Comparison to tau}\label{sec:benchmarks}
+
+The \pkg{ngram} package is designed to be very fast.  This performance comes
+about from the usual performance/generality tradeoff.  
+The \pkg{tau}~\citep{tau} package offers a general framework for constructing
+n-grams from a text, via its \code{textcnt()} function.  This is much more
+general than the tools in the \pkg{ngram} package, but it is also
+significantly slower.  And many of those additional features can be achieved
+by preprocessing the text.
+
+In \pkg{ngram}, the use of \code{get.phrasetable(ngram(x, n=3))} roughly corresponds
+to \code{textcnt(x, n=3, split=" ", method="string")} in \pkg{tau}.  Although
+\code{get.phrasetable()} returns proportions in addition to counts, and in the
+form of a more costly dataframe compared to \code{tau}'s vector of counts, we
+are still able to achieve very good performance.
+\begin{lstlisting}[language=rr]
+library(rbenchmark)
+library(tau)
+library(ngram)
+
+x <- ngram::rcorpus(50000)
+
+reps <- 15
+cols <- c("test", "replications", "elapsed", "relative")
+
+benchmark(tau=textcnt(x, n=3, split=" ", method="string"), ngram=get.phrasetable(ngram(x, n=3)), replications=reps, columns=cols)
+\end{lstlisting}
+Evaluating this script gives:
+\begin{Code}
+   test replications elapsed relative
+2 ngram           15   4.184    1.000
+1   tau           15 122.877   29.368
+\end{Code}
+
+In fact, a good portion of the time in the \pkg{ngram} runs here is in converting the
+internal \proglang{C} data structure over to an \proglang{R} one.  The original
+purpose of the \pkg{ngram} package was merely amusement, babbling n-grams.
+If we just compare the run times for this, the difference is striking:
+\begin{lstlisting}[language=rr]
+library(tau)
+library(ngram)
+
+x <- ngram::rcorpus(100000)
+
+tautime <- system.time(pt1 <- textcnt(x, n=3, split=" ", method="string"))[3]
+ngtime <- system.time(pt2 <- ngram(x, n=3))[3]
+
+cat("tau: ", tautime, "\n")
+cat("ngram: ", ngtime, "\n")
+cat("tau/ngram: ", tautime/ngtime, "\n")
+\end{lstlisting}
+If we evaluate this, we see:
+\begin{Code}
+tau:  32.746 
+ngram:  0.084 
+tau/ngram:  389.8333 
+\end{Code}
+Here, \pkg{ngram} is primed for babbling, in that it has already stored all
+``next words'', while \pkg{tau} only contains what we call the phrasetable of
+3-grams.
