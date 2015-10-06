@@ -13,6 +13,8 @@
 #' @examples
 #' rcorpus(10)
 #' 
+#' @importFrom stats runif
+#' 
 #' @export
 rcorpus <- function(nwords, minwordlen=1, maxwordlen=6)
 {
