@@ -234,6 +234,8 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
   
   
   // Wrangle return string
+  retlen = retlen==0?1:retlen; // quiet the static analyzer
+  
   pos = 0;
   *ret = malloc(retlen * sizeof(**ret));
   for (i=0; i<genlencp; i++)
