@@ -31,4 +31,5 @@ Collate:
     'preprocess.r'
     'print.r'
     'rcorpus.r'
+    'text.summary.r'
     'wordcount.r'
