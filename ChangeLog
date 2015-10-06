@@ -1,9 +1,11 @@
 Release 2.0:
-  * Switched to roxygen2.
-  * Improvements to the standalone library example programs.
+  * Added get.phrasetable().
+  * Added string.summary().
   * Now storing counts of the ngram itself.
   * Added comparison to tau and benchmark.
   * Improvements to the vignette.
+  * Improvements to the standalone library example programs.
+  * Switched to roxygen2.
 
 Release 1.4:
   * Added summary method to internal library.
