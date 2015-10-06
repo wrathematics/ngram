@@ -27,6 +27,20 @@
 
 #include "ngram.h"
 
+#define INT(x) INTEGER(x)[0]
+#define CHARPT(x,i) ((char*)CHAR(STRING_ELT(x,i)))
+#define LEN1INTVEC(Rname,value) \
+  PROTECT(Rname = allocVector(INTSXP, 1)); \
+  INTEGER(Rname)[0] = value
+
+#include <R.h>
+#include <Rinternals.h>
+
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdbool.h>
+
 
 SEXP R_ngram_wordcount(SEXP str, SEXP sep)
 {
@@ -39,23 +53,6 @@ SEXP R_ngram_wordcount(SEXP str, SEXP sep)
   return ret;
 }
 
-
-
-#define INT(x) INTEGER(x)[0]
-#define CHARPT(x,i) ((char*)CHAR(STRING_ELT(x,i)))
-#define LEN1INTVEC(Rname,value) \
-  PROTECT(Rname = allocVector(INTSXP, 1)); \
-  INTEGER(Rname)[0] = value
-
-#define MIN(a,b) (a<b?a:b)
-
-#include <R.h>
-#include <Rinternals.h>
-
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdbool.h>
 
 
 // TODO should we worry about funny euro vowels?
