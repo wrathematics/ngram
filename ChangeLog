@@ -2,6 +2,7 @@ Release 2.0:
   * Added get.phrasetable().
   * Added string.summary().
   * Now storing counts of the ngram itself.
+  * Added concatenate() and charsplitter() utilities.
   * Added comparison to tau and benchmark.
   * Improvements to the vignette.
   * Improvements to the standalone library example programs.
