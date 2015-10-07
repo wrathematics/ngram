@@ -43,7 +43,7 @@ shinyUI(
       actionButton("button_inspect", "Inspect"),
       sliderInput("babble_len", "Number of words to 'babble'", 10, 250, 150, step=10, ticks=TRUE),
       textInput("ng_seed", "Seed", ""),
-      br(),
+      br(),br(),
       actionButton("button_babble", "Babble")
     ),
     mainPanel(
