@@ -2,6 +2,7 @@
 
 S3method(print,string_summary)
 export(babble)
+export(charsplitter)
 export(concatenate)
 export(get.nextwords)
 export(get.ngrams)
