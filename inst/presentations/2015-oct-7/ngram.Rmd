@@ -536,7 +536,7 @@ cat("tau: ", tautime, "\nngram: ", ngtime, "\ntau/ngram: ", tautime/ngtime, "\n"
 
 * Install the `ngram` package!
 * Re-run the *Alice in Wonderland* analysis with `n=3`. How similar are the top/bottom results in the phrasetable?
-* The first 3000 amino acids in the DNA sequence of Saccharomyces cerevisiae are available here  [http://tinyurl.com/p73a8wk](http://tinyurl.com/p73a8wk).  How many 2-grams are there?  3-grams?  What is the ratio of 2-grams to characters?  (Hint:  see `?charsplitter`)
+* The first 3000 nucleic acids in the DNA sequence of Saccharomyces cerevisiae are available here  [http://tinyurl.com/p73a8wk](http://tinyurl.com/p73a8wk).  How many 2-grams are there?  3-grams?  What is the ratio of 2-grams to characters?  (Hint:  see `?charsplitter`)
 
 
 ## Thanks!
