@@ -2,9 +2,9 @@
 % Please edit documentation in R/concatenate.r
 \name{concatenate}
 \alias{concatenate}
-\title{concat}
+\title{Concatenate}
 \usage{
-concatenate(..., collapse = "", rm.space = FALSE)
+concatenate(..., collapse = "  ", rm.space = FALSE)
 }
 \arguments{
 \item{...}{Input text(s).}
@@ -19,7 +19,7 @@ final string.}
 A string.
 }
 \description{
-\code{concat()} is a utility for concatenating strings together.  This is
+A quick utility for concatenating strings together.  This is
 handy because if you want to generate the n-grams for several different
 texts, you must first put them into a single string.
 }

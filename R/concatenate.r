@@ -1,6 +1,6 @@
-#' concat
+#' Concatenate
 #' 
-#' \code{concat()} is a utility for concatenating strings together.  This is
+#' A quick utility for concatenating strings together.  This is
 #' handy because if you want to generate the n-grams for several different
 #' texts, you must first put them into a single string.
 #' 
@@ -29,7 +29,7 @@
 #' }
 #' 
 #' @export
-concatenate <- function(..., collapse="", rm.space=FALSE)
+concatenate <- function(..., collapse="  ", rm.space=FALSE)
 {
   l <- list(...)
   

@@ -5,16 +5,16 @@
 
 The input to the n-gram processor must be a single string (character vector of length 
 1).  To aid in what could be a repetitive task, the package offers 
-the \code{concat()} function.  For example:
+the \code{concatenate()} function.  For example:
 
 \begin{lstlisting}[language=inteRactive]
 > letters
  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
 [20] "t" "u" "v" "w" "x" "y" "z"
 > library(ngram)
-> concat(letters)
+> concatenate(letters)
 [1] "abcdefghijklmnopqrstuvwxyz"
-> concat(concat(letters), letters, collapse=" ")
+> concatenate(concatenate(letters), letters, collapse=" ")
 [1] "abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z"
 \end{lstlisting}
 
@@ -25,7 +25,7 @@ together would be to call
 x <- readLines("file1")
 y <- readLines("file2")
 
-str <- concat(x, y)
+str <- concatenate(x, y)
 \end{lstlisting}
 
 The \code{ngram()} function (which does the processing and forms the n-grams) always splits words 
@@ -41,7 +41,7 @@ inserting your own beforehand).
 
 The general process goes
 \begin{enumerate}
-  \item Prepare the input string; you may find \code{concat()} and 
+  \item Prepare the input string; you may find \code{concatenate()} and 
 \code{preprocess()} useful (see the previous subsection).
   \item Process with \code{ngram()}.
   \item Generate new text with \code{babble()}, and/or

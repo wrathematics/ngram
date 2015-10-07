@@ -26,6 +26,7 @@ BugReports: https://github.com/wrathematics/ngram/issues
 Collate:
     'ngram.r'
     'babble.r'
+    'charsplitter.r'
     'concatenate.r'
     'getters.r'
     'ngram-package.R'
@@ -33,6 +34,5 @@ Collate:
     'preprocess.r'
     'print.r'
     'rcorpus.r'
-    'splitter.r'
     'text.summary.r'
     'wordcount.r'
