@@ -266,6 +266,16 @@ babble(ng, 25, seed=1234)
 get.phrasetable(ng)
 ```
 
+## Package Vignette
+
+More info in the package vignette:
+
+```r
+vignette("ngram-guide", package="ngram")
+```
+
+
+
 
 
 # A Real Analysis Using ngram
