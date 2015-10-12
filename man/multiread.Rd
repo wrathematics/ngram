@@ -10,7 +10,11 @@ multiread(path = ".", extension = "txt", recursive = FALSE,
 \arguments{
 \item{path}{The base file path to search.}
 
-\item{extension}{}
+\item{extension}{An extension or the "*" wildcard (for everything).  For example,
+to read in files ending \code{.txt}, you could specify
+\code{extension="txt"}.  For the purposes of this function,
+each of \code{*.txt}, \code{*txt}, \code{.txt}, and \code{txt}
+are treated the same.}
 
 \item{recursive}{Logical; should the search include all subdirectories?}
 
