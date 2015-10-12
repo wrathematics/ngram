@@ -38,7 +38,7 @@ setMethod("print", signature(x="ngram"),
     output <- match.arg(tolower(output), c("summary", "truncated", "full"))
     
     if (output == "summary")
-      print(paste("An ngram object with ", x@ngsize, " ", x@n, "-grams", sep=""))
+      cat(paste("An ngram object with ", x@ngsize, " ", x@n, "-grams", sep=""), "\n")
     else if (output == "truncated")
       ng.print(x, truncated=TRUE)
     else if (output == "full")
