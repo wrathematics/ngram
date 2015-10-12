@@ -4,10 +4,13 @@
 \alias{rcorpus}
 \title{Random Corpus}
 \usage{
-rcorpus(nwords, minwordlen = 1, maxwordlen = 6)
+rcorpus(nwords, alphabet = letters, minwordlen = 1, maxwordlen = 6)
 }
 \arguments{
 \item{nwords}{Number of words to generate.}
+
+\item{alphabet}{The pool of "letters" that word generation coes from.  By default,
+it is the lowercase roman alphabet.}
 
 \item{minwordlen,maxwordlen}{The min/max length of words in the generated corpus.}
 }

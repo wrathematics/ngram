@@ -4,6 +4,9 @@
 #' 
 #' @param nwords
 #' Number of words to generate.
+#' @param alphabet
+#' The pool of "letters" that word generation coes from.  By default,
+#' it is the lowercase roman alphabet.
 #' @param minwordlen,maxwordlen
 #' The min/max length of words in the generated corpus.
 #' 
@@ -16,7 +19,7 @@
 #' @importFrom stats runif
 #' 
 #' @export
-rcorpus <- function(nwords, minwordlen=1, maxwordlen=6)
+rcorpus <- function(nwords, alphabet=letters, minwordlen=1, maxwordlen=6)
 {
   if (minwordlen < 1)
     stop("Argument 'minwordlen' must be at least 1.")
@@ -24,7 +27,7 @@ rcorpus <- function(nwords, minwordlen=1, maxwordlen=6)
     stop("Argument 'maxwordlen' must be at least 'minwordlen'.")
   
   sizes <- as.integer(runif(nwords, minwordlen, maxwordlen+1))
-  words <- sapply(sizes, function(size) paste0(sample(letters, size=size, replace=TRUE), collapse=""))
+  words <- sapply(sizes, function(size) paste0(sample(alphabet, size=size, replace=TRUE), collapse=""))
   
   paste0(words, collapse=" ")
 }
