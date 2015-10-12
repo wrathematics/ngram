@@ -32,8 +32,9 @@
 
 \input{./include/01-introduction}
 \input{./include/02-installation}
-\input{./include/03-use}
-\input{./include/04-benchmarks}
+\input{./include/03-utilities}
+\input{./include/04-use}
+\input{./include/05-benchmarks}
 
 \newpage
 \phantomsection
