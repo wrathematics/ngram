@@ -10,7 +10,7 @@ concatenate(..., collapse = "  ", rm.space = FALSE)
 \item{...}{Input text(s).}
 
 \item{collapse}{A character to separate the input strings if a vector of
-strings is supplied; otherwisethis does nothing.}
+strings is supplied; otherwise this does nothing.}
 
 \item{rm.space}{logical; determines if spaces should be removed from the
 final string.}

@@ -8,7 +8,7 @@
 #' Input text(s).
 #' @param collapse 
 #' A character to separate the input strings if a vector of
-#' strings is supplied; otherwisethis does nothing.
+#' strings is supplied; otherwise this does nothing.
 #' @param rm.space 
 #' logical; determines if spaces should be removed from the
 #' final string.
