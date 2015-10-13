@@ -13,7 +13,7 @@
 #' @param ng 
 #' An ngram object.
 #' 
-#' @seealso \code{\link{ngram-class}}
+#' @seealso \code{\link{ngram-class}}, \code{\link{ngram}}
 #' 
 #' @examples
 #' \dontrun{
@@ -24,6 +24,7 @@
 #' get.ngrams(ng)
 #' }
 #' 
+#' @keywords Tokenization
 #' @include ngram.r
 #' @name getters
 #' @rdname getters

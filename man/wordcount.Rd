@@ -25,16 +25,18 @@ characters separated from another clustering of charactersby at least 1
 space.  That is the law.
 }
 \examples{
-\dontrun{
 library(ngram)
 
 words <- c("a", "b", "c")
+words
 wordcount(words)
-str <- concat(words)
+
+str <- concatenate(words, collapse="")
+str
 wordcount(str)
 }
-}
 \seealso{
-\code{\link{Preprocess}}
+\code{\link{preprocess}}
 }
+\keyword{Summarize}
 

@@ -25,15 +25,14 @@ The babbler uses its own internal PRNG (i.e., not R's), so seeds cannot be
 managed as with R's seeds.  The generator is an implementation of MT19937.
 }
 \examples{
-\dontrun{
 library(ngram)
 
 str <- "A B A C A B B"
 ng <- ngram(str)
 babble(ng, genlen=5, seed=1234)
 }
-}
 \seealso{
-\code{\link{ngram}}
+\code{\link{ngram}}, \code{\link{getseed}}
 }
+\keyword{Amusement}
 

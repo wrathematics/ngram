@@ -24,16 +24,15 @@ handy because if you want to generate the n-grams for several different
 texts, you must first put them into a single string.
 }
 \examples{
-\dontrun{
 library(ngram)
 
 words <- c("a", "b", "c")
 wordcount(words)
-str <- concat(words)
+str <- concatenate(words)
 wordcount(str)
 }
-}
 \seealso{
-\code{\link{Preprocess}}
+\code{\link{preprocess}}
 }
+\keyword{Preprocessing}
 

@@ -30,6 +30,7 @@ Collate:
     'babble.r'
     'charsplitter.r'
     'concatenate.r'
+    'getseed.r'
     'getters.r'
     'multiread.r'
     'ngram-package.R'

@@ -16,18 +16,16 @@
 #' @return
 #' A string.
 #' 
-#' @seealso \code{\link{Preprocess}}
-#' 
 #' @examples
-#' \dontrun{
 #' library(ngram)
 #' 
 #' words <- c("a", "b", "c")
 #' wordcount(words)
-#' str <- concat(words)
+#' str <- concatenate(words)
 #' wordcount(str)
-#' }
 #' 
+#' @seealso \code{\link{preprocess}}
+#' @keywords Preprocessing
 #' @export
 concatenate <- function(..., collapse="  ", rm.space=FALSE)
 {

@@ -44,6 +44,7 @@
 #' 
 #' }
 #' 
+#' @keywords Utility
 #' @export
 multiread <- function(path=".", extension="txt", recursive=FALSE, ignore.case=FALSE, prune.empty=TRUE, pathnames=TRUE)
 {

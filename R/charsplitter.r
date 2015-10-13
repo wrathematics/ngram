@@ -18,6 +18,7 @@
 #' y <- "split at every character, preserve spaces"
 #' charsplitter(y)
 #' 
+#' @keywords Preprocessing
 #' @export
 charsplitter <- function(string, spacechar="_")
 {

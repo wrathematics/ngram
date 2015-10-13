@@ -43,7 +43,7 @@ information on how to construct an \code{ngram} object, see
 
 \item{\code{n}}{The eponymous 'n' as in 'n-gram'.}
 
-\item{\code{ngl_ptr}}{A pointer to the processed ngram list.}
+\item{\code{ngl_ptr}}{A pointer to the processed list of n-grams.}
 
 \item{\code{ngsize}}{The length of the ngram list, or in other words, the number of
 unique n-grams in the input string.}
@@ -51,7 +51,7 @@ unique n-grams in the input string.}
 \item{\code{wl_ptr}}{A pointer to the list of words from the input string.}
 }}
 \seealso{
-\code{\link{Process}}
+\code{\link{Tokenize}}
 }
-\keyword{Class}
+\keyword{Tokenization}
 

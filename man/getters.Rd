@@ -48,6 +48,7 @@ get.ngrams(ng)
 }
 }
 \seealso{
-\code{\link{ngram-class}}
+\code{\link{ngram-class}}, \code{\link{ngram}}
 }
+\keyword{Tokenization}
 

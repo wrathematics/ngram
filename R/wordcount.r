@@ -10,19 +10,21 @@
 #' @return 
 #' A count.
 #' 
-#' @seealso \code{\link{Preprocess}}
 #' 
 #' @examples
-#' \dontrun{
 #' library(ngram)
 #' 
 #' words <- c("a", "b", "c")
+#' words
 #' wordcount(words)
-#' str <- concat(words)
+#' 
+#' str <- concatenate(words, collapse="")
+#' str
 #' wordcount(str)
-#' }
 #' 
 #' @include ngram.r
+#' @seealso \code{\link{preprocess}}
+#' @keywords Summarize
 #' @name wordcount
 #' @rdname wordcount
 NULL

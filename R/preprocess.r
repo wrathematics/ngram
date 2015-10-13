@@ -23,15 +23,13 @@
 #' \code{concat()} returns
 #' 
 #' @examples
-#' \dontrun{
 #' library(ngram)
 #' 
 #' x <- "Watch  out    for snakes!  "
 #' preprocess(x)
 #' preprocess(x, case="upper", split.at.punct=TRUE)
-#' }
 #' 
-#' @name Preprocess
+#' @keywords Preprocessing
 #' @export
 preprocess <- function(x, case=NULL, split.at.punct=FALSE)
 {

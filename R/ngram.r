@@ -35,7 +35,7 @@
 #' @slot n
 #' The eponymous 'n' as in 'n-gram'.
 #' @slot ngl_ptr
-#' A pointer to the processed ngram list.
+#' A pointer to the processed list of n-grams.
 #' @slot ngsize
 #' The length of the ngram list, or in other words, the number of
 #' unique n-grams in the input string.
@@ -43,8 +43,8 @@
 #' A pointer to the list of words from the input string.
 #' 
 #' @name ngram-class
-#' @seealso \code{\link{Process}}
-#' @keywords Class
+#' @seealso \code{\link{Tokenize}}
+#' @keywords Tokenization
 setClass("ngram", 
   representation(
     str_ptr="externalptr",
@@ -58,7 +58,7 @@ setClass("ngram",
 
 
 
-#' ngram Processing
+#' n-gram Tokenization
 #' 
 #' This routine processes a string into an \code{ngram} class object.
 #' 
@@ -76,10 +76,6 @@ setClass("ngram",
 #' @param n 
 #' The 'n' as in 'n-gram'.
 #' 
-#' @seealso \code{\link{ngram-class}}
-#' 
-#' @keywords Data Generation
-#' 
 #' @examples
 #' \dontrun{
 #' library(ngram)
@@ -89,11 +85,14 @@ setClass("ngram",
 #' ng
 #' }
 #' 
-#' @name Process
-#' @rdname process
+#' @seealso \code{\link{ngram-class}}, \code{\link{getters}}, 
+#' \code{\link{phrasetable}}, \code{\link{babble}}
+#' @keywords Tokenization
+#' @name Tokenize
+#' @rdname tokenize
 NULL
 
-#' @rdname process
+#' @rdname tokenize
 #' @export
 setGeneric(name="ngram", 
   function(str, n=2) 
@@ -101,7 +100,7 @@ setGeneric(name="ngram",
   package="ngram"
 )
 
-#' @rdname process
+#' @rdname tokenize
 #' @export
 setMethod("ngram", signature(str="character"),
   function(str, n=2)

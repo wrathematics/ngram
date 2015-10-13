@@ -22,4 +22,5 @@ x <- "a b a c a b b"
 
 string.summary(x)
 }
+\keyword{Summarize}
 

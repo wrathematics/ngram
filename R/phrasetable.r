@@ -22,16 +22,16 @@ tablesort <- function(df, sortby.colnum)
 #' 
 #' 
 #' @examples
-#' \dontrun{
 #' library(ngram)
 #' 
 #' str <- "A B A C A B B"
 #' ng <- ngram(str)
 #' get.phrasetable(ng)
-#' }
 #' 
 #' @include ngram.r
 #' @seealso \code{\link{ngram-class}}
+#' @keywords Tokenization
+#' @name phrasetable
 #' @export
 get.phrasetable <- function(ng)
 {

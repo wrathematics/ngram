@@ -23,4 +23,5 @@ Generate a corpus of random "words".
 \examples{
 rcorpus(10)
 }
+\keyword{Utility}
 

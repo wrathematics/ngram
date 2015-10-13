@@ -25,4 +25,5 @@ charsplitter(x)
 y <- "split at every character, preserve spaces"
 charsplitter(y)
 }
+\keyword{Preprocessing}
 

@@ -18,6 +18,7 @@
 #' 
 #' @importFrom stats runif
 #' 
+#' @keywords Utility
 #' @export
 rcorpus <- function(nwords, alphabet=letters, minwordlen=1, maxwordlen=6)
 {
