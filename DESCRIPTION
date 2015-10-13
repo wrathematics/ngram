@@ -3,11 +3,13 @@ Type: Package
 Title: Fast n-Gram Tokenization
 Version: 2.0
 Description: An n-gram is a sequence of n "words" taken from a
-    body of text.  This package offers utilities for creating,
+    body of text in order.  This package offers utilities for creating,
     displaying, summarizing, and "babbling" n-grams.  The
     tokenization and "babbling" are handled by very efficient C
     code, which can even be build as its own standalone library.
-    The babbler is a simple Markov chain.
+    The babbler is a simple Markov chain.  The package also offers
+    a vignette with complete example workflows and information about
+    the utilities offered in the package.
 License: BSD 2-clause License + file LICENSE
 Depends:
     R (>= 2.14.0)

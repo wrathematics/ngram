@@ -3,8 +3,7 @@ Release 2.0:
   * Added string.summary().
   * Now storing counts of the ngram itself.
   * Added concatenate() and charsplitter() utilities.
-  * Added comparison to tau and benchmark.
-  * Improvements to the vignette.
+  * Added comparison to tau and benchmark in the vignette.
   * Improvements to the standalone library example programs.
   * Switched to roxygen2.
 
