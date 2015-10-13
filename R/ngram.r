@@ -77,13 +77,11 @@ setClass("ngram",
 #' The 'n' as in 'n-gram'.
 #' 
 #' @examples
-#' \dontrun{
 #' library(ngram)
 #' 
 #' str <- "A B A C A B B"
 #' ng <- ngram(str, n=2)
 #' ng
-#' }
 #' 
 #' @seealso \code{\link{ngram-class}}, \code{\link{getters}}, 
 #' \code{\link{phrasetable}}, \code{\link{babble}}

@@ -16,13 +16,11 @@
 #' @seealso \code{\link{ngram-class}}, \code{\link{ngram}}
 #' 
 #' @examples
-#' \dontrun{
 #' library(ngram)
 #' 
 #' str <- "A B A C A B B"
 #' ng <- ngram(str)
 #' get.ngrams(ng)
-#' }
 #' 
 #' @keywords Tokenization
 #' @include ngram.r
