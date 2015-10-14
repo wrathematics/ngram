@@ -40,7 +40,7 @@
 
 double unif_rand();
 
-uint32_t mix_96(uint32_t a, uint32_t b, uint32_t c)
+static uint32_t mix_96(uint32_t a, uint32_t b, uint32_t c)
 {
   a=a-b;  a=a-c;  a=a^(c >> 13);
   b=b-c;  b=b-a;  b=b^(a << 8);

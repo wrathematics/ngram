@@ -44,8 +44,5 @@
 #define CHARPT(x,i)	((char*)CHAR(STRING_ELT(x,i)))
 #define INT(x) INTEGER(x)[0]
 
-// ngram lib prototypes
-uint32_t mix_96(uint32_t a, uint32_t b, uint32_t c);
-
 
 #endif
