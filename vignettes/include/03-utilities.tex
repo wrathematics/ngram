@@ -11,10 +11,11 @@ Obviously, your data may not look like this.  This is why the \pkg{ngram} packag
 
 \subsection{I/O}
 
-Generally speaking, the facilities in base \proglang{R} should be sufficient.  Specifically, \code{readLines()} is a good choice for handling I/O of plain text files.  However, for reading in multiple files (say, all \code{.r} files in some directory), we offer a simple utility \code{multiread()}.  This function will read all specified files into a named list, where the names are the filenames, and the values are the text contained in the given file as a single string.  
+Generally speaking, the facilities in base \proglang{R} should be sufficient.  Specifically, \code{readLines()} is a good choice for handling I/O of plain text files.  However, for reading in multiple files (say, all \code{.txt} files in some directory), we offer a simple utility \code{multiread()}.  This function will read all specified files into a named list, where the names are the filenames, and the values are the text contained in the given file as a single string.  
 
 So for example, if you want to read in all files ending in \code{.txt} at some directory/path of interest \code{path}, you could call:
 \begin{lstlisting}[language=rr]
+library(ngram)
 multiread(path, extension="txt")
 \end{lstlisting}
 In \code{multiread()}, the extensions \code{*.txt}, \code{*txt}, \code{.txt}, and \code{txt} are all treated the same.
@@ -56,6 +57,7 @@ The \code{preprocess()} function is a simple utility for making letter case unif
 \begin{lstlisting}[language=rr]
 x <- "Watch  out    for snakes!  "
 
+library(ngram)
 preprocess(x)
 # [1] "Watch out for snakes!"
 
@@ -103,6 +105,7 @@ spaces), we can very quickly generate these counts via the \code{string.summary(
 \begin{lstlisting}[language=rr]
 x <- "a b a c a b b"
  
+library(ngram)
 string.summary(x)
 # Chars:       13
 # Letters:     7
