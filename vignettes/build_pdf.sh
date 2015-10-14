@@ -5,7 +5,7 @@ PKGVER=`grep "Version:" ../DESCRIPTION | sed -e "s/Version: //"`
 sed -i -e "s/myversion{.*}/myversion{${PKGVER}}/" ngram-guide.Rnw
 
 cd cover
-./build_cover
+./build_cover.sh
 cd ..
 
 
