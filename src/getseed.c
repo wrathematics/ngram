@@ -1,4 +1,4 @@
-/*  Copyright (c) 2014, Schmidt
+/*  Copyright (c) 2014-2015, Schmidt
     All rights reserved.
     
     Redistribution and use in source and binary forms, with or without
@@ -37,6 +37,7 @@
 #include <unistd.h>
 #endif
 
+
 double unif_rand();
 
 uint32_t mix_96(uint32_t a, uint32_t b, uint32_t c)
@@ -54,7 +55,9 @@ uint32_t mix_96(uint32_t a, uint32_t b, uint32_t c)
   return c;
 }
 
-uint32_t ngram_get_seed()
+
+
+static uint32_t ngram_get_seed()
 {
   uint32_t pid;
   uint32_t ret;
@@ -66,7 +69,25 @@ uint32_t ngram_get_seed()
   pid = (uint32_t) getpid();
   #endif
   
-  ret = mix_96(time(&t), pid, unif_rand());
+  GetRNGstate();
+  ret = mix_96(time(&t), pid, (uint32_t) 100000*unif_rand());
+  PutRNGstate();
   
   return ret;
 }
+
+
+
+uint32_t ngram_get_seed();
+
+SEXP R_ngram_get_seed()
+{
+  SEXP ret;
+  PROTECT(ret = allocVector(INTSXP, 1));
+  
+  INT(ret) = (int) ngram_get_seed();
+  
+  UNPROTECT(1);
+  return ret;
+}
+
