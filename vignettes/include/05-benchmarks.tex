@@ -28,8 +28,8 @@ benchmark(tau=textcnt(x, n=3, split=" ", method="string"), ngram=get.phrasetable
 Evaluating this script gives:
 \begin{Code}
    test replications elapsed relative
-2 ngram           15   4.184    1.000
-1   tau           15 122.877   29.368
+2 ngram           15   0.958    1.000
+1   tau           15 137.994  144.044
 \end{Code}
 
 In fact, a good portion of the time in the \pkg{ngram} runs here is in converting the
@@ -51,9 +51,9 @@ cat("tau/ngram: ", tautime/ngtime, "\n")
 \end{lstlisting}
 If we evaluate this, we see:
 \begin{Code}
-tau:  32.746 
-ngram:  0.084 
-tau/ngram:  389.8333 
+tau:  36.576 
+ngram:  0.048 
+tau/ngram:  762 
 \end{Code}
 Here, \pkg{ngram} is primed for babbling, in that it has already stored all
 ``next words'', while \pkg{tau} only contains what we call the phrasetable of
