@@ -12,10 +12,10 @@ cd ..
 ### Rebuild vignette
 rm *.aux *.bbl *.blg *.log *.out *.toc
 Rscript -e "knitr::knit('ngram-guide.Rnw')"
-#pdflatex ngram-guide.Rnw
-#bibtex ngram-guide
-#pdflatex ngram-guide.Rnw
-#pdflatex ngram-guide.Rnw
+pdflatex ngram-guide.tex
+bibtex ngram-guide
+pdflatex ngram-guide.tex
+pdflatex ngram-guide.tex
 Rscript -e "tools::compactPDF('ngram-guide.pdf', gs_quality='ebook')"
 rm -f *.aux *.bbl *.blg *.log *.out *.toc *.dvi
 rm -f Sweavel.sty
