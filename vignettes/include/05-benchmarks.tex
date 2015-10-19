@@ -26,11 +26,11 @@ cols <- c("test", "replications", "elapsed", "relative")
 benchmark(tau=textcnt(x, n=3, split=" ", method="string"), ngram=get.phrasetable(ngram(x, n=3)), replications=reps, columns=cols)
 \end{lstlisting}
 Evaluating this script gives:
-\begin{Code}
+\begin{lstlisting}[language=rout]
    test replications elapsed relative
 2 ngram           15   4.184    1.000
 1   tau           15 122.877   29.368
-\end{Code}
+\end{lstlisting}
 
 In fact, a good portion of the time in the \pkg{ngram} runs here is in converting the
 internal \proglang{C} data structure over to an \proglang{R} one.  The original
@@ -50,11 +50,11 @@ cat("ngram: ", ngtime, "\n")
 cat("tau/ngram: ", tautime/ngtime, "\n")
 \end{lstlisting}
 If we evaluate this, we see:
-\begin{Code}
+\begin{lstlisting}[language=rout]
 tau:  32.746 
 ngram:  0.084 
 tau/ngram:  389.8333 
-\end{Code}
+\end{lstlisting}
 Here, \pkg{ngram} is primed for babbling, in that it has already stored all
 ``next words'', while \pkg{tau} only contains what we call the phrasetable of
 3-grams.

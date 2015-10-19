@@ -25,18 +25,14 @@ In \code{multiread()}, the extensions \code{*.txt}, \code{*txt}, \code{.txt}, an
 \subsection{Concatenating Multiple Strings}
 
 Since the n-gram tokenizer expects only single strings, we offer the simple \code{concatenate()} function:
-\begin{lstlisting}[language=rr]
+<<cache=TRUE>>=
 letters
-# [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
-# [20] "t" "u" "v" "w" "x" "y" "z"
 
 library(ngram)
 concatenate(letters)
-# [1] "a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p  q  r  s  t  u  v  w  x  y  z"
 
 concatenate(concatenate(letters, collapse=""), letters)
-# [1] "abcdefghijklmnopqrstuvwxyz  a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p  q  r  s  t  u  v  w  x  y  z"
-\end{lstlisting}
+@
 So if data is coming from multiple files, the simplest way to merge them 
 together would be to call \code{multiread()} (described above) if possible.  Then you can call \code{concatenate()} directly on the returned list to produce a single string from all files, or use the tokenizer iteratively, using, say, an \code{lapply()}.  Here is a more explicit example without the use of \code{multiread()}:
 \begin{lstlisting}[language=rr]
@@ -54,35 +50,29 @@ The \pkg{ngram} tokenizer always splits words at one or more spaces. You can pre
 
 
 The \code{preprocess()} function is a simple utility for making letter case uniform, as well as optionally splitting at punctuation (so that punctuation itself becomes a ``word'' in the n-gram analysis).  Here is a simple example:
-\begin{lstlisting}[language=rr]
+<<cache=TRUE>>=
 x <- "Watch  out    for snakes!  "
 
 library(ngram)
 preprocess(x)
-# [1] "Watch out for snakes!"
 
-preprocess(x, case="upper", split.at.punct=TRUE)
-# [1] "WATCH OUT FOR SNAKES !"
-\end{lstlisting}
+preprocess(x, case="upper", remove.punct=TRUE)
+@
 
 Perhaps more useful is the \code{charsplitter()} function.  Suppose that for the purposes of n-gram tokenization, instead of wanting to call things separated by spaces ``words'', you wish to treat every letter as a ``word''.  This is simple enough:
-\begin{lstlisting}[language=rr]
+<<cache=TRUE>>=
 x <- "abacabb"
-charsplitter(x)
-# [1] "a b a c a b b"
-\end{lstlisting}
+splitter(x, split.char=TRUE)
+@
 By default, this will preserve spaces as a special token (an underscore by default).  You may wish to ignore
 spaces entirely during tokenization.  This too is simple to handle during preprocessing:
-\begin{lstlisting}[language=rr]
+<<cache=TRUE>>=
 y <- "abacabb abacabb"
 
-charsplitter(y)
-# [1] "a b a c a b b _ a b a c a b b"
-
-charsplitter(y, spacechar="")
-# [1] "a b a c a b b a b a c a b b"
-\end{lstlisting}
-
+splitter(y, split.space=TRUE)
+splitter(y, split.space=FALSE, split.char=TRUE)
+splitter(y, split.space=TRUE, split.char=TRUE)
+@
 
 
 
@@ -102,24 +92,10 @@ str <- concatenate(lapply(myCorpus, "[", 1))
 While not strictly related to n-gram modeling, you may wish to get some basic summary counts of your text.  With
 the same assumptions as the rest of the \code{ngram} package (i.e., single string, words separated by one or more
 spaces), we can very quickly generate these counts via the \code{string.summary()} function:
-\begin{lstlisting}[language=rr]
+<<cache=TRUE>>=
 x <- "a b a c a b b"
- 
+
 library(ngram)
 string.summary(x)
-# Chars:       13
-# Letters:     7
-# Whitespace:  6
-# Punctuation: 0
-# Digits:      0
-# Words:       7
-# Sentences:   0
-# Lines:       1 
-# Wordlens:    0 7 
-#              9 1 
-# Senlens:     0 
-#              10 
-# Syllens:     0 3 
-#              9 1 
-\end{lstlisting}
+@
 Now, this ``model'' is based only on very simple counts, and is easily fooled.  For example, the sentence \code{S.T.A.R. Labs is a research facility in the DC comics universe.}  would be treated as though it were 5 separate sentences.  However, the counts are constructed \emph{extremely} quickly, and so they are still useful as a first pass in an analysis. 

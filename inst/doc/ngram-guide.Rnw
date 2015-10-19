@@ -1,4 +1,5 @@
 %\VignetteIndexEntry{ngram-guide}
+%\VignetteEngine{knitr::knitr}
 \documentclass[11pt]{article}
 \usepackage[margin=1.1in]{geometry}
 \newcommand{\thispackage}{\pkg{ngram}\xspace}
@@ -20,6 +21,11 @@
 
 \begin{document}
 
+<<echo=FALSE, cache=FALSE>>=
+library(knitr)
+render_listings()
+@
+
 \begin{figure}[h]
 \vspace{-.5in}
   \begin{minipage}[c]{8.5in}
@@ -32,8 +38,8 @@
 
 \input{./include/01-introduction}
 \input{./include/02-installation}
-\input{./include/03-utilities}
-\input{./include/04-use}
+\Sexpr{knit_child('include/03-utilities.Rnw')}
+\Sexpr{knit_child('include/04-use.Rnw')}
 \input{./include/05-benchmarks}
 
 \newpage
