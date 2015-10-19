@@ -2,19 +2,22 @@
 % Please edit documentation in R/preprocess.r
 \name{preprocess}
 \alias{preprocess}
-\title{Preprocessing}
+\title{Basic Text Preprocessor}
 \usage{
-preprocess(x, case = NULL, split.at.punct = FALSE)
+preprocess(x, case = "lower", remove.punct = FALSE,
+  remove.numbers = FALSE, fix.spacing = TRUE)
 }
 \arguments{
 \item{x}{Input text.}
 
-\item{case}{Option to change the case of the text. See Details section for
-appropriate values.}
+\item{case}{Option to change the case of the text. Value should be "upper",
+"lower", or NULL (no change).}
 
-\item{split.at.punct}{logical; determines if spaces should be inserted
-before and after punctuation (making them individual characters for an
-n-gram model).}
+\item{remove.punct}{Logical; should punctuation be removed?}
+
+\item{remove.numbers}{Logical; should numbers be removed?}
+
+\item{fix.spacing}{Logical; should multi/trailing spaces be collapsed/removed.}
 }
 \value{
 \code{concat()} returns
@@ -33,9 +36,9 @@ the input text will be made lower/upper case, repesctively.
 \examples{
 library(ngram)
 
-x <- "Watch  out    for snakes!  "
+x <- "Watch  out    for snakes!  111"
 preprocess(x)
-preprocess(x, case="upper", split.at.punct=TRUE)
+preprocess(x, remove.punct=TRUE, remove.numbers=TRUE)
 }
 \keyword{Preprocessing}
 

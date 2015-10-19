@@ -1,4 +1,4 @@
-#' Preprocessing
+#' Basic Text Preprocessor
 #' 
 #' A simple text preprocessor for use with the \code{ngram()} function.
 #' 
@@ -12,12 +12,14 @@
 #' @param x 
 #' Input text.
 #' @param case 
-#' Option to change the case of the text. See Details section for
-#' appropriate values.
-#' @param split.at.punct 
-#' logical; determines if spaces should be inserted
-#' before and after punctuation (making them individual characters for an
-#' n-gram model).
+#' Option to change the case of the text. Value should be "upper",
+#' "lower", or NULL (no change).
+#' @param remove.punct
+#' Logical; should punctuation be removed?
+#' @param remove.numbers
+#' Logical; should numbers be removed?
+#' @param fix.spacing
+#' Logical; should multi/trailing spaces be collapsed/removed.
 #' 
 #' @return 
 #' \code{concat()} returns
@@ -25,14 +27,15 @@
 #' @examples
 #' library(ngram)
 #' 
-#' x <- "Watch  out    for snakes!  "
+#' x <- "Watch  out    for snakes!  111"
 #' preprocess(x)
-#' preprocess(x, case="upper", split.at.punct=TRUE)
+#' preprocess(x, remove.punct=TRUE, remove.numbers=TRUE)
 #' 
 #' @keywords Preprocessing
 #' @export
-preprocess <- function(x, case=NULL, split.at.punct=FALSE)
+preprocess <- function(x, case="lower", remove.punct=FALSE, remove.numbers=FALSE, fix.spacing=TRUE)
 {
+  ### Case
   if (!is.null(case))
   {
     case <- match.arg(tolower(case), c("lower", "upper"))
@@ -42,13 +45,26 @@ preprocess <- function(x, case=NULL, split.at.punct=FALSE)
       x <- toupper(x)
   }
   
-  if (split.at.punct)
-    x <- gsub(x=x, pattern="([[:punct:]])", replacement=" \\1 ")
+  ### Punctuation and numbers
+  if (remove.punct)
+    rempunct <- "[[:punct:]]"
+  else
+    rempunct <- ""
   
-  # fix spacing
-  x <- gsub(pattern="(\\t| +)", replacement=" ", x=x)
-  # remove trailing whitespace
-  x <- sub(pattern=" +$", replacement="", x=x)
+  if (remove.numbers)
+    remnum <- "\\d"
+  else
+    remnum <- ""
+  
+  pattern <- paste0("(", paste(rempunct, remnum, sep="|"), ")")
+  x <- gsub(x, pattern=pattern, replacement="")
+  
+  ### Spacing
+  if (fix.spacing)
+  {
+    x <- gsub(x, pattern="(\\t| +)", replacement=" ")
+    x <- sub(pattern=" +$", replacement="", x=x)
+  }
   
   return( x )
 }
