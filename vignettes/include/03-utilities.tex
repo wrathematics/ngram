@@ -88,7 +88,7 @@ charsplitter(y, spacechar="")
 
 \subsection{Dealing with tm}
 
-The \pkg{tm} package~\citep{tm} requires that all data be in the form of its fairly complicated \code{Corpus} object.
+The \pkg{tm} package~\citep{tm} requires that all data be in the form of its fairly complicated \code{Corpus} object.  The \pkg{ngram} package offers no direct methods for dealing with data in this format.  To use \pkg{tm}-encapsulated data, you will first need to extract it into a single string.
 If you want to extract the text from all documents in a corpus as a single string, you can do something like:
 \begin{lstlisting}[language=rr]
 str <- concatenate(lapply(myCorpus, "[", 1))   
