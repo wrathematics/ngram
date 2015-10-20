@@ -7,9 +7,7 @@ about.thisapp <- HTML("
   <a href='http://www.rstudio.com/products/shiny/'>shiny</a> 
   app uses 
   <a href='https://github.com/wrathematics/ngram'>the ngram package</a>, 
-  where you can also find the 
-  <a href='https://github.com/wrathematics/ngram/tree/master/inst/ngram'>source</a>
-  for this shiny app.
+  where you can also find the source for this shiny app.
   </p>
   
   <p>
@@ -21,12 +19,6 @@ about.thisapp <- HTML("
   Lovecraft and generate amusing nonsense.  This resulted in the post
   <a href='http://librestats.com/2014/07/01/modern-applied-statistics-in-rlyeh/'>Modern Applied Statistics in R'lyeh</a>.
   </p>
-  
-  
-  <p>
-  Hosting is generously provided by 
-  <a href='https://www.shinyapps.io/'>RStudio</a>.
-  </p>"
 )
 
 
