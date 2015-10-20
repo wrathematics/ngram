@@ -21,6 +21,6 @@ rm -f *.aux *.bbl *.blg *.log *.out *.toc *.dvi
 rm -f Sweavel.sty
 rm -f ngram-guide.tex
 
-mv -f *.pdf ../inst/doc/
-cp -f *.Rnw ../inst/doc/
+#mv -f *.pdf ../inst/doc/
+#cp -f *.Rnw ../inst/doc/
 

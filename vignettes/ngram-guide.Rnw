@@ -21,7 +21,7 @@
 
 \begin{document}
 
-<<echo=FALSE, cache=FALSE>>=
+<<echo=FALSE, cache=FALSE, warning=FALSE>>=
 library(knitr)
 render_listings()
 @
@@ -38,8 +38,8 @@ render_listings()
 
 \input{./include/01-introduction}
 \input{./include/02-installation}
-\Sexpr{knit_child('include/03-utilities.Rnw')}
-\Sexpr{knit_child('include/04-use.Rnw')}
+\Sexpr{knit_child('./include/03-utilities.Rnw')}
+\Sexpr{knit_child('./include/04-use.Rnw')}
 \input{./include/05-benchmarks}
 
 \newpage
