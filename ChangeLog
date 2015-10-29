@@ -1,4 +1,4 @@
-Release 2.0:
+Release 2.0.0:
   * Added get.phrasetable().
   * Added string.summary().
   * Now storing counts of the ngram itself.
@@ -7,26 +7,26 @@ Release 2.0:
   * Improvements to the standalone library example programs.
   * Switched to roxygen2.
 
-Release 1.4:
+Release 1.4.0:
   * Added summary method to internal library.
   * Refactored library internals.
   * Registered native routines with R.
 
-Release 1.3:
+Release 1.3.0:
   * Added historical background to "About" tab in shiny demo.
   * Switched from C to R RNG for extra entropy in seeds.
 
-Release 1.2:
+Release 1.2.0:
   * Fixed segfault when n=1.
   * Fixed memory allocation bug in the babbler.
   * Added shiny demo.
   * Improved ngram printing output and options.
 
-Release 1.1:
+Release 1.1.0:
   * Fixed some package issues.
   * Clarified some statements in the vignette.
 
-Release 1.0:
+Release 1.0.0:
   * Fixed memory leaks and Windows crashes (sorry CRAN!).
   * Implemented markov generator.
   * Added PRNG.
