@@ -27,7 +27,7 @@
 #' @seealso \code{\link{preprocess}}
 #' @keywords Preprocessing
 #' @export
-concatenate <- function(..., collapse="  ", rm.space=FALSE)
+concatenate <- function(..., collapse=" ", rm.space=FALSE)
 {
   l <- list(...)
   
@@ -38,4 +38,3 @@ concatenate <- function(..., collapse="  ", rm.space=FALSE)
   
   return( str )
 }
-

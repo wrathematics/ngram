@@ -37,6 +37,13 @@
 #' @export
 splitter <- function(string, split.char=FALSE, split.space=TRUE, spacesep="_", split.punct=FALSE)
 {
+  assert_that(is.string(string))
+  assert_that(is.scalar(split.char) && is.logical(split.char))
+  assert_that(is.scalar(split.space) && is.logical(split.space))
+  assert_that(is.string(spacesep))
+  assert_that(is.scalar(split.punct) && is.logical(split.punct))
+  
+  
   if (!split.char && !split.space && !split.punct)
   {
     warning("No splitting options selected.")
@@ -70,4 +77,3 @@ splitter <- function(string, split.char=FALSE, split.space=TRUE, spacesep="_", s
   string <- sub(x=string, pattern=" +$", replacement="")
   return(string)
 }
-

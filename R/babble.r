@@ -44,13 +44,14 @@ setGeneric(name="babble",
 setMethod("babble", signature(ng="ngram"),
   function(ng, genlen=150, seed=getseed())
   {
+    assert_that(is.count(genlen))
+    assert_that(is.number(seed))
+    
+    
     if (genlen >= 2^31)
       stop(paste("genlen=", genlen, " is too large", sep=""))
     
     genlen <- as.integer(genlen)
-    
-    if (genlen <= 0)
-      stop("genlen must be a positive integer")
     
     if (ng@n > genlen)
       warning("n > genlen; selecting a random n-gram instead")
@@ -62,4 +63,3 @@ setMethod("babble", signature(ng="ngram"),
     return( ret )
   }
 )
-

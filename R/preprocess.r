@@ -35,6 +35,13 @@
 #' @export
 preprocess <- function(x, case="lower", remove.punct=FALSE, remove.numbers=FALSE, fix.spacing=TRUE)
 {
+  assert_that(is.string(x))
+  assert_that(is.string(case))
+  assert_that(is.scalar(remove.punct) && is.logical(remove.punct))
+  assert_that(is.scalar(remove.numbers) && is.logical(remove.numbers))
+  assert_that(is.scalar(fix.spacing) && is.logical(fix.spacing))
+  
+  
   ### Case
   if (!is.null(case))
   {
@@ -68,4 +75,3 @@ preprocess <- function(x, case="lower", remove.punct=FALSE, remove.numbers=FALSE
   
   return( x )
 }
-

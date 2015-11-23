@@ -20,10 +20,13 @@
 #' 
 #' @keywords Utility
 #' @export
-rcorpus <- function(nwords, alphabet=letters, minwordlen=1, maxwordlen=6)
+rcorpus <- function(nwords=50, alphabet=letters, minwordlen=1, maxwordlen=6)
 {
-  if (minwordlen < 1)
-    stop("Argument 'minwordlen' must be at least 1.")
+  assert_that(is.count(nwords))
+  assert_that(is.character(alphabet))
+  assert_that(is.count(minwordlen))
+  assert_that(is.count(maxwordlen))
+  
   if (minwordlen > maxwordlen)
     stop("Argument 'maxwordlen' must be at least 'minwordlen'.")
   

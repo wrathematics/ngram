@@ -103,13 +103,14 @@ setGeneric(name="ngram",
 setMethod("ngram", signature(str="character"),
   function(str, n=2)
   {
+    assert_that(is.string(str))
+    assert_that(is.count(n))
+    
+    
     if (n > 2^31)
       stop(paste("n=", n, " is too large", sep=""))
     
     n <- as.integer(n)
-    
-    if (n < 1L)
-      stop("argument 'n' must be a positive integer")
     
     nwords <- wordcount(str)
     if (nwords < n)
@@ -127,4 +128,3 @@ setMethod("ngram", signature(str="character"),
     return( ret )
   }
 )
-

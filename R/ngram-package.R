@@ -19,7 +19,7 @@
 #'   R_ngram_gen, R_ngram_get_seed, R_ngram_wordcount,
 #'   R_ng_get_phrasetable, R_stringsummary
 #' 
-#' @import methods
+#' @import methods assertthat
 #' 
 #' @name ngram-package
 #' @docType package
@@ -27,4 +27,3 @@
 #' Heckendorf.
 #' @keywords Package
 NULL
-

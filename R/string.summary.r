@@ -21,19 +21,22 @@ title_case <- function(x) gsub(x, pattern="(^|[[:space:]])([[:alpha:]])", replac
 #' @export
 string.summary <- function(string, wordlen_max=10, senlen_max=10, syllen_max=10)
 {
-  if (length(string) > 1)
-    warning("Argument 'string' has length > 1 and only the first element will be used.")
+  assert_that(is.string(string))
+  assert_that(is.count(wordlen_max))
+  assert_that(is.count(senlen_max))
+  assert_that(is.count(syllen_max))
+  
   
   wordlen_max <- as.integer(wordlen_max)
-  if (is.na(wordlen_max) || wordlen_max < 1)
+  if (is.na(wordlen_max))
     stop("Argument 'wordlen_max' must be a positive integer.")
   
   senlen_max <- as.integer(senlen_max)
-  if (is.na(senlen_max) || senlen_max < 1)
+  if (is.na(senlen_max))
     stop("Argument 'senlen_max' must be a positive integer.")
   
   syllen_max <- as.integer(syllen_max)
-  if (is.na(syllen_max) || syllen_max < 1)
+  if (is.na(syllen_max))
     stop("Argument 'syllen_max' must be a positive integer.")
   
   
@@ -81,4 +84,3 @@ print.string_summary <- function(x, ...)
   
   invisible()
 }
-
