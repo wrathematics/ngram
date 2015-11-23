@@ -1,6 +1,6 @@
 # ngram
 
-* **Version:** 2.0
+* **Version:** 2.0.0
 * **Status:** [![Build Status](https://travis-ci.org/wrathematics/ngram.png)](https://travis-ci.org/wrathematics/ngram)
 * **License:** [![License](http://img.shields.io/badge/license-BSD%202--Clause-orange.svg?style=flat)](http://opensource.org/licenses/BSD-2-Clause)
 * **Author:** Drew Schmidt and Christian Heckendorf
@@ -118,4 +118,3 @@ devtools::install_github("wrathematics/ngram")
 ```
 
 An older version of this package is also available on the CRAN.
-
