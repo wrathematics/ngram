@@ -48,4 +48,3 @@ SEXP R_ngram_gen(SEXP ngl_ptr, SEXP genlen, SEXP seed)
   UNPROTECT(1);
   return RET;
 }
-
