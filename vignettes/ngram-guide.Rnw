@@ -16,7 +16,7 @@
 }
 \mytitle{Guide to the\\ \thispackage Package}
 \mysubtitle{Fast n-gram Tokenization}
-\myversion{2.0}
+\myversion{2.0.0}
 
 
 \begin{document}
