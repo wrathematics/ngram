@@ -1,16 +1,16 @@
 /*  Copyright (c) 2014, Heckendorf
     All rights reserved.
-    
+
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
-    
+
     1. Redistributions of source code must retain the above copyright notice,
     this list of conditions and the following disclaimer.
-    
+
     2. Redistributions in binary form must reproduce the above copyright
     notice, this list of conditions and the following disclaimer in the
     documentation and/or other materials provided with the distribution.
-    
+
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
     "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
     TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -28,6 +28,16 @@
 #include "hash.h"
 #include "lex.h"
 
+#define add_hash_char(x,y) do \
+							{y += x;\
+							 y += (y<<10);\
+							 y ^= (y>>6);}while(0)
+
+#define hash_finalize(y) do \
+						 {ret += (ret<<3);\
+						  ret ^= (ret>>11);\
+						  ret += (ret<<15);}while(0)
+
 tok_t get_token(wordlist_t *word, const int num){
 	tok_t ret;
 	int i,j;
@@ -35,16 +45,24 @@ tok_t get_token(wordlist_t *word, const int num){
 	ret=0;
 	for(i=0;i<num;i++){
 		for(j=0;j<word->word->len;j++){
-			ret += word->word->s[j];
-			ret += (ret<<10);
-			ret ^= (ret>>6);
+			add_hash_char(word->word->s[j],ret);
 		}
 		word=word->next;
 	}
-	ret += (ret<<3);
-	ret ^= (ret>>11);
-	ret += (ret<<15);
+	hash_finalize(ret);
 
 	return ret;
 }
 
+/* Get the hash for a string, assuming NULL word sep. */
+tok_t get_token_str(const char *s, const int num){
+	int i;
+	tok_t ret=0;
+
+	for(i=num-1;i>=0;i--){
+		add_hash_char(s[i],ret);
+	}
+	hash_finalize(ret);
+
+	return ret;
+}
