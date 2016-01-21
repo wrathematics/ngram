@@ -1,16 +1,16 @@
 /*  Copyright (c) 2014, Schmidt
     All rights reserved.
-    
+
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
-    
+
     1. Redistributions of source code must retain the above copyright notice,
     this list of conditions and the following disclaimer.
-    
+
     2. Redistributions in binary form must reproduce the above copyright
     notice, this list of conditions and the following disclaimer in the
     documentation and/or other materials provided with the distribution.
-    
+
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
     "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
     TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -32,20 +32,20 @@
 
 char* ngram_read_file(char *infile)
 {
-  char *str;
-  uint32_t file_size;
-  
-  // get file size
-  FILE *input_file = fopen(infile, "rb");
-  fseek(input_file, 0, SEEK_END);
-  file_size = ftell(input_file);
-  
-  rewind(input_file);
-  str = malloc(file_size * (sizeof(char)));
-  
-  // read
-  fread(str, sizeof(char), file_size, input_file);
-  fclose(input_file);
-  
-  return str;
+	char *str;
+	uint32_t file_size;
+
+	// get file size
+	FILE *input_file = fopen(infile, "rb");
+	fseek(input_file, 0, SEEK_END);
+	file_size = ftell(input_file);
+
+	rewind(input_file);
+	str = malloc(file_size * (sizeof(char)));
+
+	// read
+	fread(str, sizeof(char), file_size, input_file);
+	fclose(input_file);
+
+	return str;
 }
