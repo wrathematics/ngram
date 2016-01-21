@@ -34,6 +34,7 @@
 #include "process.h"
 #include "sorts.h"
 #include "summary.h"
+#include "common_defs.h"
 
 
 static inline int ngram_nchar(const int n, const ngram_t *ng, int i)
@@ -124,7 +125,10 @@ void ngram_summary(ngramlist_t *ngl, int num_commonest)
 {
 	ngsummary_t ngsummary;
 	ngsummary.num_commonest = num_commonest;
-	int *commonest = malloc(num_commonest * sizeof(*commonest));
+	int *commonest;
+
+	INIT_MEM(commonest,num_commonest);
+
 	ngsummary.commonest = commonest;
 
 	/*  if (num_commonest > n)*/

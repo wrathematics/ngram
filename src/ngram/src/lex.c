@@ -27,6 +27,7 @@
 
 #include "lex.h"
 #include "hash.h"
+#include "common_defs.h"
 
 static void *vptr;
 
@@ -67,9 +68,7 @@ static wordlist_t* split(const char *s, const int len){
 			;
 		add_node(ret);
 
-		ret->word  =  malloc(sizeof(*ret->word));
-		/*    if(() == NULL)*/
-		/*      exit(1);*/
+		INIT_MEM(ret->word,1);
 
 		ret->word->s = s+i;
 		ret->word->len = j-i;

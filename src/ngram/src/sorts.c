@@ -28,11 +28,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "common_defs.h"
 
 // this feels so leet ;-;
 static inline void swap(void *a, void *b, size_t size)
 {
-	char *tmp = malloc(size);
+	char *tmp;
+
+	INIT_MEM(tmp,size);
 
 	memcpy(tmp, b, size);
 	memcpy(b, a, size);

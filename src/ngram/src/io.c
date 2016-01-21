@@ -29,6 +29,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "common_defs.h"
 
 char* ngram_read_file(char *infile)
 {
@@ -41,7 +42,7 @@ char* ngram_read_file(char *infile)
 	file_size = ftell(input_file);
 
 	rewind(input_file);
-	str = malloc(file_size * (sizeof(char)));
+	INIT_MEM(str,file_size);
 
 	// read
 	fread(str, sizeof(char), file_size, input_file);

@@ -26,6 +26,7 @@
 
 
 #include "wordcmp.h"
+#include "common_defs.h"
 
 
 char *word_to_string(word_t *word)
@@ -36,7 +37,7 @@ char *word_to_string(word_t *word)
 
 	if(word != NULL)
 	{
-		str = malloc(len * sizeof(*str));
+		INIT_MEM(str,len);
 
 		for(i=0; i<len; i++)
 			str[i] = word->s[i];

@@ -28,6 +28,7 @@
 #include <string.h>
 
 #include "process.h"
+#include "common_defs.h"
 
 static void *vptr;
 
@@ -77,12 +78,11 @@ ngramlist_t* process(wordlist_t *words, int n)
 	ngram_t *ng, *tmp, **sorted;
 	ngramlist_t *ngl;
 
-	ngl = malloc(sizeof(ngramlist_t));
-	ngl->ngsize = 0;
-
 	if (n<1)
 		return NULL;
 
+	INIT_MEM(ngl,1);
+	ngl->ngsize = 0;
 	len = 0;
 	p = words;
 	while (p){
@@ -95,11 +95,11 @@ ngramlist_t* process(wordlist_t *words, int n)
 		return NULL;
 
 	// Hope this doesn't crash lol
-	ng = malloc(sizeof(*ng)*len);
+	INIT_MEM(ng,len);
 	ng->count = 0;
 
-	tmp = malloc(sizeof(*tmp)*len);
-	sorted = malloc(sizeof(*sorted)*len);
+	INIT_MEM(tmp,len);
+	INIT_MEM(sorted,len);
 
 	nw = words;
 	for (i = 1;i<len;i++){

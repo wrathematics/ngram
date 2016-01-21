@@ -32,6 +32,7 @@
 #include "wordcmp.h"
 #include "process.h"
 #include "rand/rand.h"
+#include "common_defs.h"
 
 
 #define MIN(x,y) (x<y?x:y)
@@ -197,8 +198,8 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
 	if (n < 1)
 		return -1;
 
-	tmp = malloc(genlen * sizeof(char*));
-	itmp = calloc(genlen, sizeof(int));
+	INIT_MEM(tmp,genlen);
+	ZEROINIT_MEM(itmp,genlen);
 
 	wl = NULL;
 	for (i=0; i<n; i++)
@@ -241,7 +242,7 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
 	retlen = retlen==0 ? genlencp : retlen; // quiet the static analyzer
 
 	pos = 0;
-	*ret = malloc(retlen * sizeof(**ret));
+	INIT_MEM(*ret,retlen);
 	for (i=0; i<genlencp; i++)
 	{
 		for (j=0; j<itmp[i]; j++)

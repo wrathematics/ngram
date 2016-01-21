@@ -26,6 +26,19 @@
 
 
 #include "counts.h"
+#include "common_defs.h"
+
+/* Return the count for an ngram matching the given hash (tok) */
+int find_ngram_count(ngramlist_t *ng, tok_t tok){
+	int i;
+
+	for(i=0;i<ng->ngsize;i++){
+		if(ng->ng[i].tok==tok)
+			return ng->ng[i].count;
+	}
+
+	return 0;
+}
 
 
 int ngram_counts_maxind(ngram_t *ng, int ngsize)
@@ -119,8 +132,9 @@ int ngram_stringsummary(char *str, const int wordlen_max, ngram_summary_t *ngsum
 	bool multispace_correction;
 	int i = 0;
 	int wordlen_current =  0;
-	int *wordlens = calloc(wordlen_max, sizeof(*wordlens));
+	int *wordlens;
 
+	ZEROINIT_MEM(wordlens,wordlen_max);
 
 	while ((c=str[i]) != '\0')
 	{
