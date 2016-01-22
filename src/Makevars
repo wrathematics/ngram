@@ -14,6 +14,8 @@ NGRAM_OBJS = \
 
 R_OBJS = constructor.o converters.o gen.o count.o getseed.o phrase_table.o print.o
 
+PKG_CPPFLAGS=-DNEXTWORDS
+
 OBJECTS = $(R_OBJS) $(NGRAM_OBJS)
 
 all: $(SHLIB)

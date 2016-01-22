@@ -35,6 +35,8 @@ set(SRC_FILES ${NGRAM_FILES} ${RAND_FILES})
 
 
 ### Make and install
+add_definitions(-DNEXTWORDS)
+
 add_library(ngram_objs OBJECT ${SRC_FILES})
 
 add_library(ngram SHARED $<TARGET_OBJECTS:ngram_objs>)

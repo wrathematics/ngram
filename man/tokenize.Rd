@@ -7,14 +7,16 @@
 \alias{ngram,character-method}
 \title{n-gram Tokenization}
 \usage{
-ngram(str, n = 2)
+ngram(str, n = 2, sep = " ")
 
-\S4method{ngram}{character}(str, n = 2)
+\S4method{ngram}{character}(str, n = 2, sep = " ")
 }
 \arguments{
 \item{str}{The input text.}
 
 \item{n}{The 'n' as in 'n-gram'.}
+
+\item{sep}{The characters used to separate words.}
 }
 \description{
 This routine processes a string into an \code{ngram} class object.
@@ -33,7 +35,7 @@ breaks loose.
 library(ngram)
 
 str <- "A B A C A B B"
-ng <- ngram(str, n=2)
+ng <- ngram(str, n=2, sep=" ")
 ng
 
 }

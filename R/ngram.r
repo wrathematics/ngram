@@ -39,7 +39,7 @@
 #' @slot ngsize
 #' The length of the ngram list, or in other words, the number of
 #' unique n-grams in the input string.
-#' @slot wl_ptr
+#' @slot sl_ptr
 #' A pointer to the list of words from the input string.
 #' 
 #' @name ngram-class
@@ -52,7 +52,7 @@ setClass("ngram",
     n="integer",
     ngl_ptr="externalptr",
     ngsize="integer",
-    wl_ptr="externalptr"
+    sl_ptr="externalptr"
   )
 )
 
@@ -75,12 +75,14 @@ setClass("ngram",
 #' The input text.
 #' @param n 
 #' The 'n' as in 'n-gram'.
+#' @param sep
+#' The characters used to separate words.
 #' 
 #' @examples
 #' library(ngram)
 #' 
 #' str <- "A B A C A B B"
-#' ng <- ngram(str, n=2)
+#' ng <- ngram(str, n=2, sep=" ")
 #' ng
 #' 
 #' @seealso \code{\link{ngram-class}}, \code{\link{getters}}, 
@@ -93,7 +95,7 @@ NULL
 #' @rdname tokenize
 #' @export
 setGeneric(name="ngram", 
-  function(str, n=2) 
+  function(str, n=2, sep=" ") 
     standardGeneric("ngram"), 
   package="ngram"
 )
@@ -101,10 +103,11 @@ setGeneric(name="ngram",
 #' @rdname tokenize
 #' @export
 setMethod("ngram", signature(str="character"),
-  function(str, n=2)
+  function(str, n=2, sep=" ")
   {
-    assert_that(is.string(str))
+    assert_that(is.character(str))
     assert_that(is.count(n))
+    assert_that(is.character(sep))
     
     
     if (n > 2^31)
@@ -112,18 +115,22 @@ setMethod("ngram", signature(str="character"),
     
     n <- as.integer(n)
     
-    nwords <- wordcount(str)
+    nwords <- wordcount(str,sep,min)
     if (nwords < n)
       stop(paste("input 'str' has ", "nwords=", nwords, " and ", "n=", n, "; must have nwords >= n", sep=""))
     
-    strlen <- nchar(str) ## always an integer due to STRSXP restrictions
-    
-    out <- .Call(ng_process, str, strlen, n, PACKAGE="ngram")
+    #strlen <- nchar(str) ## always an integer due to STRSXP restrictions
+    strlen <- length(str)
+
+    if(length(sep) > 1)
+        sep <- paste0(sep,collapse="")
+
+    out <- .Call(ng_process, str, strlen, n, sep, PACKAGE="ngram")
     
     if (is.integer(out) && out == -1L)
       stop("There was a problem processing the input string!")
     
-    ret <- new("ngram", str_ptr=out$str_ptr, strlen=strlen, n=n, ngsize=out$ngsize, wl_ptr=out$wl_ptr, ngl_ptr=out$ngl_ptr)
+    ret <- new("ngram", str_ptr=out$str_ptr, strlen=strlen, n=n, ngsize=out$ngsize, sl_ptr=out$sl_ptr, ngl_ptr=out$ngl_ptr)
     
     return( ret )
   }

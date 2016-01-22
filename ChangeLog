@@ -1,3 +1,7 @@
+Release 3.0.0
+  * Allowing custom word separators.
+  * Support for input text as a character vector with length > 1.
+
 Release 2.0.0
   * Changed version numbering.:
   * Added get.phrasetable().

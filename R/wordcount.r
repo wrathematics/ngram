@@ -6,6 +6,11 @@
 #' 
 #' @param x 
 #' A string or vector of strings, or an ngram object.
+#' @param sep
+#' The characters used to separate words.
+#' @param count.function
+#' The function to use for aggregation.
+#' 
 #' 
 #' @return 
 #' A count.
@@ -32,7 +37,7 @@ NULL
 #' @rdname wordcount
 #' @export
 setGeneric(name="wordcount", 
-  function(x) 
+  function(x, sep=" ", count.function=sum) 
     standardGeneric("wordcount"), 
   package="ngram"
 )
@@ -40,22 +45,22 @@ setGeneric(name="wordcount",
 #' @rdname wordcount
 #' @export
 setMethod("wordcount", signature(x="character"),
-  function(x)
+  function(x, sep=" ", count.function=sum)
   {
     if (length(x) > 1)
-      return( sum(sapply(x, wordcount)) )
+      return( count.function(sapply(x, wordcount, sep)) )
     
-    sep <- ' '
-    .Call(R_ngram_wordcount, x, sep, nchar(sep), PACKAGE="ngram")
+    #sep <- ' '
+    .Call(R_ngram_wordcount, x, sep, PACKAGE="ngram")
   }
 )
 
 #' @rdname wordcount
 #' @export
 setMethod("wordcount", signature(x="ngram"),
-  function(x)
+  function(x, sep=" ", count.function=sum)
   {
-    ret <- wordcount(x=get.string(x))
+    ret <- wordcount(x=get.string(x),sep,count.function)
     
     return( ret )
   }

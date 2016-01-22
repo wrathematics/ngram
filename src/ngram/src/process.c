@@ -56,6 +56,7 @@ static int cmp_ngram(const void *a, const void *b){
 		return -1;
 	else if((*na)->tok>(*nb)->tok)
 		return 1;
+#ifdef NEXTWORDS
 	else{
 		if((*na)->nextword->word.word == NULL)
 			return -1;
@@ -66,30 +67,43 @@ static int cmp_ngram(const void *a, const void *b){
 		else if((*na)->nextword->word.word->tok>(*nb)->nextword->word.word->tok)
 			return -1;
 	}
+#endif
 	return 0;
 }
 
 
 
-ngramlist_t* process(wordlist_t *words, int n)
+ngramlist_t* process(sentencelist_t *wordtok, int n)
 {
-	int i, j, js, len, ngsize;
+	int i, j, k, js, len, ngsize, endi;
+	int *sen_len;
 	wordlist_t *p, *q, *nw;
 	ngram_t *ng, *tmp, **sorted;
 	ngramlist_t *ngl;
+	wordlist_t *words;
 
 	if (n<1)
 		return NULL;
 
+	INIT_MEM(sen_len,wordtok->filled);
+
 	INIT_MEM(ngl,1);
 	ngl->ngsize = 0;
+
 	len = 0;
-	p = words;
-	while (p){
-		len++;
-		p = p->next;
+	for(i=0;i<wordtok->filled;i++){
+		sen_len[i] = 0;
+		p = wordtok->words[i];
+		while (p){
+			sen_len[i]++;
+			p = p->next;
+		}
+		sen_len[i] -= n-1;
+		if(sen_len[i]<0)
+			sen_len[i]=0;
+
+		len += sen_len[i];
 	}
-	len -= n-1;
 
 	if (len<1)
 		return NULL;
@@ -101,39 +115,53 @@ ngramlist_t* process(wordlist_t *words, int n)
 	INIT_MEM(tmp,len);
 	INIT_MEM(sorted,len);
 
-	nw = words;
-	for (i = 1;i<len;i++){
-		q = p = nw->next;
+	endi=0;
+	i=0;
+	for(j=0;j<wordtok->filled;j++){
+		if(sen_len[j]<1)
+			continue;
+
+		/* Add the final ngram to the start of tmp, no nextwords, words stored end:start */
+		nw = q = p = wordtok->words[j];
 		tmp[i].tok = get_token(p,n);
 		tmp[i].words = NULL;
-		for (j = 0;j<n;j++){
+		for (k = 0;k<n;k++){
 			add_node(tmp[i].words);
 			tmp[i].words->word = q->word;
 			q = q->next;
 		}
 		tmp[i].nextword = NULL;
+#ifdef NEXTWORDS
 		add_node(tmp[i].nextword);
-		tmp[i].nextword->word.word = nw->word;
-		tmp[i].nextword->word.count = 0;
+		tmp[i].nextword->word.word = NULL;
+		tmp[i].nextword->word.count = 1;
+#endif
+		sorted[endi] = tmp+i;
 
-		sorted[i] = tmp+i;
+		/* Add the remaining ngrams iteratively */
+		i = endi+1;
+		endi += sen_len[j];
+		for (;i<endi;i++){
+			q = p = nw->next;
+			tmp[i].tok = get_token(p,n);
+			tmp[i].words = NULL;
+			for (k = 0;k<n;k++){
+				add_node(tmp[i].words);
+				tmp[i].words->word = q->word;
+				q = q->next;
+			}
+			tmp[i].nextword = NULL;
+#ifdef NEXTWORDS
+			add_node(tmp[i].nextword);
+			tmp[i].nextword->word.word = nw->word;
+			tmp[i].nextword->word.count = 1;
+#endif
 
-		nw = nw->next;
+			sorted[i] = tmp+i;
+
+			nw = nw->next;
+		}
 	}
-
-	q = p = words;
-	tmp->tok = get_token(p,n);
-	tmp->words = NULL;
-	for (j = 0;j<n;j++){
-		add_node(tmp->words);
-		tmp->words->word = q->word;
-		q = q->next;
-	}
-	tmp->nextword = NULL;
-	add_node(tmp->nextword);
-	tmp->nextword->word.word = NULL;
-	tmp->nextword->word.count = 0;
-	sorted[0] = tmp;
 
 	qsort(sorted,len,sizeof(*sorted),cmp_ngram);
 
@@ -141,20 +169,25 @@ ngramlist_t* process(wordlist_t *words, int n)
 	for (i = 0;i<len;i = j) {
 		js = i;
 		for (j = i+1;j<len && sorted[j]->tok == sorted[i]->tok;j++){
-			/* This may be a problem if we start working with more than one string (multiple NULLs) */
-			if (sorted[js]->nextword->word.word != NULL && sorted[j]->nextword->word.word != NULL && sorted[j]->nextword->word.word->tok == sorted[js]->nextword->word.word->tok)
+#ifdef NEXTWORDS
+			if ((sorted[js]->nextword->word.word != NULL &&
+				  sorted[j]->nextword->word.word != NULL &&
+				  sorted[j]->nextword->word.word->tok == sorted[js]->nextword->word.word->tok) || /* same string, or... */
+				  sorted[j]->nextword->word.word == sorted[js]->nextword->word.word) /* both NULLs (sentence ends) */
 				sorted[js]->nextword->word.count++;
 			else {
-				sorted[js]->nextword->word.count++;
 				add_node(sorted[js]->nextword);
 				sorted[js]->nextword->word.count = 1;
 				sorted[js]->nextword->word.word = sorted[j]->nextword->word.word;
 			}
-			free_list(sorted[j]->words);
 			free_list(sorted[j]->nextword);
+#endif
+			free_list(sorted[j]->words);
 		}
-		if (j == i+1)
-			sorted[i]->nextword->word.count = 1;
+#ifdef NEXTWORDS
+		//if (j == i+1)
+			//sorted[i]->nextword->word.count = 1;
+#endif
 
 		ng[ngsize].count = j-i;
 		ng[ngsize].words = sorted[i]->words;
@@ -163,6 +196,7 @@ ngramlist_t* process(wordlist_t *words, int n)
 		ngsize++;
 	}
 
+	free(sen_len);
 	free(sorted);
 	free(tmp);
 

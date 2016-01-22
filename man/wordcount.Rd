@@ -7,14 +7,18 @@
 \alias{wordcount,ngram-method}
 \title{wordcount}
 \usage{
-wordcount(x)
+wordcount(x, sep = " ", count.function = sum)
 
-\S4method{wordcount}{character}(x)
+\S4method{wordcount}{character}(x, sep = " ", count.function = sum)
 
-\S4method{wordcount}{ngram}(x)
+\S4method{wordcount}{ngram}(x, sep = " ", count.function = sum)
 }
 \arguments{
 \item{x}{A string or vector of strings, or an ngram object.}
+
+\item{sep}{The characters used to separate words.}
+
+\item{count.function}{The function to use for aggregation.}
 }
 \value{
 A count.

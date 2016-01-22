@@ -1,16 +1,16 @@
 /*  Copyright (c) 2014, Heckendorf
     All rights reserved.
-    
+
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
-    
+
     1. Redistributions of source code must retain the above copyright notice,
     this list of conditions and the following disclaimer.
-    
+
     2. Redistributions in binary form must reproduce the above copyright
     notice, this list of conditions and the following disclaimer in the
     documentation and/or other materials provided with the distribution.
-    
+
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
     "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
     TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -31,15 +31,21 @@
 
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
+
+#include "common_defs.h"
 
 //#define add_node(l) {vptr=l;if((l=malloc(sizeof(*l)))==NULL)exit(1);l->next=vptr;}
-#define add_node(l) {vptr=l;l=malloc(sizeof(*l));l->next=vptr;}
+#define add_node(l) {vptr=l;INIT_MEM(l,1);l->next=vptr;}
 #define free_list(l) {while(l){vptr=l->next;free(l);l=vptr;}}
 
 typedef uint32_t tok_t;
 
 typedef struct word_t{
 	const char *s; /* a pointer to the start of the word */
+#ifdef SINGLES
+	char c; /* local change for single char words */
+#endif
 	int len; /* number of characters in the word */
 	tok_t tok; /* word hash */
 } word_t;
@@ -49,11 +55,20 @@ typedef struct wordlist_t{
 	word_t *word; /* pointer to the word for this element in the list */
 } wordlist_t;
 
+typedef struct sentencelist_t{
+	wordlist_t **words; /* array of wordlists divided by sentences */
+	int filled; /* array filled length */
+	int len; /* array allocated length */
+} sentencelist_t;
+
 #include "hash.h"
 
 void free_wordlist(wordlist_t *wl);
 void free_wordlist_keepwords(wordlist_t *wl);
-wordlist_t* lex(const char *s, const int len);
-
+void free_sentencelist(sentencelist_t *sl, void(*wlcb)(wordlist_t*));
+sentencelist_t* lex_init(const int num);
+void lex_add(sentencelist_t *wordtok, const int index, const char *s, const int len, const char *sep);
+sentencelist_t* lex_sentences(const char **s, const int *lengths, const int num, const char *sep);
+sentencelist_t* lex_simple(const char *s, const int len, const char *sep);
 
 #endif

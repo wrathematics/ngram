@@ -2,7 +2,8 @@
 #' 
 #' A quick utility for concatenating strings together.  This is
 #' handy because if you want to generate the n-grams for several different
-#' texts, you must first put them into a single string.
+#' texts, you must first put them into a single string unless the text is
+#' composed of sentences that should not be joined.
 #' 
 #' @param ... 
 #' Input text(s).

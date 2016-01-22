@@ -1,4 +1,4 @@
-/*  Copyright (c) 2014-2015, Schmidt
+/*  Copyright (c) 2016, Heckendorf
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -24,42 +24,11 @@
     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef _COMMON_DEFS_H_
+#define _COMMON_DEFS_H_
 
-#ifndef NGRAM_COUNTS_H
-#define NGRAM_COUNTS_H
-
-
-#define MIN(a,b) (a<b?a:b)
-#define NOTNUL(x) (x[i] != '\0')
-
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdbool.h>
-
-#include "hash.h"
-#include "lex.h"
-#include "process.h"
-
-
-typedef struct ngram_summary_t
-{
-  int chars;
-  int letters;
-  int whitespace;
-  int punctuation;
-  int digits;
-  int words;
-  int sentences;
-  int lines;
-  int *wordlens;
-} ngram_summary_t;
-
-int find_ngram_count(ngramlist_t *ng, tok_t tok);
-int ngram_counts_maxind(ngram_t *ng, int ngsize);
-int ngram_counts_total(ngram_t *ng, int ngsize);
-int ngram_wordcount(const char *str, const char *sep);
-int ngram_stringsummary(char *str, const int wordlen_max, ngram_summary_t *ngsum);
-
+#define REINIT_MEM(x,y) if((x=realloc(x,sizeof(*x)*(y)))==NULL){/*fprintf(stderr,"Malloc of %d failed at %s:%d pid %d\n",(int)y,__FILE__,__LINE__,getpid());exit(22);*/}
+#define ZEROINIT_MEM(x,y) if((x=calloc(y,sizeof(*x)))==NULL){/*fprintf(stderr,"Malloc of %d failed at %s:%d pid %d\n",(int)y,__FILE__,__LINE__,getpid());exit(22);*/}
+#define INIT_MEM(x,y) if((x=malloc(sizeof(*x)*(y)))==NULL){/*fprintf(stderr,"Malloc of %d failed at %s:%d pid %d\n",(int)y,__FILE__,__LINE__,getpid());exit(22);*/}
 
 #endif

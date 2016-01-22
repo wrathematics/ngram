@@ -48,7 +48,7 @@ information on how to construct an \code{ngram} object, see
 \item{\code{ngsize}}{The length of the ngram list, or in other words, the number of
 unique n-grams in the input string.}
 
-\item{\code{wl_ptr}}{A pointer to the list of words from the input string.}
+\item{\code{sl_ptr}}{A pointer to the list of words from the input string.}
 }}
 \seealso{
 \code{\link{Tokenize}}

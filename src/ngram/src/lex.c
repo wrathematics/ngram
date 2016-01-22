@@ -45,7 +45,6 @@ void free_wordlist(wordlist_t *wl)
 }
 
 
-
 void free_wordlist_keepwords(wordlist_t *wl)
 {
 	while(wl)
@@ -56,30 +55,65 @@ void free_wordlist_keepwords(wordlist_t *wl)
 	}
 }
 
+void free_sentencelist(sentencelist_t *sl, void(*wlcb)(wordlist_t*))
+{
+	int i;
+
+	for(i=0;i<sl->filled;i++)
+		wlcb(sl->words[i]);
+}
 
 
-static wordlist_t* split(const char *s, const int len){
+/*
+static int strchrs(const char c, const char *sep){
+	if(sep==NULL || *sep == 0)
+		return 1;
+
+	while(*sep){
+		if(c==*sep)
+			return 1;
+		sep++;
+	}
+	return 0;
+}
+*/
+
+static wordlist_t* split(const char *s, const int len, const char *sep){
 	int i,j;
 	wordlist_t *ret = NULL;
 
-	for(i=0; i<len; i=j)
+	for(j=i=0; i<len; i=j)
 	{
-		for(j=i; j<len && s[j] != ' '; j++)
-			;
+		//for(j=i; j<len && !strchrs(s[j],sep); j++)
+			//;
+		if(sep)
+			j=i+strcspn(s+i,sep);
+		else
+			j++;
+
 		add_node(ret);
 
 		INIT_MEM(ret->word,1);
 
+#ifndef SINGLES
 		ret->word->s = s+i;
 		ret->word->len = j-i;
-		while(j<len && s[j] == ' ')j++;
+#else
+		ret->word->c = s[i];
+		ret->word->s = &ret->word->c;
+		ret->word->len = 1;
+#endif
+
+		//while(j<len && strchrs(s[j],sep))j++;
+		if(sep)
+			j+=strspn(s+j,sep);
 	}
 
 	return ret;
 }
 
-wordlist_t* lex(const char *s, const int len){
-	wordlist_t *words = split(s,len);
+static wordlist_t* lex(const char *s, const int len, const char *sep){
+	wordlist_t *words = split(s,len,sep);
 	wordlist_t *wp = words;
 
 	while(wp){
@@ -88,4 +122,44 @@ wordlist_t* lex(const char *s, const int len){
 	}
 
 	return words;
+}
+
+sentencelist_t* lex_init(const int num){
+	sentencelist_t *ret;
+	int i;
+
+	INIT_MEM(ret,1);
+	INIT_MEM(ret->words,num);
+
+	for(i=0;i<num;i++)
+		ret->words[i]=NULL;
+
+	ret->len=num;
+	ret->filled=0;
+
+	return ret;
+}
+
+void lex_add(sentencelist_t *wordtok, const int index, const char *s, const int len, const char *sep){
+	if(index >= wordtok->len)
+		return; // silent fail :(
+
+	wordtok->words[index]=lex(s,len,sep);
+	wordtok->filled++;
+}
+
+sentencelist_t* lex_sentences(const char **s, const int *lengths, const int num, const char *sep){
+	sentencelist_t *ret;
+	int i;
+
+	ret=lex_init(num);
+
+	for(i=0;i<num;i++)
+		lex_add(ret,i,s[i],lengths[i],sep);
+
+	return ret;
+}
+
+sentencelist_t* lex_simple(const char *s, const int len, const char *sep){
+	return lex_sentences(&s,&len,1,sep);
 }

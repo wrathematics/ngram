@@ -1,4 +1,4 @@
-/*  Copyright (c) 2014-2015, Schmidt
+/*  Copyright (c) 2014-2016, Schmidt, Heckendorf
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -96,7 +96,7 @@ int ngram_counts_total(ngram_t *ng, int ngsize)
 
 
 
-int ngram_wordcount(const char *str, const char sep)
+int ngram_wordcount(const char *str, const char *sep)
 {
 	int i = 0;
 	int ct = 0;
@@ -104,19 +104,15 @@ int ngram_wordcount(const char *str, const char sep)
 	if (str == NULL || str[0] == '\0')
 		return 0;
 
-	while (str[i] == sep)
-		i++;
+	if(sep == NULL || *sep == '\0')
+		return strlen(str);
 
+	i+=strspn(str+i,sep); // skip initial
 	while (str[i] != '\0')
 	{
-		while (str[i] == sep)
-			i++;
-
-		if (str[i] != sep && str[i] != '\0')
+			i+=strcspn(str+i,sep); // find next sep
 			ct++;
-
-		while (str[i] != sep && str[i] != '\0')
-			i++;
+			i+=strspn(str+i,sep); // skip sep (find next word)
 	}
 
 	return ct;

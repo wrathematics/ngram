@@ -58,14 +58,21 @@ SEXP R_ng_get_phrasetable(SEXP ng_ptr, SEXP ngsize_)
       wl = wl->next;
     }
     
-    len--; // apparently mkCharLen handles the NUL terminator for some reason
+    // mkCharLen doesn't require NUL terminated strings but it's probably
+    // better/faster to overallocate by 1 and simplify the memcpy loop
     
     buf = malloc(len * sizeof(*buf));
     
-    for (j=0; j<len; j++)
-      buf[j] = ng[i].words->word->s[j];
+    wl = ng[i].words;
+    for(j=0; wl; wl = wl->next)
+    {
+      memcpy(buf+j,wl->word->s,wl->word->len);
+      j += wl->word->len;
+      buf[j++] = ' '; // XXX funky output here if ' ' is valid in words, oh well
+    }
+    // we could "buf[j-1] = 0;" here to be safe but: ~no rice, no life~
     
-    SET_STRING_ELT(NGRAMS, i, mkCharLen(buf, len));
+    SET_STRING_ELT(NGRAMS, i, mkCharLen(buf,len));
     
     freq[i] = ng[i].count;
     tot += ng[i].count;

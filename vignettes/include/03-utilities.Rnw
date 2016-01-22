@@ -1,30 +1,48 @@
 \section{Background and Utilities}\label{utils}
 
+The n-gram processor in the \pkg{ngram} package changes its behavior depending
+on the way the input is formatted. If the input is given as a single string,
+n-grams crossing ``sentence'' boundaries will be considered valid. To prevent
+this from occuring, a vector of sentences may be used as input rather than a
+single string containing the entire text.
 
-The n-gram tokenizer in the \pkg{ngram} package makes some simplifying assumptions:
-\begin{itemize}
-  \item The input to the tokenizer is a single string.
-  \item Words are separated by one or more spaces.
-\end{itemize}
-Obviously, your data may not look like this.  This is why the \pkg{ngram} package offers several useful utilities to make this process simpler.  
+The n-gram tokenizer in the \pkg{ngram} package accepts a custom string
+containing characters to be used as word separators. There may be texts that use
+a wide variety of word separators, making it impractical to generate a string
+containing all of them.
 
+The \pkg{ngram} package offers several useful utilities to simplify the text and
+assist with transforming the input to get the appropriate sentence handling
+behavior.
 
 \subsection{I/O}
 
-Generally speaking, the facilities in base \proglang{R} should be sufficient.  Specifically, \code{readLines()} is a good choice for handling I/O of plain text files.  However, for reading in multiple files (say, all \code{.txt} files in some directory), we offer a simple utility \code{multiread()}.  This function will read all specified files into a named list, where the names are the filenames, and the values are the text contained in the given file as a single string.  
+Generally speaking, the facilities in base \proglang{R} should be sufficient.
+Specifically, \code{readLines()} is a good choice for handling I/O of plain text
+files.  However, for reading in multiple files (say, all \code{.txt} files in
+some directory), we offer a simple utility \code{multiread()}.  This function
+will read all specified files into a named list, where the names are the
+filenames, and the values are the text contained in the given file as a single
+string.  
 
-So for example, if you want to read in all files ending in \code{.txt} at some directory/path of interest \code{path}, you could call:
+So for example, if you want to read in all files ending in \code{.txt} at some
+directory/path of interest \code{path}, you could call:
+
 \begin{lstlisting}[language=rr]
 library(ngram)
 multiread(path, extension="txt")
 \end{lstlisting}
-In \code{multiread()}, the extensions \code{*.txt}, \code{*txt}, \code{.txt}, and \code{txt} are all treated the same.
+
+In \code{multiread()}, the extensions \code{*.txt}, \code{*txt}, \code{.txt},
+and \code{txt} are all treated the same.
 
 
 
 \subsection{Concatenating Multiple Strings}
 
-Since the n-gram tokenizer expects only single strings, we offer the simple \code{concatenate()} function:
+Since the n-gram tokenizer expects only single strings, we offer the simple
+\code{concatenate()} function:
+
 <<cache=TRUE>>=
 letters
 
@@ -33,8 +51,14 @@ concatenate(letters)
 
 concatenate(concatenate(letters, collapse=""), letters)
 @
+
 So if data is coming from multiple files, the simplest way to merge them 
-together would be to call \code{multiread()} (described above) if possible.  Then you can call \code{concatenate()} directly on the returned list to produce a single string from all files, or use the tokenizer iteratively, using, say, an \code{lapply()}.  Here is a more explicit example without the use of \code{multiread()}:
+together would be to call \code{multiread()} (described above) if possible.
+Then you can call \code{concatenate()} directly on the returned list to produce
+a single string from all files, or use the tokenizer iteratively, using, say, an
+\code{lapply()}.  Here is a more explicit example without the use of
+\code{multiread()}:
+
 \begin{lstlisting}[language=rr]
 x <- readLines("file1")
 y <- readLines("file2")
@@ -46,10 +70,17 @@ str <- concatenate(x, y)
 
 \subsection{Splitting Strings}
 
-The \pkg{ngram} tokenizer always splits words at one or more spaces. You can preprocess the input string with \R's regular expression utilities, such as \code{gsub()}.  But for most tasks, the \code{preprocess()} and \code{charsplitter} utilities in the \thispackage package should be more than sufficient.
+The \pkg{ngram} tokenizer always splits words at one or more of the characters
+provided in the \code{sep} argument. You can preprocess the input string with
+\R's regular expression utilities, such as \code{gsub()}.  But for most tasks,
+the \code{preprocess()} and \code{charsplitter} utilities in the \thispackage
+package should be more than sufficient.
 
 
-The \code{preprocess()} function is a simple utility for making letter case uniform, as well as optionally splitting at punctuation (so that punctuation itself becomes a ``word'' in the n-gram analysis).  Here is a simple example:
+The \code{preprocess()} function is a simple utility for making letter case
+uniform, as well as optionally splitting at punctuation (so that punctuation
+itself becomes a ``word'' in the n-gram analysis).  Here is a simple example:
+
 <<cache=TRUE>>=
 x <- "Watch  out    for snakes!  "
 
@@ -59,13 +90,22 @@ preprocess(x)
 preprocess(x, case="upper", remove.punct=TRUE)
 @
 
-Perhaps more useful is the \code{charsplitter()} function.  Suppose that for the purposes of n-gram tokenization, instead of wanting to call things separated by spaces ``words'', you wish to treat every letter as a ``word''.  This is simple enough:
+Perhaps more useful is the \code{charsplitter()} function.  Suppose that for the
+purposes of n-gram tokenization, instead of wanting to call things separated by
+spaces ``words'', you wish to treat every letter as a ``word''. This could be
+accomplished by using \code{sep=""} when calling \code{ngram()}, but for the
+sake of introducing \code{charsplitter()}, it can also be done simply in this
+way:
+
 <<cache=TRUE>>=
 x <- "abacabb"
 splitter(x, split.char=TRUE)
 @
-By default, this will preserve spaces as a special token (an underscore by default).  You may wish to ignore
-spaces entirely during tokenization.  This too is simple to handle during preprocessing:
+
+By default, this will preserve spaces as a special token (an underscore by
+default).  You may wish to ignore spaces entirely during tokenization.  This too
+is simple to handle during preprocessing:
+
 <<cache=TRUE>>=
 y <- "abacabb abacabb"
 
@@ -78,24 +118,41 @@ splitter(y, split.space=TRUE, split.char=TRUE)
 
 \subsection{Dealing with tm}
 
-The \pkg{tm} package~\citep{tm} requires that all data be in the form of its fairly complicated \code{Corpus} object.  The \pkg{ngram} package offers no direct methods for dealing with data in this format.  To use \pkg{tm}-encapsulated data, you will first need to extract it into a single string.
-If you want to extract the text from all documents in a corpus as a single string, you can do something like:
+The \pkg{tm} package~\citep{tm} requires that all data be in the form of its
+fairly complicated \code{Corpus} object.  The \pkg{ngram} package offers no
+direct methods for dealing with data in this format.  To use
+\pkg{tm}-encapsulated data, you will first need to extract it into a single
+string or a vector of strings depending on what processing behavior is required.
+
+If you want to extract the text from all documents in a corpus as a single
+string, you can do something like:
+
 \begin{lstlisting}[language=rr]
 str <- concatenate(lapply(myCorpus, "[", 1))   
 \end{lstlisting}
 
+%TODO vector example?
 
 
 
 \subsection{Summarizing}
 
-While not strictly related to n-gram modeling, you may wish to get some basic summary counts of your text.  With
-the same assumptions as the rest of the \code{ngram} package (i.e., single string, words separated by one or more
-spaces), we can very quickly generate these counts via the \code{string.summary()} function:
+%TODO: is it worth updating this function to allow custom separators and string vectors?
+
+While not strictly related to n-gram modeling, you may wish to get some basic
+summary counts of your text.  With the assumption that the text is a single
+string with words separated by one or more spaces, we can very quickly generate
+these counts via the \code{string.summary()} function:
+
 <<cache=TRUE>>=
 x <- "a b a c a b b"
 
 library(ngram)
 string.summary(x)
 @
-Now, this ``model'' is based only on very simple counts, and is easily fooled.  For example, the sentence \code{S.T.A.R. Labs is a research facility in the DC comics universe.}  would be treated as though it were 5 separate sentences.  However, the counts are constructed \emph{extremely} quickly, and so they are still useful as a first pass in an analysis. 
+
+Now, this ``model'' is based only on very simple counts, and is easily fooled.
+For example, the sentence \code{S.T.A.R. Labs is a research facility in the DC
+comics universe.}  would be treated as though it were 5 separate sentences.
+However, the counts are constructed \emph{extremely} quickly, and so they are
+still useful as a first pass in an analysis.
