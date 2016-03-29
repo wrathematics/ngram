@@ -1,6 +1,6 @@
 Release 3.0.0
-  * Allowing custom word separators.
-  * Support for input text as a character vector with length > 1.
+  * Allowing custom word separators. (Heckendorf)
+  * Support for input text as a character vector with length > 1. (Heckendorf)
 
 Release 2.0.0
   * Changed version numbering to Major.Minor.Patch.
