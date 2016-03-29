@@ -62,37 +62,54 @@ setClass("ngram",
 
 #' n-gram Tokenization
 #' 
-#' This routine processes a string into an \code{ngram} class object.
-#' 
 #' The \code{ngram()} function is the main workhorse of this package.  It takes
 #' an input string and converts it into the internal n-gram representation.
 #' 
+#' @details
 #' On evaluation, a copy of the input string is produced and stored as an
 #' external pointer.  This is necessary because the internal list
 #' representation just points to the first char of each word in the input
 #' string.  So if you (or R's gc) deletes the input string, basically all hell
 #' breaks loose.
 #' 
+#' The \code{sep} parameter splits at any of the characters in 
+#' the string.  So \code{sep=", "} splits at a comma or a space.
+#' 
 #' @param str 
 #' The input text.
 #' @param n 
 #' The 'n' as in 'n-gram'.
 #' @param sep
-#' The characters used to separate words.
+#' A set of separator characters for the "words".  See details for
+#' information about how this works; it works a little differently
+#' from \code{sep} arguments in R functions.
+#' 
+#' @return
+#' An \code{ngram} class object.
 #' 
 #' @examples
 #' library(ngram)
 #' 
 #' str <- "A B A C A B B"
-#' ng <- ngram(str, n=2, sep=" ")
-#' ng
+#' ngram(str, n=2)
 #' 
+#' str <- "A,B,A,C A B B"
+#' ### Split at a space
+#' print(ngram(str), output="full")
+#' ### Split at a comma
+#' print(ngram(str, sep=","), output="full")
+#' ### Split at a space or a comma
+#' print(ngram(str, sep=", "), output="full")
+#' 
+#' @aliases tokenize
 #' @seealso \code{\link{ngram-class}}, \code{\link{getters}}, 
 #' \code{\link{phrasetable}}, \code{\link{babble}}
 #' @keywords Tokenization
 #' @name Tokenize
 #' @rdname tokenize
 NULL
+
+
 
 #' @rdname tokenize
 #' @export
@@ -101,6 +118,8 @@ setGeneric(name="ngram",
     standardGeneric("ngram"), 
   package="ngram"
 )
+
+
 
 #' @rdname tokenize
 #' @export
