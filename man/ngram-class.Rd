@@ -29,6 +29,8 @@ to
 Bounds ignoring repetition are highly dependent on the input.  A correct but
 useless bound is
 
+\code{\#ngrams = nwords - (\#repeats - 1) - (n - 1)}
+
 An \code{ngram} object is an S4 class container that stores some basic
 summary information (e.g., n), and several external pointers.  For
 information on how to construct an \code{ngram} object, see
