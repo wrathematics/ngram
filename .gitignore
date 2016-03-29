@@ -15,4 +15,5 @@ src/ngram/build/
 *.toc
 *.tex.backup
 
-inst/doc/ngram-guide.pdf
+vignettes/cover/cover.pdf
+vignettes/ngram-guide.pdf
