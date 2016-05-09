@@ -1,4 +1,4 @@
-\section{Background and Utilities}\label{utils}
+\section{Background and Utilities}\label{sec:utils}
 
 The n-gram processor in the \pkg{ngram} package changes its behavior depending
 on the way the input is formatted. If the input is given as a single string,
@@ -43,14 +43,17 @@ and \code{txt} are all treated the same.
 Since the n-gram tokenizer expects only single strings, we offer the simple
 \code{concatenate()} function:
 
-<<cache=TRUE>>=
-letters
+\begin{lstlisting}[language=rr]
+> str(letters)
+## chr [1:26] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" ...
 
-library(ngram)
 concatenate(letters)
+## [1] "a b c d e f g h i j k l m n o p q r s t u v w x y z"
 
 concatenate(concatenate(letters, collapse=""), letters)
-@
+## [1] "abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v 
+w x y z"
+\end{lstlisting}
 
 So if data is coming from multiple files, the simplest way to merge them 
 together would be to call \code{multiread()} (described above) if possible.
@@ -81,14 +84,15 @@ The \code{preprocess()} function is a simple utility for making letter case
 uniform, as well as optionally splitting at punctuation (so that punctuation
 itself becomes a ``word'' in the n-gram analysis).  Here is a simple example:
 
-<<cache=TRUE>>=
+\begin{lstlisting}[language=rr]
 x <- "Watch  out    for snakes!  "
-
-library(ngram)
+ 
 preprocess(x)
-
+## [1] "watch out for snakes!"
+ 
 preprocess(x, case="upper", remove.punct=TRUE)
-@
+## [1] "WATCH OUT FOR SNAKES"
+\end{lstlisting}
 
 Perhaps more useful is the \code{charsplitter()} function.  Suppose that for the
 purposes of n-gram tokenization, instead of wanting to call things separated by
@@ -97,22 +101,26 @@ accomplished by using \code{sep=""} when calling \code{ngram()}, but for the
 sake of introducing \code{charsplitter()}, it can also be done simply in this
 way:
 
-<<cache=TRUE>>=
+\begin{lstlisting}[language=rr]
 x <- "abacabb"
 splitter(x, split.char=TRUE)
-@
+## [1] "a b a c a b b"
+\end{lstlisting}
 
 By default, this will preserve spaces as a special token (an underscore by
 default).  You may wish to ignore spaces entirely during tokenization.  This too
 is simple to handle during preprocessing:
 
-<<cache=TRUE>>=
+\begin{lstlisting}[language=rr]
 y <- "abacabb abacabb"
-
+ 
 splitter(y, split.space=TRUE)
+## [1] "abacabb _ abacabb"
 splitter(y, split.space=FALSE, split.char=TRUE)
+## [1] "a b a c a b b a b a c a b b"
 splitter(y, split.space=TRUE, split.char=TRUE)
-@
+## [1] "a b a c a b b _ a b a c a b b"
+\end{lstlisting}
 
 
 
@@ -144,12 +152,25 @@ summary counts of your text.  With the assumption that the text is a single
 string with words separated by one or more spaces, we can very quickly generate
 these counts via the \code{string.summary()} function:
 
-<<cache=TRUE>>=
+\begin{lstlisting}[language=rr]
 x <- "a b a c a b b"
-
-library(ngram)
 string.summary(x)
-@
+## Chars:       13
+## Letters:     7
+## Whitespace:  6
+## Punctuation: 0
+## Digits:      0
+## Words:       7
+## Sentences:   0
+## Lines:       1 
+## Wordlens:    0 7 
+##              9 1 
+## Senlens:     0 
+##              10 
+## Syllens:     0 3 
+##              9 1 
+\end{lstlisting}
+
 
 Now, this ``model'' is based only on very simple counts, and is easily fooled.
 For example, the sentence \code{S.T.A.R. Labs is a research facility in the DC

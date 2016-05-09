@@ -21,12 +21,8 @@
 
 \begin{document}
 
-<<echo=FALSE, cache=FALSE, warning=FALSE>>=
-library(knitr)
-render_listings()
-@
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \vspace{-.5in}
   \begin{minipage}[c]{8.5in}
   \hspace{-1.0in}
@@ -38,8 +34,8 @@ render_listings()
 
 \input{./include/01-introduction}
 \input{./include/02-installation}
-\Sexpr{knit_child('./include/03-utilities.Rnw')}
-\Sexpr{knit_child('./include/04-use.Rnw')}
+\input{./include/03-utilities}
+\input{./include/04-use}
 \input{./include/05-benchmarks}
 
 \newpage
