@@ -78,7 +78,6 @@ SEXP ng_asweka(SEXP R_str, SEXP R_str_len, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 		sep=NULL;
 
 	sl = lex_sentences((const char**)str, str_lens, strn, sep);
-	FREESTR();
 	free(str_lens);
 
 	numwords = 0;
@@ -129,6 +128,7 @@ SEXP ng_asweka(SEXP R_str, SEXP R_str_len, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 		}
 	}
 
+	FREESTR();
 	free(buf);
 	free(word_array);
 	free_sentencelist(sl,free_wordlist);
