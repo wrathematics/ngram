@@ -5,19 +5,22 @@
 \alias{ngram_asweka}
 \title{Weka-like n-gram Tokenization}
 \usage{
-ngram_asweka(x, min = 2, max = 2, sep = " ")
+ngram_asweka(str, min = 2, max = 2, sep = " ")
 }
 \arguments{
+\item{str}{The input text.}
+
+\item{min, max}{The minimum and maximum 'n' as in 'n-gram'.}
+
 \item{sep}{A set of separator characters for the "words".  See details for
 information about how this works; it works a little differently
 from \code{sep} arguments in R functions.}
-
-\item{str}{The input text.}
-
-\item{n}{The 'n' as in 'n-gram'.}
 }
 \value{
-An \code{ngram} class object.
+A vector of n-grams listed in decreasing blocks of n, in order within a
+block.  This is harder to describe than it is to look at an output and
+immediately see the pattern. The output matches that of RWeka's n-gram
+tokenizer.
 }
 \description{
 An n-gram tokenizer with identical output to the \code{NGramTokenizer}
