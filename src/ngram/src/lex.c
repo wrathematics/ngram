@@ -61,6 +61,9 @@ void free_sentencelist(sentencelist_t *sl, void(*wlcb)(wordlist_t*))
 
 	for(i=0;i<sl->filled;i++)
 		wlcb(sl->words[i]);
+
+	free(sl->words);
+	free(sl);
 }
 
 

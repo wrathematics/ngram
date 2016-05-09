@@ -73,6 +73,9 @@ SEXP ng_asweka(SEXP R_str, SEXP R_str_len, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 		for(wptr=sl->words[i];wptr && wptr->word->s;wptr=wptr->next)
 			numwords++;
 
+	if (numwords == 0)
+		error("no words");
+
 	len = numwords;
 	word_array = malloc(sizeof(*word_array)*numwords);
 	for(i=sl->filled-1;i>=0;i--){
