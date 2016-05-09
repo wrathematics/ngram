@@ -16,9 +16,6 @@ Depends:
 Imports:
     methods,
     assertthat (>= 0.1)
-Suggests:
-    knitr
-VignetteBuilder: knitr
 LazyData: yes
 LazyLoad: yes
 NeedsCompilation: yes

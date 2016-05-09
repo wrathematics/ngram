@@ -9,16 +9,16 @@ citEntry(
   note = note,
   url = "https://cran.r-project.org/package=ngram",
   textVersion = NULL,
-  key = "ngram2016"
+  key = "ngrampkg"
 )
 
 citEntry(
   entry = "Manual",
   title = "Guide to the ngram Package: Fast n-gram Tokenization",
   author = person("Drew", "Schmidt"),
-  year = "2015",
+  year = year,
   note = "{R} Vignette",
   url = "https://cran.r-project.org/package=ngram",
   textVersion = NULL,
-  key = "ngram2015guide"
+  key = "ngramguide"
 )
