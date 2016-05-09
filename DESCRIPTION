@@ -34,6 +34,7 @@ Collate:
     'getters.r'
     'multiread.r'
     'ngram-package.R'
+    'ngram_asweka.r'
     'phrasetable.r'
     'preprocess.r'
     'print.r'

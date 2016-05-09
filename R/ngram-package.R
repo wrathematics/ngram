@@ -17,7 +17,7 @@
 #' @useDynLib ngram,  
 #'   ng_extract_ngrams, ng_extract_str, ng_print, ng_process,
 #'   R_ngram_gen, R_ngram_get_seed, R_ngram_wordcount,
-#'   R_ng_get_phrasetable, R_stringsummary
+#'   R_ng_get_phrasetable, R_stringsummary, ng_asweka
 #' 
 #' @import methods assertthat
 #' 
