@@ -1,0 +1,217 @@
+\section{Using the Package}
+
+
+The general process for using the \pkg{ngram} package goes something like:
+\begin{enumerate}
+  \item Prepare the input string; you may find the utilities in 
+\secref{sec:utils} useful.
+  \item Tokenize with the \code{ngram()} function.
+  \item Generate new text with \code{babble()}, and/or
+  \item Extract pieces of the processed ngram data with the \code{get.*()} functions.
+\end{enumerate}
+
+
+
+\subsection{Creating}
+
+Let us return to the example sequence of letters from \secref{sec:intro}.  If 
+we store this string in \code{x}:
+\begin{lstlisting}[language=rr]
+x <- "A B A C A B B"
+\end{lstlisting}
+The next step is to process with \code{ngram()}:
+\begin{lstlisting}[language=rr]
+library(ngram)
+ng <- ngram(x, n=2)
+\end{lstlisting}
+Simple as that!  And the tokenization was designed to be extremely fast; see 
+\secref{sec:benchmarks} for benchmarks.
+
+
+
+\subsection{Printing}
+
+With \code{ng} as above, we can then inspect the sequence:
+
+\begin{lstlisting}[language=rr]
+ng
+## An ngram object with 5 2-grams
+\end{lstlisting}
+If you don't have too many n-grams, you may want to print all of them by 
+calling 
+\code{print()} directly, with the \code{print()} argument \code{output="full"}:
+\begin{lstlisting}[language=rr]
+print(ng, output="full")
+## C A | 1 
+## B {1} | 
+## 
+## B A | 1 
+## C {1} | 
+## 
+## B B | 1 
+## NULL {1} | 
+## 
+## A C | 1 
+## A {1} | 
+## 
+## A B | 2 
+## A {1} | B {1} | 
+\end{lstlisting}
+Here we see each 3-gram, followed by its next possible ``words'' and each 
+word's frequency of occurrence following the given n-gram.  So in 
+the above, the first n-gram printed \code{C A} has \code{B} as a next 
+possible word, because the sequence \code{C A} is only ever followed by the 
+``word'' \code{B} in the input string.  On the other hand, \code{A B} is 
+followed by \code{A} once and \code{B} once.  The sequence \code{B B} is 
+terminal, i.e. followed by nothing; we treat this case specially.
+
+You may just wish to see the first few n-grams; this too is possible, but
+note that the order here is not particularly
+informative, in that the first n-gram shown is not necessarily the most/least
+common, etc.  We can achieve this with the \code{print()} argument 
+\code{output="truncated"}.  However, in our example, we only have 5 n-grams,
+and so we will not see any difference between printing with \code{output="full"}
+versus \code{output="truncated"}.  So we will construct a slightly more
+complicated example:
+
+\begin{lstlisting}[language=rr]
+text <- rcorpus(100, alphabet=letters[1:3], maxwordlen=1)
+ng2 <- ngram(text)
+
+ng2
+## An ngram object with 9 2-grams 
+ 
+print(ng2, output="truncated")
+## b a | 14 
+## b {2} | a {1} | c {1} | a {2} | b {1} | a {1} | c {1} | a {1} | c {1} | b {2} 
+## | NULL {1} | 
+## 
+## c a | 10 
+## a {1} | b {1} | a {1} | c {1} | a {1} | b {1} | a {1} | b {1} | c {1} | a {1} 
+## | 
+## 
+## a a | 12 
+## c {1} | b {1} | a {1} | b {1} | c {2} | b {1} | a {1} | c {3} | b {1} | 
+## 
+## a b | 12 
+## b {1} | a {1} | c {1} | a {1} | b {1} | a {3} | c {2} | b {2} | 
+## 
+## c c | 4 
+## a {1} | b {3} | 
+## 
+## [[ ... results truncated ... ]]
+\end{lstlisting}
+
+
+\subsection{Summarizing}
+
+Once the \code{ngram} representation of the text has been generated, it is very 
+simple to get some interesting summary information.  The function 
+\code{get.phrasetable()} generates a ``phrasetable'', or more explicitly, a 
+table of n-grams, and their frequency and proportion in the text:
+
+\begin{lstlisting}[language=rr]
+get.phrasetable(ng)
+##   ngrams freq      prop
+## 1   A B     2 0.3333333
+## 2   C A     1 0.1666667
+## 3   B A     1 0.1666667
+## 4   B B     1 0.1666667
+## 5   A C     1 0.1666667
+\end{lstlisting}
+We can perhaps better see the value of this in a more interesting string:
+
+\begin{lstlisting}[language=rr]
+set.seed(12345)
+text <- rcorpus(100, alphabet=letters[1:3], maxwordlen=1)
+text
+## [1] "a b c b b c b c a a b b c b c c c b a a b b a c c c c a a c a c c b c c 
+## c a a c b c a b a c c b c b c b c b a c c b c b c b c c b b c a c b c a c a b 
+## c c c c c a b a a c c b c a a c c a a c a a c a b"
+
+head(get.phrasetable(ngram(text, n=3)))
+##   ngrams freq       prop
+## 1 c b c    12 0.12244898
+## 2 b c b     8 0.08163265
+## 3 c c c     7 0.07142857
+## ## 4 c a a     6 0.06122449
+## 5 a a c     6 0.06122449
+## 6 c c b     6 0.06122449
+\end{lstlisting}
+
+Presently, there are two other ``getters'', namely \code{get.ngrams()} and
+\code{get.string()}.  Each of these basically does what it sounds like.
+The first produces the unique n-grams as a vector of strings (in no particular 
+order), while the second produces the input string that was used during 
+tokenization:
+
+\begin{lstlisting}[language=rr]
+> get.ngrams(ng)
+[1] "C A" "B A" "B B" "A C" "A B"
+> get.string(ng)
+[1] " "
+\end{lstlisting}
+
+
+
+
+\subsection{Babbling}
+
+We might want to use n-grams as god intended:  amusement.  We can easily
+generate new strings with the same statistical properties as the input strings
+via a very simple markov chain/sampling scheme.  We for this, we use 
+\code{babble()}:
+
+\begin{lstlisting}[language=rr]
+babble(ng, 10)
+## [1] "B B A C A B B B B A "
+babble(ng, 10)
+## [1] "C A B A C A B B A B "
+babble(ng, 10)
+## [1] "A B A C A B A C A B "
+\end{lstlisting}
+
+This generation includes a random process.  For this, we developed our own
+implementation of MT19937, and so R's seed management does not apply.  To 
+specify your own seed, use the \code{seed=} argument:
+
+\begin{lstlisting}[language=rr]
+babble(ng, 10, seed=10)
+## [1] "A C A B A C A B B B "
+babble(ng, 10, seed=10)
+## [1] "A C A B A C A B B B "
+babble(ng, 10, seed=10)
+## [1] "A C A B A C A B B B "
+\end{lstlisting}
+
+
+
+\subsection{Important Notes About the Internal Representation}
+
+The entirety of the interesting bits of the \thispackage package take place 
+outside of \R (completely in \C).  Observe:
+
+\begin{lstlisting}[language=rr]
+str(ng)
+## Formal class 'ngram' [package "ngram"] with 6 slots
+##   ..@ str_ptr:<externalptr> 
+##   ..@ strlen : int 1
+##   ..@ n      : int 2
+##   ..@ ngl_ptr:<externalptr> 
+##   ..@ ngsize : int 5
+##   ..@ sl_ptr :<externalptr> 
+\end{lstlisting}
+
+So everything is wrangled up top as an S4 class, and underneath the data is 
+stored as 2 linked lists, outside the purview of \R.  This means that, for 
+example, that you cannot save the n-gram object with a call to \code{save()}.  
+If you do and you shut down and restart \R, the pointers will no longer be
+valid.
+
+Extracting a the data into a native \R data structure is not currently 
+possible.  Full support is planned for a later release.  Some pieces can be extracted.  At this time, \code{get.ngrams()} and \code{get.string()} are implemented, but \code{get.nextwords()} is not.
+
+\begin{lstlisting}[language=rr]
+get.nextwords(ng)
+# Error in .local(ng, ...) : Not yet implemented
+\end{lstlisting}
