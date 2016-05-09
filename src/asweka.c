@@ -27,6 +27,10 @@
 
 #include "ngram.h"
 
+#define FREESTR() \
+	for (i=0;i<strn;i++) \
+		free(str[i]); \
+	free(str);
 
 SEXP ng_asweka(SEXP R_str, SEXP R_str_len, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 {
@@ -55,7 +59,10 @@ SEXP ng_asweka(SEXP R_str, SEXP R_str_len, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 		error("out of memory");
 	str_lens = malloc(strn * sizeof(*str_lens));
 	if (str_lens == NULL)
+	{
+		FREESTR();
 		error("out of memory");
+	}
 	
 	for(i=0;i<strn;i++){
 		tmp = CHARPT(R_str, i);
@@ -71,7 +78,7 @@ SEXP ng_asweka(SEXP R_str, SEXP R_str_len, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 		sep=NULL;
 
 	sl = lex_sentences((const char**)str, str_lens, strn, sep);
-	free(str);
+	FREESTR();
 	free(str_lens);
 
 	numwords = 0;
@@ -98,7 +105,10 @@ SEXP ng_asweka(SEXP R_str, SEXP R_str_len, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 
 	buf = malloc(maxwordlen*max_n+max_n);
 	if (buf == NULL)
+	{
+		free(word_array);
 		error("out of memory");
+	}
 
 	i = numwords-(min_n-1);
 	j = numwords-(max_n-1);
