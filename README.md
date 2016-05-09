@@ -28,6 +28,26 @@ incomplete at this time.
 
 
 
+## Installation
+
+You can install the stable version from CRAN using the usual `install.packages()`:
+
+```r
+install.packages("ngram")
+```
+
+#### Development Version
+The development version is maintained on GitHub, and can easily be installed by any of the packages that offer installations from GitHub:
+
+```r
+### Pick your preference
+devtools::install_github("wrathematics/ngram")
+ghit::install_github("wrathematics/ngram")
+remotes::install_github("wrathematics/ngram")
+```
+
+
+
 ## Example Usage
 
 Let's take the sequence
@@ -89,6 +109,14 @@ get.phrasetable(ng)
 # 5    b b    1 0.1666667
 ```
 
+There is also a tokenizer that behaves identically to the one in the **RWeka** package:
+
+```r
+ngram::ngram_asweka(x, min=2, max=3)
+##  [1] "a b a" "b a c" "a c a" "c a b" "a b b" "a b"   "b a"   "a c"   "c a"  
+## [10] "a b"   "b b"
+```
+
 Finally, we can use the glory of Markov Chains to babble new
 sequences:
 
@@ -106,15 +134,3 @@ babble(ng=ng, genlen=12, seed=1234)
 
 See the package vignette for more detailed information on package
 usage.
-
-
-
-## Installation
-
-Using the devtools package: 
-
-```r
-devtools::install_github("wrathematics/ngram")
-```
-
-An older version of this package is also available on the CRAN.

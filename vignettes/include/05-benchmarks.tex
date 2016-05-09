@@ -1,12 +1,9 @@
 \section{Benchmarks}\label{sec:benchmarks}
 
-The \pkg{ngram} package is designed to be very fast.  This performance comes
-about from the usual performance/generality tradeoff.  
-The \pkg{tau}~\citep{tau} package offers a general framework for constructing
-n-grams from a text, via its \code{textcnt()} function.  This is much more
-general than the tools in the \pkg{ngram} package, but it is also
-significantly slower.  And many of those additional features can be achieved
-by preprocessing the text.
+\subsection{tau}
+
+The \pkg{tau}~\citep{tau} package offers, among other things, a framework for 
+constructing n-grams from a text, via its \code{textcnt()} function.
 
 In \pkg{ngram}, the use of \code{get.phrasetable(ngram(x, n=3))} roughly corresponds
 to \code{textcnt(x, n=3, split=" ", method="string")} in \pkg{tau}.  Although
@@ -58,3 +55,28 @@ tau/ngram:  762
 Here, \pkg{ngram} is primed for babbling, in that it has already stored all
 ``next words'', while \pkg{tau} only contains what we call the phrasetable of
 3-grams.
+
+
+
+\subsection{RWeka}
+
+The \pkg{ngram} package has a separate tokenizer to produce returns similar to 
+those in the \pkg{RWeka} package.  However, \pkg{ngram} is significantly faster:
+
+\begin{lstlisting}[language=rr]
+library(memuse)
+library(ngram)
+library(RWeka)
+
+x = ngram::rcorpus(nwords=1e6, alphabet="a")
+memuse(x)
+## 4.292 MiB
+
+system.time(ngram_asweka(x, min=2, max=2))
+##    user  system elapsed 
+##   0.216   0.044   0.261 
+
+system.time(NGramTokenizer(x, Weka_control(min=2, max=2)))
+##    user  system elapsed 
+## 500.228   0.528 500.056 
+\end{lstlisting}
