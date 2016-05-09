@@ -18,16 +18,17 @@ from \code{sep} arguments in R functions.}
 }
 \value{
 A vector of n-grams listed in decreasing blocks of n, in order within a
-block.  This is harder to describe than it is to look at an output and
-immediately see the pattern. The output matches that of RWeka's n-gram
-tokenizer.
+block.  The output matches that of RWeka's n-gram tokenizer.
 }
 \description{
 An n-gram tokenizer with identical output to the \code{NGramTokenizer}
 function from the RWeka package.
 }
 \details{
-TODO
+This n-gram tokenizer behaves similarly in both input and return to 
+the tokenizer in RWeka.  Unlike the tokenizer \code{ngram()}, the
+return is not a special class of external pointers; it is a vector,
+and therefore can be serialized via \code{save()} or \code{saveRDS()}.
 }
 \examples{
 library(ngram)
