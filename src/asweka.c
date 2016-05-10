@@ -32,16 +32,12 @@ SEXP ng_asweka(SEXP R_str, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 	int i, j;
 	char *str = CHARPT(R_str, 0); 
 	char *sep = CHARPT(R_sep, 0); 
-	const char *tmp;
 	const int min_n = INTEGER(min_n_)[0];
 	const int max_n = INTEGER(max_n_)[0];
 	int str_len;
 	sentencelist_t *sl;
-	ngramlist_t *ngl;
 	wordlist_t *wptr;
-	word_t **word_array;
 	int numwords;
-	int maxwordlen=0;
 	int cur_n;
 	char *buf;
 	size_t len;
@@ -68,18 +64,20 @@ SEXP ng_asweka(SEXP R_str, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 
 	len = numwords;
 	starts = malloc(sizeof(*starts)*numwords);
-	lens = malloc(sizeof(*lens)*numwords);
-	if (starts == NULL || lens == NULL)
+	if (starts == NULL)
 		error("out of memory");
+
+	lens = malloc(sizeof(*lens)*numwords);
+	if (lens == NULL){
+		free(starts);
+		error("out of memory");
+	}
 	
 	for(i=sl->filled-1;i>=0;i--){
 		for(wptr=sl->words[i];wptr && wptr->word->s;wptr=wptr->next){
 			--len;
 			starts[len]=wptr->word->s;
 			lens[len]=wptr->word->len;
-
-			if(wptr->word->len>maxwordlen)
-				maxwordlen=wptr->word->len;
 		}
 	}
 
