@@ -49,8 +49,7 @@ SEXP ng_asweka(SEXP R_str, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 	int *lens;
 	int word_i;
 
-	SEXP RET, RET_NAMES, NGSIZE;
-	SEXP str_ptr, sl_ptr, ngl_ptr;
+	SEXP RET;
 
 	str_len = strlen(str);
 
@@ -84,14 +83,6 @@ SEXP ng_asweka(SEXP R_str, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 		}
 	}
 
-	buf = malloc(maxwordlen*max_n+max_n);
-	if (buf == NULL)
-	{
-		free(starts);
-		free(lens);
-		error("out of memory");
-	}
-
 	i = numwords-(min_n-1);
 	j = numwords-(max_n-1);
 	len = i*(i+1)/2 - j*(j-1)/2;
@@ -101,16 +92,12 @@ SEXP ng_asweka(SEXP R_str, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 	for(cur_n=max_n;cur_n>=min_n;cur_n--){
 		for(i=0;i<numwords-(cur_n-1);i++){
 			len = starts[i+cur_n-1] - starts[i] + lens[i+cur_n-1]; 
-			memcpy(buf,starts[i],len);
-			buf[len]=0;
-
-			SET_STRING_ELT(RET, word_i, mkChar(buf));
-
+			SET_STRING_ELT(RET, word_i, mkCharLen(starts[i], len));
+			
 			word_i++;
 		}
 	}
 
-	free(buf);
 	free(starts);
 	free(lens);
 	free_sentencelist(sl,free_wordlist);
