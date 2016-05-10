@@ -4,7 +4,8 @@ note <- sprintf("{R} package version %s", meta$Version)
 citEntry(
   entry = "Misc",
   title = "{ngram}: Fast n-Gram Tokenization",
-  author = person("Drew", "Schmidt"),
+  author = personList(as.person("Drew Schmidt"),
+                     as.person("Christian Heckendorf")),
   year = year,
   note = note,
   url = "https://cran.r-project.org/package=ngram",
@@ -15,7 +16,8 @@ citEntry(
 citEntry(
   entry = "Manual",
   title = "Guide to the ngram Package: Fast n-gram Tokenization",
-  author = person("Drew", "Schmidt"),
+  author = personList(as.person("Drew Schmidt"),
+                     as.person("Christian Heckendorf")),
   year = year,
   note = "{R} Vignette",
   url = "https://cran.r-project.org/package=ngram",
