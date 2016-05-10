@@ -64,9 +64,14 @@ SEXP ng_asweka(SEXP R_str, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 
 	len = numwords;
 	starts = malloc(sizeof(*starts)*numwords);
-	lens = malloc(sizeof(*lens)*numwords);
-	if (starts == NULL || lens == NULL)
+	if (starts == NULL)
 		error("out of memory");
+
+	lens = malloc(sizeof(*lens)*numwords);
+	if (lens == NULL){
+		free(starts);
+		error("out of memory");
+	}
 	
 	for(i=sl->filled-1;i>=0;i--){
 		for(wptr=sl->words[i];wptr && wptr->word->s;wptr=wptr->next){
