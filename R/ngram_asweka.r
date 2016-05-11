@@ -35,8 +35,7 @@
 #' @export
 ngram_asweka <- function(str, min=2, max=2, sep=" ")
 {
-  assert_that(is.character(str))
-  assert_that(length(str) > 0)
+  assert_that(is.string(str))
   assert_that(is.count(min))
   assert_that(is.count(max))
   assert_that(is.character(sep))
