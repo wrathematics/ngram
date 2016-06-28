@@ -6,8 +6,14 @@
 * **Author:** Drew Schmidt and Christian Heckendorf
 
 
-ngram is an R package for constructing n-grams, as well as generating 
-new text based on the n-gram structure of a given text input.
+**ngram** is an R package for constructing n-grams, as well as generating 
+new text based on the n-gram structure of a given text input.  The package can be used for serious analysis or for creating "bots" that say amusing things.  See details section below for more information.
+
+The package is designed to be extremely fast at both tokenizing and summarizing tokenized corpora.  Because of the architectural design, we are also able to handle very large volumes of text, with performance scaling very nicely.  Benchmarks and example usage can be found in the package vignette.
+
+
+
+## Package Details
 
 The original purpose for the package was to combine the book
 "Modern Applied Statistics in S" with the collected works of H. P.
@@ -25,6 +31,8 @@ external pointer.  In fact, the underlying C code can be compiled
 as a standalone library.  There is some minimal compatibility
 with exporting the data to proper R data structures, but it is 
 incomplete at this time.
+
+For more information, see the package vignette.
 
 
 
