@@ -1,4 +1,5 @@
 Release 3.0.1:
+  * Fixed scan-build warning in src/phrase_table.c. Improved memory allocations.
   * Disabled babble test.
   * Improved readme.
 
