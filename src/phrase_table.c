@@ -30,12 +30,13 @@
 SEXP R_ng_get_phrasetable(SEXP ng_ptr, SEXP ngsize_)
 {
   int i, j, len;
-  char *buf;
+  char *buf = NULL;
   ngramlist_t *ngl = (ngramlist_t *) getRptr(ng_ptr);
   ngram_t *ng = ngl->ng;
   const int ngsize = INTEGER(ngsize_)[0];
   wordlist_t *wl;
   int tot = 0;
+  int bufsize;
   
   SEXP RET, RETNAMES;
   SEXP NGRAMS, FREQ, PROP;
@@ -60,11 +61,18 @@ SEXP R_ng_get_phrasetable(SEXP ng_ptr, SEXP ngsize_)
     
     // mkCharLen doesn't require NUL terminated strings but it's probably
     // better/faster to overallocate by 1 and simplify the memcpy loop
+    if (buf == NULL || bufsize < (len+1))
+    {
+      if (buf)
+        free(buf);
+      
+      bufsize = len+1;
+      buf = malloc(bufsize * sizeof(*buf));
+    }
     
-    buf = malloc(len * sizeof(*buf));
     
     wl = ng[i].words;
-    for(j=0; wl; wl = wl->next)
+    for (j=0; wl; wl = wl->next)
     {
       memcpy(buf+j,wl->word->s,wl->word->len);
       j += wl->word->len;
@@ -76,9 +84,10 @@ SEXP R_ng_get_phrasetable(SEXP ng_ptr, SEXP ngsize_)
     
     freq[i] = ng[i].count;
     tot += ng[i].count;
-    
-    free(buf);
   }
+  
+  free(buf);
+  
   
   for (i=0; i<ngsize; i++)
   {
