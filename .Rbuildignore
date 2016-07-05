@@ -7,4 +7,6 @@ cover/hydra.png
 
 inst/presentations
 
+tests/dontrun/
+
 TODO
