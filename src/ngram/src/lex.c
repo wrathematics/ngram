@@ -113,6 +113,10 @@ static wordlist_t* split(const char *s, const int len, const char *sep){
 	}
 
 	return ret;
+
+memerr:
+	free_wordlist(ret);
+	return NULL;
 }
 
 static wordlist_t* lex(const char *s, const int len, const char *sep){
@@ -141,26 +145,42 @@ sentencelist_t* lex_init(const int num){
 	ret->filled=0;
 
 	return ret;
+
+memerr:
+	freeif(ret);
+	return NULL;
 }
 
-void lex_add(sentencelist_t *wordtok, const int index, const char *s, const int len, const char *sep){
+int lex_add(sentencelist_t *wordtok, const int index, const char *s, const int len, const char *sep){
 	if(index >= wordtok->len)
-		return; // silent fail :(
+		return -1; // silent fail :(
 
-	wordtok->words[index]=lex(s,len,sep);
+	wordtok->words[index] = lex(s,len,sep);
+	if(wordtok->words[index] == NULL)
+		return -1;
+
 	wordtok->filled++;
+
+	return 0;
 }
 
 sentencelist_t* lex_sentences(const char **s, const int *lengths, const int num, const char *sep){
 	sentencelist_t *ret;
 	int i;
 
-	ret=lex_init(num);
+	ret = lex_init(num);
+	if(ret == NULL)
+		return NULL;
 
 	for(i=0;i<num;i++)
-		lex_add(ret,i,s[i],lengths[i],sep);
+		if(lex_add(ret,i,s[i],lengths[i],sep))
+			goto memerr;
 
 	return ret;
+
+memerr:
+	free_sentencelist(ret,free_wordlist);
+	return NULL;
 }
 
 sentencelist_t* lex_simple(const char *s, const int len, const char *sep){

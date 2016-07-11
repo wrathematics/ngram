@@ -27,8 +27,9 @@
 #ifndef _COMMON_DEFS_H_
 #define _COMMON_DEFS_H_
 
-#define REINIT_MEM(x,y) if((x=realloc(x,sizeof(*x)*(y)))==NULL){/*fprintf(stderr,"Malloc of %d failed at %s:%d pid %d\n",(int)y,__FILE__,__LINE__,getpid());exit(22);*/}
-#define ZEROINIT_MEM(x,y) if((x=calloc(y,sizeof(*x)))==NULL){/*fprintf(stderr,"Malloc of %d failed at %s:%d pid %d\n",(int)y,__FILE__,__LINE__,getpid());exit(22);*/}
-#define INIT_MEM(x,y) if((x=malloc(sizeof(*x)*(y)))==NULL){/*fprintf(stderr,"Malloc of %d failed at %s:%d pid %d\n",(int)y,__FILE__,__LINE__,getpid());exit(22);*/}
+#define freeif(x) if(x)free(x);
+#define REINIT_MEM(x,y) if((x=realloc(x,sizeof(*x)*(y)))==NULL){goto memerr; /*fprintf(stderr,"Malloc of %d failed at %s:%d pid %d\n",(int)y,__FILE__,__LINE__,getpid());exit(22);*/}
+#define ZEROINIT_MEM(x,y) if((x=calloc(y,sizeof(*x)))==NULL){goto memerr; /*fprintf(stderr,"Malloc of %d failed at %s:%d pid %d\n",(int)y,__FILE__,__LINE__,getpid());exit(22);*/}
+#define INIT_MEM(x,y) if((x=malloc(sizeof(*x)*(y)))==NULL){goto memerr; /*fprintf(stderr,"Malloc of %d failed at %s:%d pid %d\n",(int)y,__FILE__,__LINE__,getpid());exit(22);*/}
 
 #endif

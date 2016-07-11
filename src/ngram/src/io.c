@@ -49,4 +49,7 @@ char* ngram_read_file(char *infile)
 	fclose(input_file);
 
 	return str;
+
+memerr:
+	return NULL;
 }

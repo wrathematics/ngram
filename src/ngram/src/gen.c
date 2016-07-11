@@ -183,12 +183,13 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
   int ng_ind = 0;
   int retlen = 0;
   bool init = true;
-  char **tmp;
-  int *itmp;
+  char **tmp = NULL;
+  int *itmp = NULL;
   const int genlencp = genlen; // this is the kind of shit you get when you plan ahead poorly
   word_t *word;
-  wordlist_t *wl;
+  wordlist_t *wl = NULL;
   
+  *ret = NULL;
   
   if (genlen < 1)
     return -1;
@@ -259,4 +260,12 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
   free(itmp);
   
   return retlen;
+
+memerr:
+  freeif(tmp);
+  freeif(itmp);
+  free_wordlist_keepwords(wl);
+  freeif(*ret);
+
+  return -1;
 }

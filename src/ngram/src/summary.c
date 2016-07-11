@@ -121,7 +121,7 @@ static void ngram_summary_printer(const int n, ngram_t *ng, const int ngsize, ng
 
 
 
-void ngram_summary(ngramlist_t *ngl, int num_commonest)
+int ngram_summary(ngramlist_t *ngl, int num_commonest)
 {
 	ngsummary_t ngsummary;
 	ngsummary.num_commonest = num_commonest;
@@ -137,6 +137,11 @@ void ngram_summary(ngramlist_t *ngl, int num_commonest)
 	ngram_summary_printer(ngl->n, ngl->ng, ngl->ngsize, &ngsummary);
 
 	free(commonest);
+
+	return 0;
+
+memerr:
+	return -1;
 }
 
 

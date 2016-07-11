@@ -41,9 +41,10 @@ SEXP ng_asweka(SEXP R_str, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 	int cur_n;
 	char *buf;
 	size_t len;
-	const char **starts;
-	int *lens;
+	const char **starts = NULL;
+	int *lens = NULL;
 	int word_i;
+	char *errstr;
 
 	SEXP RET;
 
@@ -54,23 +55,30 @@ SEXP ng_asweka(SEXP R_str, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 
 	sl = lex_simple(str, str_len, sep);
 
+	if (sl == NULL)
+		error("out of memory");
+
 	numwords = 0;
 	for(i=0;i<sl->filled;i++)
 		for(wptr=sl->words[i];wptr && wptr->word->s;wptr=wptr->next)
 			numwords++;
 
-	if (numwords == 0)
-		error("no words");
+	if (numwords == 0){
+		errstr="no words";
+		goto memerr;
+	}
 
 	len = numwords;
 	starts = malloc(sizeof(*starts)*numwords);
-	if (starts == NULL)
-		error("out of memory");
+	if (starts == NULL){
+		errstr="out of memory";
+		goto memerr;
+	}
 
 	lens = malloc(sizeof(*lens)*numwords);
 	if (lens == NULL){
-		free(starts);
-		error("out of memory");
+		errstr="out of memory";
+		goto memerr;
 	}
 	
 	for(i=sl->filled-1;i>=0;i--){
@@ -102,4 +110,10 @@ SEXP ng_asweka(SEXP R_str, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 
 	UNPROTECT(1);
 	return RET;
+
+memerr:
+	freeif(starts);
+	freeif(lens);
+	free_sentencelist(sl,free_wordlist);
+	error(errstr);
 }

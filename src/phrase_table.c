@@ -68,6 +68,8 @@ SEXP R_ng_get_phrasetable(SEXP ng_ptr, SEXP ngsize_)
       
       bufsize = len+1;
       buf = malloc(bufsize * sizeof(*buf));
+      if(buf == NULL)
+          error("out of memory");
     }
     
     
