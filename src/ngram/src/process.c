@@ -76,10 +76,10 @@ static int cmp_ngram(const void *a, const void *b){
 ngramlist_t* process(sentencelist_t *wordtok, int n)
 {
 	int i, j, k, js, len, ngsize, endi;
-	int *sen_len;
+	int *sen_len = NULL;
 	wordlist_t *p, *q, *nw;
-	ngram_t *ng, *tmp, **sorted;
-	ngramlist_t *ngl;
+	ngram_t *ng = NULL, *tmp = NULL, **sorted = NULL;
+	ngramlist_t *ngl = NULL;
 	wordlist_t *words;
 
 	if (n<1)
@@ -106,13 +106,12 @@ ngramlist_t* process(sentencelist_t *wordtok, int n)
 	}
 
 	if (len<1)
-		return NULL;
+		goto memerr;
 
-	// Hope this doesn't crash lol
 	INIT_MEM(ng,len);
 	ng->count = 0;
 
-	INIT_MEM(tmp,len);
+	ZEROINIT_MEM(tmp,len);
 	INIT_MEM(sorted,len);
 
 	endi=0;
@@ -125,7 +124,7 @@ ngramlist_t* process(sentencelist_t *wordtok, int n)
 		nw = q = p = wordtok->words[j];
 		tmp[i].tok = get_token(p,n);
 		tmp[i].words = NULL;
-		for (k = 0;k<n;k++){
+		for (k = 0;q && k<n;k++){
 			add_node(tmp[i].words);
 			tmp[i].words->word = q->word;
 			q = q->next;
@@ -141,11 +140,11 @@ ngramlist_t* process(sentencelist_t *wordtok, int n)
 		/* Add the remaining ngrams iteratively */
 		i = endi+1;
 		endi += sen_len[j];
-		for (;i<endi;i++){
+		for (;nw && i<endi;i++){
 			q = p = nw->next;
 			tmp[i].tok = get_token(p,n);
 			tmp[i].words = NULL;
-			for (k = 0;k<n;k++){
+			for (k = 0;q && k<n;k++){
 				add_node(tmp[i].words);
 				tmp[i].words->word = q->word;
 				q = q->next;
@@ -205,6 +204,22 @@ ngramlist_t* process(sentencelist_t *wordtok, int n)
 	ngl->n = n;
 
 	return ngl;
+
+memerr:
+	freeif(sen_len);
+	freeif(ngl);
+	freeif(ng);
+	if(tmp){
+		for(i=0;i<len;i++){
+			free_list(tmp[i].words);
+#ifdef NEXTWORDS
+			free_list(tmp[i].nextword);
+#endif
+		}
+		free(tmp);
+	}
+	freeif(sorted);
+	return NULL;
 }
 
 

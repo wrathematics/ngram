@@ -128,7 +128,7 @@ int ngram_stringsummary(char *str, const int wordlen_max, ngram_summary_t *ngsum
 	bool multispace_correction;
 	int i = 0;
 	int wordlen_current =  0;
-	int *wordlens;
+	int *wordlens = NULL;
 
 	ZEROINIT_MEM(wordlens,wordlen_max);
 
@@ -213,6 +213,9 @@ int ngram_stringsummary(char *str, const int wordlen_max, ngram_summary_t *ngsum
 	ngsum->wordlens = wordlens;
 
 	return 0;
+
+memerr:
+	return -1;
 }
 
 

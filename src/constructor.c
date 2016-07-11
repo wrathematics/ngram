@@ -98,7 +98,14 @@ SEXP ng_process(SEXP R_str, SEXP R_str_len, SEXP n_, SEXP R_sep)
     sep=NULL;
   
   sl = lex_sentences((const char**)str, str_lens, strn, sep);
+
   free(str_lens);
+
+  if (sl == NULL){
+    free(str);
+    error("out of memory");
+  }
+
   ngl = process(sl, n);
   
   if (NULL == ngl)
@@ -108,6 +115,7 @@ SEXP ng_process(SEXP R_str, SEXP R_str_len, SEXP n_, SEXP R_sep)
     UNPROTECT(1);
     
     free(str);
+    free_sentencelist(sl,free_wordlist);
     
     return RET;
   }

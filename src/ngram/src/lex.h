@@ -67,7 +67,7 @@ void free_wordlist(wordlist_t *wl);
 void free_wordlist_keepwords(wordlist_t *wl);
 void free_sentencelist(sentencelist_t *sl, void(*wlcb)(wordlist_t*));
 sentencelist_t* lex_init(const int num);
-void lex_add(sentencelist_t *wordtok, const int index, const char *s, const int len, const char *sep);
+int lex_add(sentencelist_t *wordtok, const int index, const char *s, const int len, const char *sep);
 sentencelist_t* lex_sentences(const char **s, const int *lengths, const int num, const char *sep);
 sentencelist_t* lex_simple(const char *s, const int len, const char *sep);
 
