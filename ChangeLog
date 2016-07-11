@@ -1,5 +1,7 @@
 Release 3.0.1:
+  * Fixed many potential (and probably some actual) memory bugs (Heckendorf).
   * Fixed scan-build warning in src/phrase_table.c. Improved memory allocations.
+  * Fixed several memory leaks in babble().
   * Disabled babble test.
   * Improved readme.
 
