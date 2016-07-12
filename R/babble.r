@@ -2,8 +2,14 @@
 #' 
 #' A markov chain babbler.
 #' 
+#' @description
 #' The babbler uses its own internal PRNG (i.e., not R's), so seeds cannot be
 #' managed as with R's seeds.  The generator is an implementation of MT19937.
+#' 
+#' At this time, we note that the seed may not guarantee the same results
+#' across machines. Currently only Solaris produces different values from
+#' mainstream platforms (Windows, Mac, Linux, FreeBSD), but potentially others
+#' could as well.
 #' 
 #' @param ng 
 #' An ngram object.

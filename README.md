@@ -114,6 +114,8 @@ babble(ng=ng, genlen=12, seed=1234)
 # [1] "a b a c a b b a b b a b "
 ```
 
+At this time, we note that the seed may not guarantee the same results across machines. Currently only Solaris produces different values from mainstream platforms (Windows, Mac, Linux, FreeBSD), but potentially others could as well.
+
 
 ### Weka-Like Tokenization
 

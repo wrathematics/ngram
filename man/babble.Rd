@@ -18,11 +18,16 @@ babble(ng, genlen = 150, seed = getseed())
 \item{seed}{Seed for the random number generator.}
 }
 \description{
-A markov chain babbler.
-}
-\details{
 The babbler uses its own internal PRNG (i.e., not R's), so seeds cannot be
 managed as with R's seeds.  The generator is an implementation of MT19937.
+
+At this time, we note that the seed may not guarantee the same results
+across machines. Currently only Solaris produces different values from
+mainstream platforms (Windows, Mac, Linux, FreeBSD), but potentially others
+could as well.
+}
+\details{
+A markov chain babbler.
 }
 \examples{
 library(ngram)
