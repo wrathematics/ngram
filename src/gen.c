@@ -42,8 +42,14 @@ SEXP R_ngram_gen(SEXP ngl_ptr, SEXP genlen, SEXP seed)
   
   retlen = ngram_gen(&rs, ngl, INT(genlen), &ret);
   
+  rng_free(&rs);
+  
+  if (retlen < 0)
+    error("allocation error");
+  
   PROTECT(RET = allocVector(STRSXP, 1));
   SET_STRING_ELT(RET, 0, mkCharLen(ret, retlen));
+  free(ret);
   
   UNPROTECT(1);
   return RET;

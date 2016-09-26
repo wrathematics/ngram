@@ -44,8 +44,9 @@ char *word_to_string(word_t *word)
 
 		return str;
 	}
-	else
-		return NULL;
+
+memerr:
+	return NULL;
 }
 
 

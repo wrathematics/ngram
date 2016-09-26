@@ -56,6 +56,8 @@ SEXP ng_extract_ngrams(SEXP ng_ptr, SEXP ngsize_)
     len--; // apparently mkCharLen handles the NUL terminator for some reason
     
     buf = malloc(len * sizeof(*buf));
+    if(buf == NULL)
+        error("out of memory");
     
     for (j=0; j<len; j++)
       buf[j] = ng[i].words->word->s[j];
