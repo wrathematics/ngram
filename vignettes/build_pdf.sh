@@ -18,6 +18,6 @@ pdflatex ngram-guide.Rnw
 Rscript -e "tools::compactPDF('ngram-guide.pdf', gs_quality='ebook')"
 rm -f *.aux *.bbl *.blg *.log *.out *.toc *.dvi
 
-#mv -f *.pdf ../inst/doc/
-#cp -f *.Rnw ../inst/doc/
+mv -f *.pdf ../inst/doc/
+cp -f *.Rnw ../inst/doc/
 

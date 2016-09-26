@@ -1,4 +1,7 @@
 Release 3.0.1:
+  * Fixed vignette build issues for CRAN.
+
+Release 3.0.1:
   * Disabled babble test.
   * Improved readme.
 
