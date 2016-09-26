@@ -1,0 +1,48 @@
+%\VignetteIndexEntry{ngram-guide}
+
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\newcommand{\thispackage}{\pkg{ngram}\xspace}
+
+\input{./include/preamble}
+
+
+\myauthor{
+  Drew Schmidt \\ 
+  \texttt{wrathematics@gmail.com} 
+  \\[1.2cm] 
+  Christian Heckendorf \\ 
+  \texttt{heckendorfc@gmail.com} 
+}
+\mytitle{Guide to the\\ \thispackage Package}
+\mysubtitle{Fast n-gram Tokenization}
+\myversion{3.0.2}
+
+
+\begin{document}
+
+
+\begin{figure}[ht]
+\vspace{-.5in}
+  \begin{minipage}[c]{8.5in}
+  \hspace{-1.0in}
+  \includegraphics[width=8in,height=10in]{./cover/cover.pdf}
+  \end{minipage}
+\end{figure}
+
+\makefirstfew
+
+\input{./include/01-introduction}
+\input{./include/02-installation}
+\input{./include/03-utilities}
+\input{./include/04-use}
+\input{./include/05-benchmarks}
+
+\newpage
+\phantomsection
+\bibliography{./include/ngram}
+\bibliographystyle{plainnat}
+
+\end{document}
+
+

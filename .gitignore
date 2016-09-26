@@ -15,4 +15,3 @@ src/ngram/build/
 *.toc
 *.tex.backup
 
-inst/doc/*
