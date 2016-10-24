@@ -1,4 +1,8 @@
+Release 3.0.2:
+  * Fixed vignette build issues for CRAN.
+
 Release 3.0.1:
+  * Disabled babble test.
   * Fixed many potential (and probably some actual) memory bugs (Heckendorf).
   * Fixed scan-build warning in src/phrase_table.c. Improved memory allocations.
   * Fixed several memory leaks in the babbler.
