@@ -2,8 +2,8 @@ Package: ngram
 Type: Package
 Title: Fast n-Gram 'Tokenization'
 Version: 3.0.1
-Description: An n-gram is a sequence of n "words" taken from a
-    body of text in order.  This package offers utilities for creating,
+Description: An n-gram is a sequence of n "words" taken, in order, from a
+    body of text.  This is a collection of utilities for creating,
     displaying, summarizing, and "babbling" n-grams.  The
     'tokenization' and "babbling" are handled by very efficient C
     code, which can even be build as its own standalone library.
