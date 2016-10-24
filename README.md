@@ -6,7 +6,7 @@
 * **Author:** Drew Schmidt and Christian Heckendorf
 
 
-**ngram** is an R package for constructing n-grams ("tokeniznig"), as well as generating new text based on the n-gram structure of a given text input ("babbling").  The package can be used for serious analysis or for creating "bots" that say amusing things.  See details section below for more information.
+**ngram** is an R package for constructing n-grams ("tokenizing"), as well as generating new text based on the n-gram structure of a given text input ("babbling").  The package can be used for serious analysis or for creating "bots" that say amusing things.  See details section below for more information.
 
 The package is designed to be extremely fast at tokenizing, summarizing, and babbling tokenized corpora.  Because of the architectural design, we are also able to handle very large volumes of text, with performance scaling very nicely.  Benchmarks and example usage can be found in the package vignette.
 
