@@ -80,7 +80,6 @@ ngramlist_t* process(sentencelist_t *wordtok, int n)
 	wordlist_t *p, *q, *nw;
 	ngram_t *ng = NULL, *tmp = NULL, **sorted = NULL;
 	ngramlist_t *ngl = NULL;
-	wordlist_t *words;
 
 	if (n<1)
 		return NULL;
@@ -221,5 +220,3 @@ memerr:
 	freeif(sorted);
 	return NULL;
 }
-
-

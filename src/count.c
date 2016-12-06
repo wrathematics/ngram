@@ -74,7 +74,7 @@ SEXP R_stringsummary(SEXP string, SEXP wordlen_max_, SEXP senlen_max_, SEXP syll
   const int wordlen_max = INT(wordlen_max_);
   const int senlen_max = INT(senlen_max_);
   const int syllen_max = INT(syllen_max_);
-  int i, j, tmp;
+  int i, j;
   char c, *str;
   bool multispace_correction;
   
@@ -247,4 +247,3 @@ SEXP R_stringsummary(SEXP string, SEXP wordlen_max_, SEXP senlen_max_, SEXP syll
   UNPROTECT(13);
   return ret;
 }
-

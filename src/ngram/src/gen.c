@@ -217,7 +217,7 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
         ng_ind = sample(rs, 0, ngsize-1);
         init = ngram_check_ngram_for_null(ng + ng_ind);
       }
-
+      
       retlen += ngram_cp_ng_to_char(MIN(n, genlen), ng + ng_ind, &i, tmp, itmp);
       genlen -= n;
     }

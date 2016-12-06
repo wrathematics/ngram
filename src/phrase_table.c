@@ -36,7 +36,7 @@ SEXP R_ng_get_phrasetable(SEXP ng_ptr, SEXP ngsize_)
   const int ngsize = INTEGER(ngsize_)[0];
   wordlist_t *wl;
   int tot = 0;
-  int bufsize;
+  int bufsize = 0;
   
   SEXP RET, RETNAMES;
   SEXP NGRAMS, FREQ, PROP;
@@ -68,7 +68,7 @@ SEXP R_ng_get_phrasetable(SEXP ng_ptr, SEXP ngsize_)
       
       bufsize = len+1;
       buf = malloc(bufsize * sizeof(*buf));
-      if(buf == NULL)
+      if (buf == NULL)
           error("out of memory");
     }
     
@@ -92,9 +92,7 @@ SEXP R_ng_get_phrasetable(SEXP ng_ptr, SEXP ngsize_)
   
   
   for (i=0; i<ngsize; i++)
-  {
     prop[i] = (double) freq[i]/tot;
-  }
   
   PROTECT(RET = allocVector(VECSXP, 3));
   SET_VECTOR_ELT(RET, 0, NGRAMS);

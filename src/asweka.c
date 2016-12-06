@@ -39,7 +39,6 @@ SEXP ng_asweka(SEXP R_str, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 	wordlist_t *wptr;
 	int numwords;
 	int cur_n;
-	char *buf;
 	size_t len;
 	const char **starts = NULL;
 	int *lens = NULL;
