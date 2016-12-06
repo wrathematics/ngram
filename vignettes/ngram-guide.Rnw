@@ -1,4 +1,4 @@
-%\VignetteIndexEntry{ngram-guide}
+%\VignetteIndexEntry{Guide to the ngram Package}
 
 \documentclass[11pt]{article}
 \usepackage[margin=1.1in]{geometry}
