@@ -5,5 +5,3 @@ env:
   global:
     - CRAN: https://cran.rstudio.com
 
-r_packages:
-  - assertthat
