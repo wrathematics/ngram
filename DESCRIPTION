@@ -6,7 +6,7 @@ Description: An n-gram is a sequence of n "words" taken, in order, from a
     body of text.  This is a collection of utilities for creating,
     displaying, summarizing, and "babbling" n-grams.  The
     'tokenization' and "babbling" are handled by very efficient C
-    code, which can even be build as its own standalone library.
+    code, which can even be built as its own standalone library.
     The babbler is a simple Markov chain.  The package also offers
     a vignette with complete example 'workflows' and information about
     the utilities offered in the package.
