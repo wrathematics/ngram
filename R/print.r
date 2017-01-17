@@ -1,6 +1,6 @@
 ng.print <- function(ng, truncated=TRUE)
 {
-  .Call("ng_print", ng@ngl_ptr, ng@ngsize, as.integer(truncated), PACKAGE="ngram")
+  .Call(ng_print, ng@ngl_ptr, ng@ngsize, as.integer(truncated))
   invisible()
 }
 
@@ -54,4 +54,3 @@ setMethod("show", signature(object="ngram"),
   function(object)
     print(x=object, output="summary")
 )
-
