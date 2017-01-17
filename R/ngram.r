@@ -126,9 +126,9 @@ setGeneric(name="ngram",
 setMethod("ngram", signature(str="character"),
   function(str, n=2, sep=" ")
   {
-    assert_that(is.character(str))
-    assert_that(is.count(n))
-    assert_that(is.character(sep))
+    check.is.string(str)
+    check.is.posint(n)
+    check.is.string(sep)
     
     
     if (n > 2^31)

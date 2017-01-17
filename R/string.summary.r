@@ -21,10 +21,10 @@ title_case <- function(x) gsub(x, pattern="(^|[[:space:]])([[:alpha:]])", replac
 #' @export
 string.summary <- function(string, wordlen_max=10, senlen_max=10, syllen_max=10)
 {
-  assert_that(is.string(string))
-  assert_that(is.count(wordlen_max))
-  assert_that(is.count(senlen_max))
-  assert_that(is.count(syllen_max))
+  check.is.string(string)
+  check.is.posint(wordlen_max)
+  check.is.posint(senlen_max)
+  check.is.posint(syllen_max)
   
   
   wordlen_max <- as.integer(wordlen_max)

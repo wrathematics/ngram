@@ -50,8 +50,8 @@ setGeneric(name="babble",
 setMethod("babble", signature(ng="ngram"),
   function(ng, genlen=150, seed=getseed())
   {
-    assert_that(is.count(genlen))
-    assert_that(is.number(seed))
+    check.is.int(genlen)
+    check.is.natnum(seed)
     
     
     if (genlen >= 2^31)
