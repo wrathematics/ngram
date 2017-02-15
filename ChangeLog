@@ -1,3 +1,6 @@
+Release 3.0.3:
+  * Register native routines.
+
 Release 3.0.2:
   * Fixed vignette build issues.
   * Fixed some src/ bugs and static analysis complaints.
