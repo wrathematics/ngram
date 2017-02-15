@@ -37,11 +37,11 @@
 #' @export
 splitter <- function(string, split.char=FALSE, split.space=TRUE, spacesep="_", split.punct=FALSE)
 {
-  assert_that(is.string(string))
-  assert_that(is.scalar(split.char) && is.logical(split.char))
-  assert_that(is.scalar(split.space) && is.logical(split.space))
-  assert_that(is.string(spacesep))
-  assert_that(is.scalar(split.punct) && is.logical(split.punct))
+  check.is.string(string)
+  check.is.flag(split.char)
+  check.is.flag(split.space)
+  check.is.string(spacesep)
+  check.is.flag(split.punct)
   
   
   if (!split.char && !split.space && !split.punct)

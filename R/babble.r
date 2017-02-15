@@ -50,8 +50,8 @@ setGeneric(name="babble",
 setMethod("babble", signature(ng="ngram"),
   function(ng, genlen=150, seed=getseed())
   {
-    assert_that(is.count(genlen))
-    assert_that(is.number(seed))
+    check.is.natnum(genlen)
+    check.is.int(seed)
     
     
     if (genlen >= 2^31)
@@ -64,7 +64,7 @@ setMethod("babble", signature(ng="ngram"),
     
     seed <- as.integer(seed)
     
-    ret <- .Call("R_ngram_gen", ng@ngl_ptr, genlen, seed, PACKAGE="ngram")
+    ret <- .Call(R_ngram_gen, ng@ngl_ptr, genlen, seed)
     
     return( ret )
   }

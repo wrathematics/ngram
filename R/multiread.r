@@ -48,12 +48,12 @@
 #' @export
 multiread <- function(path=".", extension="txt", recursive=FALSE, ignore.case=FALSE, prune.empty=TRUE, pathnames=TRUE)
 {
-  assert_that(is.string(path))
-  assert_that(is.string(extension))
-  assert_that(is.scalar(recursive) && is.logical(recursive))
-  assert_that(is.scalar(ignore.case) && is.logical(ignore.case))
-  assert_that(is.scalar(prune.empty) && is.logical(prune.empty))
-  assert_that(is.scalar(pathnames) && is.logical(pathnames))
+  check.is.string(path)
+  check.is.string(extension)
+  check.is.flag(recursive)
+  check.is.flag(ignore.case)
+  check.is.flag(prune.empty)
+  check.is.flag(pathnames)
   
   if (extension == "*")
     pattern <- extension

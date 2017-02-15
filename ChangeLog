@@ -4,6 +4,7 @@ Release 3.0.3:
 Release 3.0.2:
   * Fixed vignette build issues.
   * Fixed some src/ bugs and static analysis complaints.
+  * Drop assertthat for simpler internal checks.
 
 Release 3.0.1:
   * Disabled babble test.

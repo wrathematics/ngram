@@ -35,7 +35,8 @@ tablesort <- function(df, sortby.colnum)
 #' @export
 get.phrasetable <- function(ng)
 {
-  assert_that(class(ng) == "ngram")
+  if (!inherits(ng, "ngram"))
+    stop("argument 'ng' must be an ngram object")
   
   ret <- as.data.frame(.Call(R_ng_get_phrasetable, ng@ngl_ptr, ng@ngsize), stringsAsFactors=FALSE)
   ret <- tablesort(ret, 2)

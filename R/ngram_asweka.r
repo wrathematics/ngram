@@ -35,10 +35,10 @@
 #' @export
 ngram_asweka <- function(str, min=2, max=2, sep=" ")
 {
-  assert_that(is.string(str))
-  assert_that(is.count(min))
-  assert_that(is.count(max))
-  assert_that(is.character(sep))
+  check.is.string(str)
+  check.is.posint(min)
+  check.is.posint(max)
+  check.is.string(sep)
   
   .Call(ng_asweka, str, as.integer(min), as.integer(max), sep)
 }

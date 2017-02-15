@@ -22,10 +22,10 @@
 #' @export
 rcorpus <- function(nwords=50, alphabet=letters, minwordlen=1, maxwordlen=6)
 {
-  assert_that(is.count(nwords))
-  assert_that(is.character(alphabet))
-  assert_that(is.count(minwordlen))
-  assert_that(is.count(maxwordlen))
+  check.is.posint(nwords)
+  check.is.strings(alphabet)
+  check.is.posint(minwordlen)
+  check.is.posint(maxwordlen)
   
   if (minwordlen > maxwordlen)
     stop("Argument 'maxwordlen' must be at least 'minwordlen'.")

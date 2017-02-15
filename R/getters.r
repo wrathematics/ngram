@@ -43,7 +43,7 @@ setGeneric(name="get.ngrams",
 setMethod("get.ngrams", signature(ng="ngram"),
   function(ng)
   {
-    .Call("ng_extract_ngrams", ng@ngl_ptr, ng@ngsize, PACKAGE="ngram")
+    .Call(ng_extract_ngrams, ng@ngl_ptr, ng@ngsize)
   }
 )
 
@@ -62,7 +62,7 @@ setGeneric(name="get.string",
 setMethod("get.string", signature(ng="ngram"),
   function(ng)
   {
-    .Call("ng_extract_str", ng@str_ptr, ng@strlen, PACKAGE="ngram")
+    .Call(ng_extract_str, ng@str_ptr, ng@strlen)
   }
 )
 
@@ -82,4 +82,3 @@ setMethod("get.nextwords", signature(ng="ngram"),
   function(ng)
     stop("Not yet implemented")
 )
-
