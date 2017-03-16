@@ -126,7 +126,7 @@ setGeneric(name="ngram",
 setMethod("ngram", signature(str="character"),
   function(str, n=2, sep=" ")
   {
-    check.is.string(str)
+    check.is.strings(str)
     check.is.posint(n)
     check.is.string(sep)
     
