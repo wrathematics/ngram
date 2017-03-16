@@ -38,7 +38,7 @@ check.is.strings <- function(x)
   if (!is.character(x) || is.badval(x))
   {
     nm <- deparse(substitute(x))
-    stop(paste0("argument '", nm, "' must be a single string"), call.=FALSE)
+    stop(paste0("argument '", nm, "' must be a vector of strings"), call.=FALSE)
   }
   
   invisible(TRUE)
