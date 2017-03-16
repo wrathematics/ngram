@@ -35,10 +35,10 @@ is.string <- function(x)
 
 check.is.strings <- function(x)
 {
-  if (!is.character(x) || is.badval(x))
+  if (!is.character(x) || is.badval(x) || length(x) == 0)
   {
     nm <- deparse(substitute(x))
-    stop(paste0("argument '", nm, "' must be a vector of strings"), call.=FALSE)
+    stop(paste0("argument '", nm, "' must be a non-empty vector of strings"), call.=FALSE)
   }
   
   invisible(TRUE)
