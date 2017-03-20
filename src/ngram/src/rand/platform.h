@@ -73,7 +73,7 @@
 #define OS_HURD 0
 #endif
 
-#if (defined(OS_BSD) || defined(OS_HURD) || defined(OS_LINUX) || defined(OS_MAC) || defined(OS_SOLARIS))
+#if (OS_BSD || OS_HURD || OS_LINUX || OS_MAC || OS_SOLARIS)
 #define OS_NIX 1
 #else
 #define OS_NIX 0
