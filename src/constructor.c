@@ -112,11 +112,11 @@ SEXP ng_process(SEXP R_str, SEXP R_str_len, SEXP n_, SEXP R_sep)
   {
     PROTECT(RET = allocVector(INTSXP, 1));
     INTEGER(RET)[0] = -1;
-    UNPROTECT(1);
     
     free(str);
     free_sentencelist(sl,free_wordlist);
     
+    UNPROTECT(1);
     return RET;
   }
   
