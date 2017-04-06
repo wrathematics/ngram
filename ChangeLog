@@ -1,6 +1,7 @@
 Release 3.0.3:
   * Register native routines.
   * Fixed vectorized tokenization.
+  * Fixed clang compiler warning in os detection.
 
 Release 3.0.2:
   * Fixed vignette build issues.
