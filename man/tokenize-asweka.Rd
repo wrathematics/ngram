@@ -41,4 +41,3 @@ ngram_asweka(str, min=2, max=4)
 \code{\link{ngram}}
 }
 \keyword{Tokenization}
-

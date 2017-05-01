@@ -52,8 +52,8 @@ unique n-grams in the input string.}
 
 \item{\code{sl_ptr}}{A pointer to the list of words from the input string.}
 }}
+
 \seealso{
 \code{\link{Tokenize}}
 }
 \keyword{Tokenization}
-

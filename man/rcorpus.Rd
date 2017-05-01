@@ -25,4 +25,3 @@ rcorpus(10)
 
 }
 \keyword{Utility}
-

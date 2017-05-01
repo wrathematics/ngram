@@ -3,9 +3,9 @@
 \docType{methods}
 \name{Tokenize}
 \alias{Tokenize}
+\alias{tokenize}
 \alias{ngram}
 \alias{ngram,character-method}
-\alias{tokenize}
 \title{n-gram Tokenization}
 \usage{
 ngram(str, n = 2, sep = " ")
@@ -58,4 +58,3 @@ print(ngram(str, sep=", "), output="full")
 \code{\link{phrasetable}}, \code{\link{babble}}
 }
 \keyword{Tokenization}
-

@@ -17,4 +17,3 @@ uniform value from R's random generator.
 \code{\link{babble}}
 }
 \keyword{Utility}
-

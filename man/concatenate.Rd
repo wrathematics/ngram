@@ -37,4 +37,3 @@ wordcount(str)
 \code{\link{preprocess}}
 }
 \keyword{Preprocessing}
-

@@ -25,4 +25,3 @@ Drew Schmidt \email{wrathematics AT gmail.com}, Christian
 Heckendorf.
 }
 \keyword{Package}
-

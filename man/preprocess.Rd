@@ -42,4 +42,3 @@ preprocess(x, remove.punct=TRUE, remove.numbers=TRUE)
 
 }
 \keyword{Preprocessing}
-

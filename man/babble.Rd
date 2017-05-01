@@ -3,6 +3,7 @@
 \docType{methods}
 \name{babble}
 \alias{babble}
+\alias{babble}
 \alias{babble,ngram-method}
 \title{ngram Babbler}
 \usage{
@@ -41,4 +42,3 @@ babble(ng, genlen=5, seed=1234)
 \code{\link{ngram}}, \code{\link{getseed}}
 }
 \keyword{Amusement}
-

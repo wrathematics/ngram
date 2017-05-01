@@ -2,13 +2,13 @@
 % Please edit documentation in R/getters.r
 \docType{methods}
 \name{getters}
-\alias{get.nextwords}
-\alias{get.nextwords,ngram-method}
+\alias{getters}
 \alias{get.ngrams}
 \alias{get.ngrams,ngram-method}
 \alias{get.string}
 \alias{get.string,ngram-method}
-\alias{getters}
+\alias{get.nextwords}
+\alias{get.nextwords,ngram-method}
 \title{ngram Getters}
 \usage{
 get.ngrams(ng)
@@ -50,4 +50,3 @@ get.ngrams(ng)
 \code{\link{ngram-class}}, \code{\link{ngram}}
 }
 \keyword{Tokenization}
-

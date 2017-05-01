@@ -24,4 +24,3 @@ string.summary(x)
 
 }
 \keyword{Summarize}
-

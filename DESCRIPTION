@@ -1,7 +1,7 @@
 Package: ngram
 Type: Package
 Title: Fast n-Gram 'Tokenization'
-Version: 3.0.3
+Version: 3.0.4
 Description: An n-gram is a sequence of n "words" taken, in order, from a
     body of text.  This is a collection of utilities for creating,
     displaying, summarizing, and "babbling" n-grams.  The
@@ -42,4 +42,4 @@ Collate:
     'splitter.r'
     'string.summary.r'
     'wordcount.r'
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

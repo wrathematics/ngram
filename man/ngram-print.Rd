@@ -32,4 +32,3 @@ If \code{output=="full"} then all n-grams will be printed.
 \seealso{
 \code{\link{ngram}, \link{babble}}
 }
-

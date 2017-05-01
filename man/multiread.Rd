@@ -55,4 +55,3 @@ multiread(path, extension="r", recursive=TRUE, ignore.case=TRUE)
 
 }
 \keyword{Utility}
-
