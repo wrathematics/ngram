@@ -29,6 +29,9 @@
 #include "hash.h"
 #include "common_defs.h"
 
+#include <wchar.h>
+#include <locale.h>
+
 static void *vptr;
 
 void free_wordlist(wordlist_t *wl)
@@ -81,18 +84,51 @@ static int strchrs(const char c, const char *sep){
 }
 */
 
-static wordlist_t* split(const char *s, const int len, const char *sep){
+static int wcsbytes(wchar_t *ws, int *bytes, const char *s, const int len){
+	int i;
+	wchar_t wtmp;
+	int wret = 0;
+	int used = 0;
+
+	for(i=0;i<len;i++){
+		wret = mbtowc(ws+i,s+used,len-used);
+		if(wret <= 0){ /* XXX 0 is wide NUL */
+			bytes[i] = 1;
+			return used;
+		}
+		bytes[i] = wret;
+		used += wret;
+	}
+
+	return used;
+}
+
+static int sumbytes(const int *bytes, const int len){
+	int i;
+	int used;
+
+	for(used=i=0;i<len;i++)
+		used += bytes[i];
+
+	return used;
+}
+
+static wordlist_t* split(const char *s, wchar_t *ws, const int *bytes, const int len, const wchar_t *sep){
 	int i,j;
+	int wi,wj;
 	wordlist_t *ret = NULL;
 
-	for(j=i=0; i<len; i=j)
+	for(wi=wj=j=i=0; i<len; i=j)
 	{
 		//for(j=i; j<len && !strchrs(s[j],sep); j++)
 			//;
-		if(sep)
-			j=i+strcspn(s+i,sep);
+		if(sep){
+			wj = wcscspn(ws+wi,sep);
+			j += sumbytes(bytes+wi,wj);
+			wi += wj;
+		}
 		else
-			j++;
+			j += sumbytes(bytes+wi,1);
 
 		add_node(ret);
 
@@ -108,8 +144,11 @@ static wordlist_t* split(const char *s, const int len, const char *sep){
 #endif
 
 		//while(j<len && strchrs(s[j],sep))j++;
-		if(sep)
-			j+=strspn(s+j,sep);
+		if(sep){
+			wj = wcsspn(ws+wi,sep);
+			j += sumbytes(bytes+wi,wj);
+			wi += wj;
+		}
 	}
 
 	return ret;
@@ -119,8 +158,8 @@ memerr:
 	return NULL;
 }
 
-static wordlist_t* lex(const char *s, const int len, const char *sep){
-	wordlist_t *words = split(s,len,sep);
+static wordlist_t* lex(const char *s, wchar_t *ws, const int *bytes, const int len, const wchar_t *sep){
+	wordlist_t *words = split(s,ws,bytes,len,sep);
 	wordlist_t *wp = words;
 
 	while(wp){
@@ -134,6 +173,8 @@ static wordlist_t* lex(const char *s, const int len, const char *sep){
 sentencelist_t* lex_init(const int num){
 	sentencelist_t *ret;
 	int i;
+
+	setlocale(LC_ALL,NULL);
 
 	INIT_MEM(ret,1);
 	INIT_MEM(ret->words,num);
@@ -152,16 +193,46 @@ memerr:
 }
 
 int lex_add(sentencelist_t *wordtok, const int index, const char *s, const int len, const char *sep){
+	wchar_t *wsep = NULL;
+	wchar_t *ws = NULL;
+	int *wsbytes = NULL;
+	int seplen;
+
 	if(index >= wordtok->len)
 		return -1; // silent fail :(
 
-	wordtok->words[index] = lex(s,len,sep);
+	INIT_MEM(ws,len+1);
+	INIT_MEM(wsbytes,len+1);
+
+	//mbstowcs(ws,s,len+1);
+	wcsbytes(ws,wsbytes,s,len+1);
+
+	if(sep){
+		seplen = strlen(sep);
+		INIT_MEM(wsep,seplen+1);
+		mbstowcs(wsep,sep,seplen+1);
+	}
+
+	wordtok->words[index] = lex(s,ws,wsbytes,len,wsep);
+	free(ws);
+	free(wsep);
+	free(wsbytes);
+
 	if(wordtok->words[index] == NULL)
 		return -1;
 
 	wordtok->filled++;
 
 	return 0;
+
+memerr:
+	if(wsep)
+		free(wsep);
+	if(ws)
+		free(ws);
+	if(wsbytes)
+		free(wsbytes);
+	return -1;
 }
 
 sentencelist_t* lex_sentences(const char **s, const int *lengths, const int num, const char *sep){
