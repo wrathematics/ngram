@@ -86,7 +86,6 @@ static int strchrs(const char c, const char *sep){
 
 static int wcsbytes(wchar_t *ws, int *bytes, const char *s, const int len){
 	int i;
-	wchar_t wtmp;
 	int wret = 0;
 	int used = 0;
 
