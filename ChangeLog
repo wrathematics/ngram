@@ -1,8 +1,10 @@
 Release 3.0.4:
   * Try to keep multibyte characters intact. (Heckendorf)
+  * Fixed rchk warning.
+  * Fixed some minor packaging issues.
 
 Release 3.0.3:
-  * Register native routines.
+  * Registered native routines.
   * Fixed vectorized tokenization.
   * Fixed clang compiler warning in os detection.
 
