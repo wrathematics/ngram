@@ -1,7 +1,7 @@
 Package: ngram
 Type: Package
 Title: Fast n-Gram 'Tokenization'
-Version: 3.0.4
+Version: 3.0.5
 Description: An n-gram is a sequence of n "words" taken, in order, from a
     body of text.  This is a collection of utilities for creating,
     displaying, summarizing, and "babbling" n-grams.  The
