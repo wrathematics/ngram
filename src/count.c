@@ -27,8 +27,6 @@
 
 #include "ngram.h"
 
-#define INT(x) INTEGER(x)[0]
-#define CHARPT(x,i) ((char*)CHAR(STRING_ELT(x,i)))
 #define LEN1INTVEC(Rname,value) \
   PROTECT(Rname = allocVector(INTSXP, 1)); \
   INTEGER(Rname)[0] = value
