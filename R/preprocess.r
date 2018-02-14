@@ -36,7 +36,8 @@
 preprocess <- function(x, case="lower", remove.punct=FALSE, remove.numbers=FALSE, fix.spacing=TRUE)
 {
   check.is.string(x)
-  check.is.string(case)
+  if (!is.null(case))
+    check.is.string(case)
   check.is.flag(remove.punct)
   check.is.flag(remove.numbers)
   check.is.flag(fix.spacing)
