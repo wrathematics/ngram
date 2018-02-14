@@ -27,6 +27,8 @@
 
 #include "ngram.h"
 
+#define MAX(a,b) ((a)>(b) ? (a) : (b))
+
 
 SEXP ng_extract_ngrams(SEXP ng_ptr, SEXP ngsize_)
 {
@@ -55,6 +57,7 @@ SEXP ng_extract_ngrams(SEXP ng_ptr, SEXP ngsize_)
     
     len--; // apparently mkCharLen handles the NUL terminator for some reason
     
+    len = MAX(len, 1);
     buf = malloc(len * sizeof(*buf));
     if(buf == NULL)
         error("out of memory");
@@ -149,5 +152,3 @@ SEXP ng_extract_str(SEXP str_ptr, SEXP R_strlen)
   UNPROTECT(1);
   return RET;
 }
-
-
