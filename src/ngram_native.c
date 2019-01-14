@@ -11,6 +11,7 @@ extern SEXP R_ngram_get_seed();
 extern SEXP R_ngram_wordcount(SEXP str, SEXP sep);
 extern SEXP R_stringsummary(SEXP string, SEXP wordlen_max_, SEXP senlen_max_, SEXP syllen_max_);
 extern SEXP ng_asweka(SEXP R_str, SEXP min_n_, SEXP max_n_, SEXP R_sep);
+extern SEXP ng_corpus_order(SEXP ng_ptr, SEXP ngsize_);
 extern SEXP ng_extract_ngrams(SEXP ng_ptr, SEXP ngsize_);
 extern SEXP ng_extract_str(SEXP str_ptr, SEXP R_strlen);
 extern SEXP ng_print(SEXP ng_ptr, SEXP ngsize_, SEXP truncated);
@@ -23,6 +24,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_ngram_wordcount", (DL_FUNC) &R_ngram_wordcount, 2},
   {"R_stringsummary", (DL_FUNC) &R_stringsummary, 4},
   {"ng_asweka", (DL_FUNC) &ng_asweka, 4},
+  {"ng_corpus_order", (DL_FUNC) &ng_corpus_order, 2},
   {"ng_extract_ngrams", (DL_FUNC) &ng_extract_ngrams, 2},
   {"ng_extract_str", (DL_FUNC) &ng_extract_str, 2},
   {"ng_print", (DL_FUNC) &ng_print, 3},

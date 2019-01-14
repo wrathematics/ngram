@@ -1,4 +1,4 @@
-/*  Copyright (c) 2014, Heckendorf and Schmidt
+/*  Copyright (c) 2014-2019, Heckendorf and Schmidt
     2015 Schmidt
     All rights reserved.
 
@@ -52,6 +52,7 @@ typedef struct ngramlist_t{
 	ngram_t *ng;
 	int ngsize;
 	int n;
+	int *order;
 } ngramlist_t;
 
 

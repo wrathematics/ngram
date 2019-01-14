@@ -3,6 +3,8 @@
 #' Some simple "getters" for \code{ngram} objects. Necessary since the internal
 #' representation is not a native R object.
 #' 
+#' \code{ngram.order} returns an R vector with the original corpus order of the ngrams.
+#'
 #' \code{get.ngrams()} returns an R vector of all n-grams.
 #' 
 #' \code{get.nextwords()} does nothing at the moment; it will be implemented in
@@ -20,13 +22,31 @@
 #' 
 #' str <- "A B A C A B B"
 #' ng <- ngram(str)
-#' get.ngrams(ng)
+#' get.ngrams(ng)[ngram.order(ng)]
 #' 
 #' @keywords Tokenization
 #' @include ngram.r
 #' @name getters
 #' @rdname getters
 NULL
+
+#' @rdname getters
+#' @export
+setGeneric(name="ngram.order",
+  function(ng, decreasing=FALSE)
+    standardGeneric("ngram.order"),
+  package="ngram"
+)
+
+#' @rdname getters
+#' @export
+setMethod("ngram.order", signature(ng="ngram"),
+  function(ng, decreasing = FALSE)
+  {
+    ngo = .Call(ng_corpus_order, ng@ngl_ptr, ng@ngsize)
+    order(ngo,decreasing=!decreasing)
+  }
+)
 
 
 

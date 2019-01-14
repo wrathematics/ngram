@@ -1,4 +1,4 @@
-/*  Copyright (c) 2014-2015, Heckendorf and Schmidt
+/*  Copyright (c) 2014-2019, Heckendorf and Schmidt
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -44,6 +44,7 @@ void free_ngl(ngramlist_t *ngl)
 	}
 
 	free(ngl->ng);
+	free(ngl->order);
 	free(ngl);
 }
 
@@ -108,6 +109,7 @@ ngramlist_t* process(sentencelist_t *wordtok, int n)
 		goto memerr;
 
 	INIT_MEM(ng,len);
+	INIT_MEM(ngl->order,len);
 	ng->count = 0;
 
 	ZEROINIT_MEM(tmp,len);
@@ -191,6 +193,7 @@ ngramlist_t* process(sentencelist_t *wordtok, int n)
 		ng[ngsize].words = sorted[i]->words;
 		ng[ngsize].nextword = sorted[i]->nextword;
 		ng[ngsize].tok = sorted[i]->tok;
+		ngl->order[ngsize] = sorted[j-1]-tmp;
 		ngsize++;
 	}
 
