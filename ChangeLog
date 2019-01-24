@@ -1,4 +1,4 @@
-Release 3.0.5:
+Release 3.1.0:
   * Fixed bug in preprocess().
   * Fixed an unlikely malloc bug in ng_extract_ngrams().
 
