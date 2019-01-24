@@ -3,6 +3,8 @@
 \docType{methods}
 \name{getters}
 \alias{getters}
+\alias{ngram.order}
+\alias{ngram.order,ngram-method}
 \alias{get.ngrams}
 \alias{get.ngrams,ngram-method}
 \alias{get.string}
@@ -11,6 +13,10 @@
 \alias{get.nextwords,ngram-method}
 \title{ngram Getters}
 \usage{
+ngram.order(ng, decreasing = FALSE)
+
+\S4method{ngram.order}{ngram}(ng, decreasing = FALSE)
+
 get.ngrams(ng)
 
 \S4method{get.ngrams}{ngram}(ng)
@@ -31,6 +37,8 @@ Some simple "getters" for \code{ngram} objects. Necessary since the internal
 representation is not a native R object.
 }
 \details{
+\code{ngram.order} returns an R vector with the original corpus order of the ngrams.
+
 \code{get.ngrams()} returns an R vector of all n-grams.
 
 \code{get.nextwords()} does nothing at the moment; it will be implemented in
@@ -43,7 +51,7 @@ library(ngram)
 
 str <- "A B A C A B B"
 ng <- ngram(str)
-get.ngrams(ng)
+get.ngrams(ng)[ngram.order(ng)]
 
 }
 \seealso{

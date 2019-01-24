@@ -4,7 +4,8 @@
 \alias{rcorpus}
 \title{Random Corpus}
 \usage{
-rcorpus(nwords = 50, alphabet = letters, minwordlen = 1, maxwordlen = 6)
+rcorpus(nwords = 50, alphabet = letters, minwordlen = 1,
+  maxwordlen = 6)
 }
 \arguments{
 \item{nwords}{Number of words to generate.}

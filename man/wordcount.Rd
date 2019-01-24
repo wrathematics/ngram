@@ -3,7 +3,6 @@
 \docType{methods}
 \name{wordcount}
 \alias{wordcount}
-\alias{wordcount}
 \alias{wordcount,character-method}
 \alias{wordcount,ngram-method}
 \title{wordcount}

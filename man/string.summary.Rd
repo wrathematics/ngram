@@ -4,7 +4,8 @@
 \alias{string.summary}
 \title{Text Summary}
 \usage{
-string.summary(string, wordlen_max = 10, senlen_max = 10, syllen_max = 10)
+string.summary(string, wordlen_max = 10, senlen_max = 10,
+  syllen_max = 10)
 }
 \arguments{
 \item{string}{An input string.}

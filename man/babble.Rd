@@ -3,7 +3,6 @@
 \docType{methods}
 \name{babble}
 \alias{babble}
-\alias{babble}
 \alias{babble,ngram-method}
 \title{ngram Babbler}
 \usage{
