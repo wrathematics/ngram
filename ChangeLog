@@ -1,6 +1,7 @@
 Release 3.1.0:
   * Fixed bug in preprocess().
   * Fixed an unlikely malloc bug in ng_extract_ngrams().
+  * Added ngram.order() and corresponding internals. (Heckendorf)
 
 Release 3.0.4:
   * Try to keep multibyte characters intact. (Heckendorf)
