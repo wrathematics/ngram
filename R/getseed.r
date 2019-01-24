@@ -7,6 +7,7 @@
 #' 
 #' @seealso \code{\link{babble}}
 #' 
+#' @useDynLib ngram R_ngram_get_seed
 #' @keywords Utility
 #' @export
 getseed <- function()

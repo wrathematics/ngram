@@ -1,8 +1,10 @@
+#' @useDynLib ngram ng_print
 ng.print <- function(ng, truncated=TRUE)
 {
   .Call(ng_print, ng@ngl_ptr, ng@ngsize, as.integer(truncated))
   invisible()
 }
+
 
 
 #' ngram printing

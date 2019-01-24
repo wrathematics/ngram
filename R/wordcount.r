@@ -34,6 +34,7 @@
 #' @rdname wordcount
 NULL
 
+#' @useDynLib ngram R_ngram_wordcount
 #' @rdname wordcount
 #' @export
 setGeneric(name="wordcount", 
@@ -65,5 +66,3 @@ setMethod("wordcount", signature(x="ngram"),
     return( ret )
   }
 )
-
-

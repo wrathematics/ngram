@@ -14,6 +14,8 @@
 #' 
 #' @param ng 
 #' An ngram object.
+#' @param decreasing
+#' Should the sorted order be in descending order?
 #' 
 #' @seealso \code{\link{ngram-class}}, \code{\link{ngram}}
 #' 
@@ -38,6 +40,7 @@ setGeneric(name="ngram.order",
   package="ngram"
 )
 
+#' @useDynLib ngram ng_corpus_order
 #' @rdname getters
 #' @export
 setMethod("ngram.order", signature(ng="ngram"),
@@ -58,6 +61,7 @@ setGeneric(name="get.ngrams",
   package="ngram"
 )
 
+#' @useDynLib ngram ng_extract_ngrams
 #' @rdname getters
 #' @export
 setMethod("get.ngrams", signature(ng="ngram"),
@@ -77,6 +81,7 @@ setGeneric(name="get.string",
   package="ngram"
 )
 
+#' @useDynLib ngram ng_extract_str
 #' @rdname getters
 #' @export
 setMethod("get.string", signature(ng="ngram"),

@@ -40,6 +40,6 @@ Collate:
     'print.r'
     'rcorpus.r'
     'splitter.r'
-    'string.summary.r'
+    'string_summary.r'
     'wordcount.r'
 RoxygenNote: 6.1.0

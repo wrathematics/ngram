@@ -17,6 +17,7 @@ title_case <- function(x) gsub(x, pattern="(^|[[:space:]])([[:alpha:]])", replac
 #' 
 #' string.summary(x)
 #' 
+#' @useDynLib ngram R_stringsummary
 #' @keywords Summarize
 #' @export
 string.summary <- function(string, wordlen_max=10, senlen_max=10, syllen_max=10)

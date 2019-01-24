@@ -121,6 +121,7 @@ setGeneric(name="ngram",
 
 
 
+#' @useDynLib ngram ng_process
 #' @rdname tokenize
 #' @export
 setMethod("ngram", signature(str="character"),

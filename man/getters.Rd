@@ -31,6 +31,8 @@ get.nextwords(ng)
 }
 \arguments{
 \item{ng}{An ngram object.}
+
+\item{decreasing}{Should the sorted order be in descending order?}
 }
 \description{
 Some simple "getters" for \code{ngram} objects. Necessary since the internal

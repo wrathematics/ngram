@@ -30,6 +30,7 @@
 #' 
 #' @seealso \code{\link{ngram}}
 #' @keywords Tokenization
+#' @useDynLib ngram ng_asweka
 #' @name Tokenize-AsWeka
 #' @rdname tokenize-asweka
 #' @export

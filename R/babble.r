@@ -26,6 +26,7 @@
 #' ng <- ngram(str)
 #' babble(ng, genlen=5, seed=1234)
 #' 
+#' @useDynLib ngram R_ngram_gen
 #' @include ngram.r
 #' @seealso \code{\link{ngram}}, \code{\link{getseed}}
 #' @keywords Amusement

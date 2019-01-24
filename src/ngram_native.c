@@ -31,6 +31,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"ng_process", (DL_FUNC) &ng_process, 4},
   {NULL, NULL, 0}
 };
+
 void R_init_ngram(DllInfo *dll)
 {
   R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
