@@ -114,9 +114,8 @@ SEXP R_stringsummary(SEXP string, SEXP wordlen_max_, SEXP senlen_max_, SEXP syll
       // new word
       if (isspace(c))
       {
-        if (c != '\n')
-          whitespace++;
-        else
+        whitespace++;
+        if (c == '\n')
           lines++;
         
         words++;
