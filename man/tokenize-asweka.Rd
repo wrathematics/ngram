@@ -33,7 +33,7 @@ and therefore can be serialized via \code{save()} or \code{saveRDS()}.
 \examples{
 library(ngram)
 
-str <- "A B A C A B B"
+str = "A B A C A B B"
 ngram_asweka(str, min=2, max=4)
 
 }

@@ -34,7 +34,7 @@
 #' 
 #' @examples
 #' \dontrun{
-#' path <- system.file(package="ngram")
+#' path = system.file(package="ngram")
 #' 
 #' ### Read all files in the base path
 #' multiread(path, extension="*")
@@ -46,7 +46,7 @@
 #' 
 #' @keywords Utility
 #' @export
-multiread <- function(path=".", extension="txt", recursive=FALSE, ignore.case=FALSE, prune.empty=TRUE, pathnames=TRUE)
+multiread = function(path=".", extension="txt", recursive=FALSE, ignore.case=FALSE, prune.empty=TRUE, pathnames=TRUE)
 {
   check.is.string(path)
   check.is.string(extension)
@@ -56,25 +56,25 @@ multiread <- function(path=".", extension="txt", recursive=FALSE, ignore.case=FA
   check.is.flag(pathnames)
   
   if (extension == "*")
-    pattern <- extension
+    pattern = extension
   else
   {
     if (grepl(extension, pattern="[.]"))
-      extension <- gsub(extension, pattern="([*]|[.])", replacement="")
+      extension = gsub(extension, pattern="([*]|[.])", replacement="")
     
-    pattern <- paste0("*[.]", extension, "$")
+    pattern = paste0("*[.]", extension, "$")
   }
   
-  files <- dir(path=path, pattern=pattern, recursive=recursive, ignore.case=ignore.case, include.dirs=FALSE, full.names=TRUE)
+  files = dir(path=path, pattern=pattern, recursive=recursive, ignore.case=ignore.case, include.dirs=FALSE, full.names=TRUE)
   
-  text <- lapply(lapply(files, readLines), concatenate)
-  names(text) <- files
+  text = lapply(lapply(files, readLines), concatenate)
+  names(text) = files
   
   if (prune.empty)
-    text <- text[-which(text == "")]
+    text = text[-which(text == "")]
   
   if (!pathnames)
-     names(text) <- gsub(names(text), pattern="^.*\\/", replacement="")
+     names(text) = gsub(names(text), pattern="^.*\\/", replacement="")
   
   text
 }

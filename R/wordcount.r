@@ -18,11 +18,11 @@
 #' @examples
 #' library(ngram)
 #' 
-#' words <- c("a", "b", "c")
+#' words = c("a", "b", "c")
 #' words
 #' wordcount(words)
 #' 
-#' str <- concatenate(words, collapse="")
+#' str = concatenate(words, collapse="")
 #' str
 #' wordcount(str)
 #' 

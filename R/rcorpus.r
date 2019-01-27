@@ -20,7 +20,7 @@
 #' 
 #' @keywords Utility
 #' @export
-rcorpus <- function(nwords=50, alphabet=letters, minwordlen=1, maxwordlen=6)
+rcorpus = function(nwords=50, alphabet=letters, minwordlen=1, maxwordlen=6)
 {
   check.is.posint(nwords)
   check.is.strings(alphabet)
@@ -30,8 +30,8 @@ rcorpus <- function(nwords=50, alphabet=letters, minwordlen=1, maxwordlen=6)
   if (minwordlen > maxwordlen)
     stop("Argument 'maxwordlen' must be at least 'minwordlen'.")
   
-  sizes <- as.integer(runif(nwords, minwordlen, maxwordlen+1))
-  words <- sapply(sizes, function(size) paste0(sample(alphabet, size=size, replace=TRUE), collapse=""))
+  sizes = as.integer(runif(nwords, minwordlen, maxwordlen+1))
+  words = sapply(sizes, function(size) paste0(sample(alphabet, size=size, replace=TRUE), collapse=""))
   
   paste0(words, collapse=" ")
 }

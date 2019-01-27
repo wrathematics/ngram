@@ -26,7 +26,7 @@
 #' A string.
 #' 
 #' @examples
-#' x <- "watch out! a snake!"
+#' x = "watch out! a snake!"
 #' 
 #' splitter(x, split.char=TRUE)
 #' splitter(x, split.space=TRUE, spacesep="_")
@@ -35,7 +35,7 @@
 #' 
 #' @keywords Preprocessing
 #' @export
-splitter <- function(string, split.char=FALSE, split.space=TRUE, spacesep="_", split.punct=FALSE)
+splitter = function(string, split.char=FALSE, split.space=TRUE, spacesep="_", split.punct=FALSE)
 {
   check.is.string(string)
   check.is.flag(split.char)
@@ -56,24 +56,25 @@ splitter <- function(string, split.char=FALSE, split.space=TRUE, spacesep="_", s
   if (split.space)
   {
     # fix spacing
-    string <- gsub(x=string, pattern="(\\t| +)", replacement=" ")
-    string <- sub(x=string, pattern=" +$", replacement="")
+    string = gsub(x=string, pattern="(\\t| +)", replacement=" ")
+    string = sub(x=string, pattern=" +$", replacement="")
     
-    string <- gsub(x=string, pattern="([[:space:]])", replacement=paste0(" ", spacesep, " "))
+    string = gsub(x=string, pattern="([[:space:]])", replacement=paste0(" ", spacesep, " "))
   }
   
   if (split.char)
   {
-    string <- strsplit(string, split="")[[1]]
-    string <- paste0(string, collapse=" ")
+    string = strsplit(string, split="")[[1]]
+    string = paste0(string, collapse=" ")
   }
   
   if (split.punct)
   {
-    string <- gsub(x=string, pattern="([[:punct:]])", replacement=" \\1 ")
+    string = gsub(x=string, pattern="([[:punct:]])", replacement=" \\1 ")
   }
   
-  string <- gsub(x=string, pattern="(\\t| +)", replacement=" ")
-  string <- sub(x=string, pattern=" +$", replacement="")
-  return(string)
+  string = gsub(x=string, pattern="(\\t| +)", replacement=" ")
+  string = sub(x=string, pattern=" +$", replacement="")
+  
+  string
 }

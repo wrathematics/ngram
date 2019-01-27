@@ -32,8 +32,8 @@ A markov chain babbler.
 \examples{
 library(ngram)
 
-str <- "A B A C A B B"
-ng <- ngram(str)
+str = "A B A C A B B"
+ng = ngram(str)
 babble(ng, genlen=5, seed=1234)
 
 }

@@ -22,8 +22,8 @@
 #' @examples
 #' library(ngram)
 #' 
-#' str <- "A B A C A B B"
-#' ng <- ngram(str)
+#' str = "A B A C A B B"
+#' ng = ngram(str)
 #' babble(ng, genlen=5, seed=1234)
 #' 
 #' @useDynLib ngram R_ngram_gen
@@ -57,15 +57,13 @@ setMethod("babble", signature(ng="ngram"),
     if (genlen >= 2^31)
       stop(paste("genlen=", genlen, " is too large", sep=""))
     
-    genlen <- as.integer(genlen)
+    genlen = as.integer(genlen)
     
     if (ng@n > genlen)
       warning("n > genlen; selecting a random n-gram instead")
     
-    seed <- as.integer(seed)
+    seed = as.integer(seed)
     
-    ret <- .Call(R_ngram_gen, ng@ngl_ptr, genlen, seed)
-    
-    return( ret )
+    .Call(R_ngram_gen, ng@ngl_ptr, genlen, seed)
   }
 )

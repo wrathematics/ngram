@@ -19,7 +19,7 @@ A list of class \code{string_summary}.
 Text Summary
 }
 \examples{
-x <- "a b a c a b b"
+x = "a b a c a b b"
 
 string.summary(x)
 

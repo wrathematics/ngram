@@ -27,9 +27,9 @@ composed of sentences that should not be joined.
 \examples{
 library(ngram)
 
-words <- c("a", "b", "c")
+words = c("a", "b", "c")
 wordcount(words)
-str <- concatenate(words)
+str = concatenate(words)
 wordcount(str)
 
 }

@@ -36,10 +36,10 @@ the string.  So \code{sep=", "} splits at a comma or a space.
 \examples{
 library(ngram)
 
-str <- "A B A C A B B"
+str = "A B A C A B B"
 ngram(str, n=2)
 
-str <- "A,B,A,C A B B"
+str = "A,B,A,C A B B"
 ### Split at a space
 print(ngram(str), output="full")
 ### Split at a comma

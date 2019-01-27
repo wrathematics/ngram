@@ -35,7 +35,7 @@ Note that choosing \code{split.char=TRUE} necessarily implies
 \code{split.space=TRUE}.
 }
 \examples{
-x <- "watch out! a snake!"
+x = "watch out! a snake!"
 
 splitter(x, split.char=TRUE)
 splitter(x, split.space=TRUE, spacesep="_")

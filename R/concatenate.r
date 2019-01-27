@@ -20,22 +20,22 @@
 #' @examples
 #' library(ngram)
 #' 
-#' words <- c("a", "b", "c")
+#' words = c("a", "b", "c")
 #' wordcount(words)
-#' str <- concatenate(words)
+#' str = concatenate(words)
 #' wordcount(str)
 #' 
 #' @seealso \code{\link{preprocess}}
 #' @keywords Preprocessing
 #' @export
-concatenate <- function(..., collapse=" ", rm.space=FALSE)
+concatenate = function(..., collapse=" ", rm.space=FALSE)
 {
-  l <- list(...)
+  l = list(...)
   
-  str <- paste(sapply(l, paste, collapse=collapse), collapse=collapse)
+  str = paste(sapply(l, paste, collapse=collapse), collapse=collapse)
   
   if (rm.space)
-    str <- gsub(x=str, pattern=" ", replacement="")
+    str = gsub(x=str, pattern=" ", replacement="")
   
-  return( str )
+  str
 }

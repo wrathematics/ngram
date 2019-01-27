@@ -27,13 +27,13 @@
 #' @examples
 #' library(ngram)
 #' 
-#' x <- "Watch  out    for snakes!  111"
+#' x = "Watch  out    for snakes!  111"
 #' preprocess(x)
 #' preprocess(x, remove.punct=TRUE, remove.numbers=TRUE)
 #' 
 #' @keywords Preprocessing
 #' @export
-preprocess <- function(x, case="lower", remove.punct=FALSE, remove.numbers=FALSE, fix.spacing=TRUE)
+preprocess = function(x, case="lower", remove.punct=FALSE, remove.numbers=FALSE, fix.spacing=TRUE)
 {
   check.is.string(x)
   if (!is.null(case))
@@ -46,32 +46,32 @@ preprocess <- function(x, case="lower", remove.punct=FALSE, remove.numbers=FALSE
   ### Case
   if (!is.null(case))
   {
-    case <- match.arg(tolower(case), c("lower", "upper"))
+    case = match.arg(tolower(case), c("lower", "upper"))
     if (case == "lower")
-      x <- tolower(x)
+      x = tolower(x)
     else if (case == "upper") 
-      x <- toupper(x)
+      x = toupper(x)
   }
   
   ### Punctuation and numbers
   if (remove.punct)
-    rempunct <- "[[:punct:]]"
+    rempunct = "[[:punct:]]"
   else
-    rempunct <- ""
+    rempunct = ""
   
   if (remove.numbers)
-    remnum <- "\\d"
+    remnum = "\\d"
   else
-    remnum <- ""
+    remnum = ""
   
-  pattern <- paste0("(", paste(rempunct, remnum, sep="|"), ")")
-  x <- gsub(x, pattern=pattern, replacement="")
+  pattern = paste0("(", paste(rempunct, remnum, sep="|"), ")")
+  x = gsub(x, pattern=pattern, replacement="")
   
   ### Spacing
   if (fix.spacing)
   {
-    x <- gsub(x, pattern="(\\t| +)", replacement=" ")
-    x <- sub(pattern=" +$", replacement="", x=x)
+    x = gsub(x, pattern="(\\t| +)", replacement=" ")
+    x = sub(pattern=" +$", replacement="", x=x)
   }
   
   return( x )

@@ -1,9 +1,9 @@
-tablesort <- function(df, sortby.colnum)
+tablesort = function(df, sortby.colnum)
 {
   if (!is.data.frame(df))
     stop("argument 'df' must be a dataframe")
   
-  col <- as.integer(sortby.colnum)
+  col = as.integer(sortby.colnum)
   if (is.na(col))
     stop("argument 'sortby.colnum' must be an integer")
   if (col < 1 || col > ncol(df))
@@ -24,8 +24,8 @@ tablesort <- function(df, sortby.colnum)
 #' @examples
 #' library(ngram)
 #' 
-#' str <- "A B A C A B B"
-#' ng <- ngram(str)
+#' str = "A B A C A B B"
+#' ng = ngram(str)
 #' get.phrasetable(ng)
 #' 
 #' @seealso \code{\link{ngram-class}}
@@ -33,14 +33,14 @@ tablesort <- function(df, sortby.colnum)
 #' @useDynLib ngram R_ng_get_phrasetable
 #' @name phrasetable
 #' @export
-get.phrasetable <- function(ng)
+get.phrasetable = function(ng)
 {
   if (!inherits(ng, "ngram"))
     stop("argument 'ng' must be an ngram object")
   
-  ret <- as.data.frame(.Call(R_ng_get_phrasetable, ng@ngl_ptr, ng@ngsize), stringsAsFactors=FALSE)
-  ret <- tablesort(ret, 2)
-  rownames(ret) <- NULL
+  ret = as.data.frame(.Call(R_ng_get_phrasetable, ng@ngl_ptr, ng@ngsize), stringsAsFactors=FALSE)
+  ret = tablesort(ret, 2)
+  rownames(ret) = NULL
   
-  return(ret)
+  ret
 }

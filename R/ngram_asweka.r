@@ -25,7 +25,7 @@
 #' @examples
 #' library(ngram)
 #' 
-#' str <- "A B A C A B B"
+#' str = "A B A C A B B"
 #' ngram_asweka(str, min=2, max=4)
 #' 
 #' @seealso \code{\link{ngram}}
@@ -34,7 +34,7 @@
 #' @name Tokenize-AsWeka
 #' @rdname tokenize-asweka
 #' @export
-ngram_asweka <- function(str, min=2, max=2, sep=" ")
+ngram_asweka = function(str, min=2, max=2, sep=" ")
 {
   check.is.string(str)
   check.is.posint(min)

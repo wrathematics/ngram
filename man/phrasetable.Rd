@@ -16,8 +16,8 @@ Get a table
 \examples{
 library(ngram)
 
-str <- "A B A C A B B"
-ng <- ngram(str)
+str = "A B A C A B B"
+ng = ngram(str)
 get.phrasetable(ng)
 
 }

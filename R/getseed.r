@@ -10,7 +10,7 @@
 #' @useDynLib ngram R_ngram_get_seed
 #' @keywords Utility
 #' @export
-getseed <- function()
+getseed = function()
 {
   .Call(R_ngram_get_seed, PACKAGE="ngram")
 }

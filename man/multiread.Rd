@@ -43,7 +43,7 @@ function.
 }
 \examples{
 \dontrun{
-path <- system.file(package="ngram")
+path = system.file(package="ngram")
 
 ### Read all files in the base path
 multiread(path, extension="*")
