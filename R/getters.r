@@ -35,12 +35,12 @@ NULL
 
 #' @rdname getters
 #' @export
-setGeneric(name="ngram.order", function(ng) standardGeneric("ngram.order"), package="ngram")
+setGeneric(name="ng_order", function(ng) standardGeneric("ng_order"), package="ngram")
 
 #' @useDynLib ngram R_ng_corpus_order
 #' @rdname getters
 #' @export
-ngram.order = function(x, decreasing = FALSE)
+ng_order = function(x, decreasing = FALSE)
 {
   ngo = .Call(R_ng_corpus_order, x@ngl_ptr, x@ngsize)
   order(ngo, decreasing=!decreasing)

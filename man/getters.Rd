@@ -3,7 +3,7 @@
 \docType{methods}
 \name{getters}
 \alias{getters}
-\alias{ngram.order}
+\alias{ng_order}
 \alias{get.ngrams}
 \alias{get.ngrams,ngram-method}
 \alias{get.string}
@@ -12,7 +12,7 @@
 \alias{get.nextwords,ngram-method}
 \title{ngram Getters}
 \usage{
-ngram.order(x, decreasing = FALSE)
+ng_order(x, decreasing = FALSE)
 
 get.ngrams(ng)
 
