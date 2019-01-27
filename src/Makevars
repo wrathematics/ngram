@@ -12,7 +12,16 @@ NGRAM_OBJS = \
 	ngram/src/rand/rng_interface.o \
 	ngram/src/rand/samplers.o
 
-R_OBJS = asweka.o constructor.o converters.o gen.o count.o getseed.o phrase_table.o print.o ngram_native.o
+R_OBJS = \
+	asweka.o \
+	babble.o \
+	constructor.o \
+	converters.o \
+	count.o \
+	getseed.o \
+	ngram_native.o \
+	phrase_table.o \
+	print.o
 
 PKG_CPPFLAGS=-DNEXTWORDS
 

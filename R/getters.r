@@ -27,7 +27,6 @@
 #' get.ngrams(ng)[ngram.order(ng)]
 #' 
 #' @keywords Tokenization
-#' @include ngram.r
 #' @name getters
 #' @rdname getters
 NULL

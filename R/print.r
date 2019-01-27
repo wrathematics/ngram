@@ -27,7 +27,6 @@ ng.print <- function(ng, truncated=TRUE)
 #' 
 #' @seealso \code{\link{ngram}, \link{babble}}
 #' 
-#' @include ngram.r
 #' @name ngram-print
 #' @rdname ngram-print
 NULL

@@ -25,21 +25,4 @@ Authors@R: c(person("Drew", "Schmidt", role=c("aut", "cre"),
 Maintainer: Drew Schmidt <wrathematics@gmail.com>
 URL: https://github.com/wrathematics/ngram
 BugReports: https://github.com/wrathematics/ngram/issues
-Collate:
-    'ngram.r'
-    'babble.r'
-    'checks.r'
-    'concatenate.r'
-    'getseed.r'
-    'getters.r'
-    'multiread.r'
-    'ngram-package.R'
-    'ngram_asweka.r'
-    'phrasetable.r'
-    'preprocess.r'
-    'print.r'
-    'rcorpus.r'
-    'splitter.r'
-    'string_summary.r'
-    'wordcount.r'
 RoxygenNote: 6.1.0

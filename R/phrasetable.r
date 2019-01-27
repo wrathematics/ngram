@@ -28,7 +28,6 @@ tablesort <- function(df, sortby.colnum)
 #' ng <- ngram(str)
 #' get.phrasetable(ng)
 #' 
-#' @include ngram.r
 #' @seealso \code{\link{ngram-class}}
 #' @keywords Tokenization
 #' @useDynLib ngram R_ng_get_phrasetable

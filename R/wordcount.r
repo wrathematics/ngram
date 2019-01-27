@@ -27,7 +27,6 @@
 #' str
 #' wordcount(str)
 #' 
-#' @include ngram.r
 #' @seealso \code{\link{preprocess}}
 #' @keywords Summarize
 #' @name wordcount
