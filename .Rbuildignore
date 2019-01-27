@@ -1,7 +1,5 @@
 ^\.travis\.yml$
 
-experiments/
-
 cover/build_cover.sh
 cover/cover.tex
 cover/hydra.png

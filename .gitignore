@@ -1,12 +1,11 @@
-inst/doc/*
+*~
+*.swp
 
 *.o
 *.lo
 *.so
 *.log
 *.status
-*~
-*.swp
 
 src/ngram/build/
 
@@ -17,3 +16,4 @@ src/ngram/build/
 *.toc
 *.tex.backup
 
+inst/doc/*
