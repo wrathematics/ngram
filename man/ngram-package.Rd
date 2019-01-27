@@ -3,7 +3,7 @@
 \docType{package}
 \name{ngram-package}
 \alias{ngram-package}
-\title{ngram: An n-gram Babbler}
+\title{ngram: Fast n-Gram Tokenization}
 \description{
 An n-gram is a sequence of n "words" taken from a
 body of text.  This package offers utilities for creating, 

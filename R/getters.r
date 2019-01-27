@@ -31,42 +31,34 @@
 #' @rdname getters
 NULL
 
-#' @rdname getters
-#' @export
-setGeneric(name="ngram.order",
-  function(ng, decreasing=FALSE)
-    standardGeneric("ngram.order"),
-  package="ngram"
-)
 
-#' @useDynLib ngram ng_corpus_order
+
 #' @rdname getters
 #' @export
-setMethod("ngram.order", signature(ng="ngram"),
-  function(ng, decreasing = FALSE)
-  {
-    ngo = .Call(ng_corpus_order, ng@ngl_ptr, ng@ngsize)
-    order(ngo,decreasing=!decreasing)
-  }
-)
+setGeneric(name="ngram.order", function(ng) standardGeneric("ngram.order"), package="ngram")
+
+#' @useDynLib ngram R_ng_corpus_order
+#' @rdname getters
+#' @export
+ngram.order = function(x, decreasing = FALSE)
+{
+  ngo = .Call(R_ng_corpus_order, x@ngl_ptr, x@ngsize)
+  order(ngo, decreasing=!decreasing)
+}
 
 
 
 #' @rdname getters
 #' @export
-setGeneric(name="get.ngrams", 
-  function(ng) 
-    standardGeneric("get.ngrams"), 
-  package="ngram"
-)
+setGeneric(name="get.ngrams", function(ng) standardGeneric("get.ngrams"), package="ngram")
 
-#' @useDynLib ngram ng_extract_ngrams
+#' @useDynLib ngram R_ng_extract_ngrams
 #' @rdname getters
 #' @export
 setMethod("get.ngrams", signature(ng="ngram"),
   function(ng)
   {
-    .Call(ng_extract_ngrams, ng@ngl_ptr, ng@ngsize)
+    .Call(R_ng_extract_ngrams, ng@ngl_ptr, ng@ngsize)
   }
 )
 
@@ -74,19 +66,15 @@ setMethod("get.ngrams", signature(ng="ngram"),
 
 #' @rdname getters
 #' @export
-setGeneric(name="get.string", 
-  function(ng) 
-    standardGeneric("get.string"), 
-  package="ngram"
-)
+setGeneric(name="get.string", function(ng) standardGeneric("get.string"), package="ngram")
 
-#' @useDynLib ngram ng_extract_str
+#' @useDynLib ngram R_ng_extract_str
 #' @rdname getters
 #' @export
 setMethod("get.string", signature(ng="ngram"),
   function(ng)
   {
-    .Call(ng_extract_str, ng@str_ptr, ng@strlen)
+    .Call(R_ng_extract_str, ng@str_ptr, ng@strlen)
   }
 )
 
@@ -94,15 +82,13 @@ setMethod("get.string", signature(ng="ngram"),
 
 #' @rdname getters
 #' @export
-setGeneric(name="get.nextwords", 
-  function(ng) 
-    standardGeneric("get.nextwords"), 
-  package="ngram"
-)
+setGeneric(name="get.nextwords", function(ng) standardGeneric("get.nextwords"), package="ngram")
 
 #' @rdname getters
 #' @export
 setMethod("get.nextwords", signature(ng="ngram"),
   function(ng)
+  {
     stop("Not yet implemented")
+  }
 )

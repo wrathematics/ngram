@@ -72,7 +72,7 @@ void print_ngram(ngram_t *ng)
 
 
 #define TRUNCSIZE 5
-SEXP ng_print(SEXP ng_ptr, SEXP ngsize_, SEXP truncated)
+SEXP R_ng_print(SEXP ng_ptr, SEXP ngsize_, SEXP truncated)
 {
   int i;
   ngramlist_t *ngl = (ngramlist_t *) getRptr(ng_ptr);
@@ -90,4 +90,3 @@ SEXP ng_print(SEXP ng_ptr, SEXP ngsize_, SEXP truncated)
   
   return R_NilValue;
 }
-

@@ -49,11 +49,11 @@
 #' @keywords Tokenization
 setClass("ngram", 
   representation(
-    str_ptr="externalptr",
-    strlen="integer",
-    n="integer",
-    ngl_ptr="externalptr",
-    ngsize="integer",
-    sl_ptr="externalptr"
+    str_ptr = "externalptr",
+    strlen = "integer",
+    n = "integer",
+    ngl_ptr = "externalptr",
+    ngsize = "integer",
+    sl_ptr = "externalptr"
   )
 )

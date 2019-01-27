@@ -8,13 +8,12 @@
 #' A string or vector of strings, or an ngram object.
 #' @param sep
 #' The characters used to separate words.
-#' @param count.function
-#' The function to use for aggregation.
-#' 
+#' @param count_fun
+#' The function to use for aggregation if \code{x} has length greater than 1.
+#' Useful ones include \code{sum} and \code{identity}.
 #' 
 #' @return 
 #' A count.
-#' 
 #' 
 #' @examples
 #' library(ngram)
@@ -33,35 +32,31 @@
 #' @rdname wordcount
 NULL
 
+
+
 #' @useDynLib ngram R_ngram_wordcount
 #' @rdname wordcount
 #' @export
-setGeneric(name="wordcount", 
-  function(x, sep=" ", count.function=sum) 
-    standardGeneric("wordcount"), 
-  package="ngram"
-)
+wordcount = function(x, sep=" ", count_fun=sum) UseMethod("wordcount", x)
+
+
 
 #' @rdname wordcount
 #' @export
-setMethod("wordcount", signature(x="character"),
-  function(x, sep=" ", count.function=sum)
-  {
-    if (length(x) > 1)
-      return( count.function(sapply(x, wordcount, sep)) )
-    
-    #sep <- ' '
+wordcount.character = function(x, sep=" ", count_fun=sum)
+{
+  if (length(x) > 1)
+    count_fun(sapply(x, wordcount, sep))
+  else
     .Call(R_ngram_wordcount, x, sep, PACKAGE="ngram")
-  }
-)
+}
+
+
 
 #' @rdname wordcount
 #' @export
-setMethod("wordcount", signature(x="ngram"),
-  function(x, sep=" ", count.function=sum)
-  {
-    ret <- wordcount(x=get.string(x),sep,count.function)
-    
-    return( ret )
-  }
-)
+wordcount.ngram = function(x, sep=" ", count_fun=sum)
+{
+  x_string = get.string(x)
+  wordcount.character(x=x_string, sep=sep, count_fun=count_fun)
+}

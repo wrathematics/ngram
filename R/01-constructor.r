@@ -43,55 +43,34 @@
 #' @seealso \code{\link{ngram-class}}, \code{\link{getters}}, 
 #' \code{\link{phrasetable}}, \code{\link{babble}}
 #' @keywords Tokenization
-#' @name Tokenize
-#' @rdname tokenize
-NULL
-
-
-
-#' @rdname tokenize
+#' 
+#' @useDynLib ngram R_ng_process
 #' @export
-setGeneric(name="ngram", 
-  function(str, n=2, sep=" ") 
-    standardGeneric("ngram"), 
-  package="ngram"
-)
+ngram = function(str, n=2, sep=" ")
+{
+  check.is.strings(str)
+  check.is.posint(n)
+  check.is.string(sep)
+  
+  
+  if (n > 2^31)
+    stop(paste("n=", n, " is too large", sep=""))
+  
+  n = as.integer(n)
+  
+  nwords = wordcount(str, sep, min)
+  if (nwords < n)
+    stop(paste("input 'str' has ", "nwords=", nwords, " and ", "n=", n, "; must have nwords >= n", sep=""))
+  
+  strlen = length(str)
 
+  if (length(sep) > 1)
+      sep = paste0(sep,collapse="")
 
-
-#' @useDynLib ngram ng_process
-#' @rdname tokenize
-#' @export
-setMethod("ngram", signature(str="character"),
-  function(str, n=2, sep=" ")
-  {
-    check.is.strings(str)
-    check.is.posint(n)
-    check.is.string(sep)
-    
-    
-    if (n > 2^31)
-      stop(paste("n=", n, " is too large", sep=""))
-    
-    n <- as.integer(n)
-    
-    nwords <- wordcount(str,sep,min)
-    if (nwords < n)
-      stop(paste("input 'str' has ", "nwords=", nwords, " and ", "n=", n, "; must have nwords >= n", sep=""))
-    
-    #strlen <- nchar(str) ## always an integer due to STRSXP restrictions
-    strlen <- length(str)
-
-    if (length(sep) > 1)
-        sep <- paste0(sep,collapse="")
-
-    out <- .Call(ng_process, str, strlen, n, sep, PACKAGE="ngram")
-    
-    if (is.integer(out) && out == -1L)
-      stop("There was a problem processing the input string!")
-    
-    ret <- new("ngram", str_ptr=out$str_ptr, strlen=strlen, n=n, ngsize=out$ngsize, sl_ptr=out$sl_ptr, ngl_ptr=out$ngl_ptr)
-    
-    return( ret )
-  }
-)
+  out = .Call(R_ng_process, str, strlen, n, sep, PACKAGE="ngram")
+  
+  if (is.integer(out) && out == -1L)
+    stop("There was a problem processing the input string!")
+  
+  new("ngram", str_ptr=out$str_ptr, strlen=strlen, n=n, ngsize=out$ngsize, sl_ptr=out$sl_ptr, ngl_ptr=out$ngl_ptr)
+}

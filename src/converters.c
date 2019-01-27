@@ -29,7 +29,7 @@
 
 #define MAX(a,b) ((a)>(b) ? (a) : (b))
 
-SEXP ng_corpus_order(SEXP ng_ptr, SEXP ngsize_)
+SEXP R_ng_corpus_order(SEXP ng_ptr, SEXP ngsize_)
 {
   ngramlist_t *ngl = (ngramlist_t *) getRptr(ng_ptr);
   const int ngsize = INTEGER(ngsize_)[0];
@@ -44,7 +44,7 @@ SEXP ng_corpus_order(SEXP ng_ptr, SEXP ngsize_)
   return RET;
 }
 
-SEXP ng_extract_ngrams(SEXP ng_ptr, SEXP ngsize_)
+SEXP R_ng_extract_ngrams(SEXP ng_ptr, SEXP ngsize_)
 {
   int i, j, len;
   char *buf;
@@ -96,7 +96,7 @@ SEXP ng_extract_ngrams(SEXP ng_ptr, SEXP ngsize_)
 
 // take lex return
 // sort by tok and iterate over the list skipping duplicates
-SEXP ng_extract_words(SEXP ng_ptr, SEXP ngsize_)
+SEXP R_ng_extract_words(SEXP ng_ptr, SEXP ngsize_)
 {
   int i, j, k;
   int len, retlen;
@@ -154,7 +154,7 @@ SEXP ng_extract_words(SEXP ng_ptr, SEXP ngsize_)
 
 
 
-SEXP ng_extract_str(SEXP str_ptr, SEXP R_strlen)
+SEXP R_ng_extract_str(SEXP str_ptr, SEXP R_strlen)
 {
   SEXP RET;
   char *str = (char *) getRptr(str_ptr);

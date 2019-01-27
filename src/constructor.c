@@ -67,7 +67,7 @@ static void ngl_finalize(SEXP ptr)
 
 
 
-SEXP ng_process(SEXP R_str, SEXP R_str_len, SEXP n_, SEXP R_sep)
+SEXP R_ng_process(SEXP R_str, SEXP R_str_len, SEXP n_, SEXP R_sep)
 {
   int i;
   char **str, *sep;
@@ -146,5 +146,3 @@ SEXP ng_process(SEXP R_str, SEXP R_str_len, SEXP n_, SEXP R_sep)
   UNPROTECT(6);
   return RET;
 }
-
-

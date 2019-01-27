@@ -27,7 +27,7 @@
 
 #include "ngram.h"
 
-SEXP ng_asweka(SEXP R_str, SEXP min_n_, SEXP max_n_, SEXP R_sep)
+SEXP R_ng_asweka(SEXP R_str, SEXP min_n_, SEXP max_n_, SEXP R_sep)
 {
 	int i, j;
 	char *str = CHARPT(R_str, 0); 

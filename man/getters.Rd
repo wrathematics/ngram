@@ -4,7 +4,6 @@
 \name{getters}
 \alias{getters}
 \alias{ngram.order}
-\alias{ngram.order,ngram-method}
 \alias{get.ngrams}
 \alias{get.ngrams,ngram-method}
 \alias{get.string}
@@ -13,9 +12,7 @@
 \alias{get.nextwords,ngram-method}
 \title{ngram Getters}
 \usage{
-ngram.order(ng, decreasing = FALSE)
-
-\S4method{ngram.order}{ngram}(ng, decreasing = FALSE)
+ngram.order(x, decreasing = FALSE)
 
 get.ngrams(ng)
 
@@ -30,9 +27,9 @@ get.nextwords(ng)
 \S4method{get.nextwords}{ngram}(ng)
 }
 \arguments{
-\item{ng}{An ngram object.}
-
 \item{decreasing}{Should the sorted order be in descending order?}
+
+\item{ng}{An ngram object.}
 }
 \description{
 Some simple "getters" for \code{ngram} objects. Necessary since the internal

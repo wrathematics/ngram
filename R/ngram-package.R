@@ -1,4 +1,4 @@
-#' ngram: An n-gram Babbler
+#' ngram: Fast n-Gram Tokenization
 #' 
 #' An n-gram is a sequence of n "words" taken from a
 #' body of text.  This package offers utilities for creating, 
