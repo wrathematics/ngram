@@ -24,7 +24,7 @@
 #' 
 #' str = "A B A C A B B"
 #' ng = ngram(str)
-#' get.ngrams(ng)[ngram.order(ng)]
+#' get.ngrams(ng)[ng_order(ng)]
 #' 
 #' @keywords Tokenization
 #' @name getters
@@ -35,16 +35,18 @@ NULL
 
 #' @rdname getters
 #' @export
-setGeneric(name="ng_order", function(ng) standardGeneric("ng_order"), package="ngram")
+setGeneric(name="ng_order", function(ng, decreasing=FALSE) standardGeneric("ng_order"), package="ngram")
 
 #' @useDynLib ngram R_ng_corpus_order
 #' @rdname getters
 #' @export
-ng_order = function(x, decreasing = FALSE)
-{
-  ngo = .Call(R_ng_corpus_order, x@ngl_ptr, x@ngsize)
-  order(ngo, decreasing=!decreasing)
-}
+setMethod("ng_order", signature(ng="ngram"),
+  function(ng, decreasing = FALSE)
+  {
+    ngo = .Call(R_ng_corpus_order, ng@ngl_ptr, ng@ngsize)
+    order(ngo, decreasing=!decreasing)
+  }
+)
 
 
 

@@ -54,6 +54,6 @@ unique n-grams in the input string.}
 }}
 
 \seealso{
-\code{\link{Tokenize}}
+\code{\link{ngram}}
 }
 \keyword{Tokenization}

@@ -45,7 +45,7 @@
 #' A pointer to the list of words from the input string.
 #' 
 #' @name ngram-class
-#' @seealso \code{\link{Tokenize}}
+#' @seealso \code{\link{ngram}}
 #' @keywords Tokenization
 setClass("ngram", 
   representation(
