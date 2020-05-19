@@ -71,7 +71,7 @@ multiread = function(path=".", extension="txt", recursive=FALSE, ignore.case=FAL
   names(text) = files
   
   if (prune.empty)
-    text = text[-which(text == "")]
+    text = text[text != ""]
   
   if (!pathnames)
      names(text) = gsub(names(text), pattern="^.*\\/", replacement="")
