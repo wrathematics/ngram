@@ -1,6 +1,6 @@
 is.badval = function(x)
 {
-  is.na(x) || is.nan(x) || is.infinite(x)
+  any(is.na(x)) || any(is.nan(x)) || any(is.infinite(x))
 }
 
 is.inty = function(x)
