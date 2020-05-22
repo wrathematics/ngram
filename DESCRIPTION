@@ -25,4 +25,4 @@ Authors@R: c(person("Drew", "Schmidt", role=c("aut", "cre"),
 Maintainer: Drew Schmidt <wrathematics@gmail.com>
 URL: https://github.com/wrathematics/ngram
 BugReports: https://github.com/wrathematics/ngram/issues
-RoxygenNote: 6.1.0
+RoxygenNote: 7.1.0
