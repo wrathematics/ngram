@@ -1,7 +1,7 @@
 # ngram
 
 * **Version:** 3.2.0
-* **License:** [![License](http://img.shields.io/badge/license-BSD%202--Clause-orange.svg?style=flat)](http://opensource.org/licenses/BSD-2-Clause)
+* **License:** [![License](http://img.shields.io/badge/license-BSD%202--Clause-orange.svg?style=flat)](https://opensource.org/licenses/BSD-2-Clause)
 * **Author:** Drew Schmidt and Christian Heckendorf
 
 
@@ -13,7 +13,7 @@ The package is designed to be extremely fast at tokenizing, summarizing, and bab
 
 ## Package Details
 
-The original purpose for the package was to combine the book "Modern Applied Statistics in S" with the collected works of H. P. Lovecraft and generate amusing nonsense.  This resulted in the post [Modern Applied Statistics in R'lyeh](http://librestats.com/2014/07/01/modern-applied-statistics-in-rlyeh/).  I had originally tried several other available R packages to do this, but they were taking hours on a subset of the full combined corpus to preprocess the data into a somewhat inconvenient format.  However, the the ngram package can do the preprocessing into the desired format in well under a second (with about half of the preprocessing time spent on copying data for R coherency).
+The original purpose for the package was to combine the book "Modern Applied Statistics in S" with the collected works of H. P. Lovecraft and generate amusing nonsense.  This resulted in the post [Modern Applied Statistics in R'lyeh](https://librestats.com/2014/07/01/modern-applied-statistics-in-rlyeh/).  I had originally tried several other available R packages to do this, but they were taking hours on a subset of the full combined corpus to preprocess the data into a somewhat inconvenient format.  However, the the ngram package can do the preprocessing into the desired format in well under a second (with about half of the preprocessing time spent on copying data for R coherency).
 
 The package is mostly C, with the returned object (to R) being an external pointer.  In fact, the underlying C code can be compiled as a standalone library.  There is some minimal compatibility with exporting the data to proper R data structures, but it is incomplete at this time.
 
@@ -29,13 +29,9 @@ You can install the stable version from CRAN using the usual `install.packages()
 install.packages("ngram")
 ```
 
-#### Development Version
-The development version is maintained on GitHub, and can easily be installed by any of the packages that offer installations from GitHub:
+The development version is maintained on GitHub:
 
 ```r
-### Pick your preference
-devtools::install_github("wrathematics/ngram")
-ghit::install_github("wrathematics/ngram")
 remotes::install_github("wrathematics/ngram")
 ```
 
