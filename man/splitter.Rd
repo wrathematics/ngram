@@ -4,8 +4,13 @@
 \alias{splitter}
 \title{Character Splitter}
 \usage{
-splitter(string, split.char = FALSE, split.space = TRUE,
-  spacesep = "_", split.punct = FALSE)
+splitter(
+  string,
+  split.char = FALSE,
+  split.space = TRUE,
+  spacesep = "_",
+  split.punct = FALSE
+)
 }
 \arguments{
 \item{string}{An input string.}

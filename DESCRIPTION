@@ -1,7 +1,7 @@
 Package: ngram
 Type: Package
 Title: Fast n-Gram 'Tokenization'
-Version: 3.1.0
+Version: 3.2.0
 Description: An n-gram is a sequence of n "words" taken, in order, from a
     body of text.  This is a collection of utilities for creating,
     displaying, summarizing, and "babbling" n-grams.  The
@@ -24,4 +24,4 @@ Authors@R: c(person("Drew", "Schmidt", role=c("aut", "cre"),
 Maintainer: Drew Schmidt <wrathematics@gmail.com>
 URL: https://github.com/wrathematics/ngram
 BugReports: https://github.com/wrathematics/ngram/issues
-RoxygenNote: 6.1.0
+RoxygenNote: 7.1.2

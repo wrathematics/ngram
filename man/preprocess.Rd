@@ -4,8 +4,13 @@
 \alias{preprocess}
 \title{Basic Text Preprocessor}
 \usage{
-preprocess(x, case = "lower", remove.punct = FALSE,
-  remove.numbers = FALSE, fix.spacing = TRUE)
+preprocess(
+  x,
+  case = "lower",
+  remove.punct = FALSE,
+  remove.numbers = FALSE,
+  fix.spacing = TRUE
+)
 }
 \arguments{
 \item{x}{Input text.}

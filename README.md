@@ -1,7 +1,6 @@
 # ngram
 
-* **Version:** 3.1.0
-* **Status:** [![Build Status](https://travis-ci.org/wrathematics/ngram.png)](https://travis-ci.org/wrathematics/ngram)
+* **Version:** 3.2.0
 * **License:** [![License](http://img.shields.io/badge/license-BSD%202--Clause-orange.svg?style=flat)](http://opensource.org/licenses/BSD-2-Clause)
 * **Author:** Drew Schmidt and Christian Heckendorf
 

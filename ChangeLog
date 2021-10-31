@@ -1,3 +1,7 @@
+Release 3.2.0:
+  * Fixed rare bug in check for bad values for string vectors.
+  * Drop LazyData for CRAN.
+
 Release 3.1.0:
   * Fixed bug in preprocess().
   * Fixed an unlikely malloc bug in ng_extract_ngrams().

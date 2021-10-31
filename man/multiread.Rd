@@ -4,8 +4,14 @@
 \alias{multiread}
 \title{Multiread}
 \usage{
-multiread(path = ".", extension = "txt", recursive = FALSE,
-  ignore.case = FALSE, prune.empty = TRUE, pathnames = TRUE)
+multiread(
+  path = ".",
+  extension = "txt",
+  recursive = FALSE,
+  ignore.case = FALSE,
+  prune.empty = TRUE,
+  pathnames = TRUE
+)
 }
 \arguments{
 \item{path}{The base file path to search.}
