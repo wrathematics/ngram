@@ -1,6 +1,6 @@
 is.badval = function(x)
 {
-  is.na(x) || is.nan(x) || is.infinite(x)
+  any(is.na(x)) || (is.numeric(x) && (any(is.nan(x)) || any(is.infinite(x))))
 }
 
 is.inty = function(x)
@@ -35,7 +35,7 @@ is.string = function(x)
 
 check.is.strings = function(x)
 {
-  if (!is.character(x) || is.badval(x) || length(x) == 0)
+  if (!is.character(x) || length(x) == 0 || is.badval(x) )
   {
     nm = deparse(substitute(x))
     stop(paste0("argument '", nm, "' must be a non-empty vector of strings"), call.=FALSE)
