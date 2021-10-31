@@ -15,7 +15,6 @@ Depends:
     R (>= 3.0.0)
 Imports:
     methods
-LazyData: yes
 LazyLoad: yes
 NeedsCompilation: yes
 ByteCompile: yes
