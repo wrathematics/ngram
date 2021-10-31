@@ -3,6 +3,8 @@ Release 3.2.0:
   * Drop LazyData, fix https issues for CRAN.
 
 Release 3.1.0:
+  * Fixed break in get.string().
+  * Fixed edge case in multiread() (@russey).
   * Fixed bug in preprocess().
   * Fixed an unlikely malloc bug in ng_extract_ngrams().
   * Added ng_order() and corresponding internals. (Heckendorf)

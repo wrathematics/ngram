@@ -157,11 +157,13 @@ SEXP R_ng_extract_words(SEXP ng_ptr, SEXP ngsize_)
 SEXP R_ng_extract_str(SEXP str_ptr, SEXP R_strlen)
 {
   SEXP RET;
-  char *str = (char *) getRptr(str_ptr);
+  char **str = (char **) getRptr(str_ptr);
   
-  PROTECT(RET = allocVector(STRSXP, 1));
+  const int len = INTEGER(R_strlen)[0];
+  PROTECT(RET = allocVector(STRSXP, len));
   
-  SET_STRING_ELT(RET, 0, mkCharLen(str, INTEGER(R_strlen)[0]));
+  for (int i=0; i<len; i++)
+    SET_STRING_ELT(RET, i, mkChar(str[i]));
   
   UNPROTECT(1);
   return RET;
