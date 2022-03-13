@@ -18,7 +18,5 @@
 #' 
 #' @name ngram-package
 #' @docType package
-#' @author Drew Schmidt \email{wrathematics AT gmail.com}, Christian
-#' Heckendorf.
 #' @keywords Package
 NULL

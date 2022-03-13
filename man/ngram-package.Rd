@@ -20,8 +20,4 @@ package, whatever is appropriate.
 The package has its own PRNG; we use an implementation of MT1997 for all
 non-deterministic choices.
 }
-\author{
-Drew Schmidt \email{wrathematics AT gmail.com}, Christian
-Heckendorf.
-}
 \keyword{Package}

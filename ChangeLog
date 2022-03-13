@@ -1,3 +1,6 @@
+Release 3.2.1:
+* Minor documentation fix for CRAN.
+
 Release 3.2.0:
   * Fixed rare bug in check for bad values for string vectors.
   * Drop LazyData, fix https issues for CRAN.
