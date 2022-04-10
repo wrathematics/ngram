@@ -150,27 +150,35 @@ static wordlist_t* ngram_reverse_fill_wordlist(wordlist_t *dst, wordlist_t *src)
 
 
 
-static int ngram_get_new_ng_index(const int n, wordlist_t *wl, ngram_t *ng, const int ngsize, const int ng_ind, word_t *word)
+static ngram_t* ngram_get_new_ng(const int n, wordlist_t **wl_end, ngram_t *ng, word_t *word, struct hashtable *htab)
 {
+  wordlist_t *wl = *wl_end;
+  ngram_t tmp_ng;
   int i;
-  tok_t hash;
-  wordlist_t *wl_old = ng[ng_ind].words->next;
-  
-  if (wl->next != NULL)
-    ngram_reverse_fill_wordlist(wl->next, wl_old);
-  wl->word = word;
-  
-  hash = get_token(wl, n);
-  
-  for (i=0; i<ngsize; i++)
-  {
-    if (ng[i].tok == hash)
-      return i;
-  }
-  
-  return -1;
+
+  /* circularize, put word in the first slot, shift pointers to next (old first becomes end), break circle */
+  ng->words->word = word;
+  (*wl_end)->next = ng->words;
+  *wl_end = ng->words;
+  ng->words = ng->words->next;
+  (*wl_end)->next = NULL;
+
+  ng->tok = get_token(ng->words, n);
+
+  return get_hashtable_value_ngram(ng, htab);
 }
 
+static wordlist_t* ngram_copy_wordlist(wordlist_t *dst, wordlist_t *src){
+  wordlist_t *p = dst;
+
+  while(src != NULL){
+    dst->word = src->word;
+    dst = dst->next;
+    src = src->next;
+  }
+
+  return p;
+}
 
 
 // genlen = #words
@@ -179,7 +187,7 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
   int i, j, pos;
   const int n = ngl->n;
   const int ngsize = ngl->ngsize;
-  ngram_t *ng = ngl->ng;
+  ngram_t *ng = ngl->ng, *t_ng, tmp_ng;
   int ng_ind = 0;
   int retlen = 0;
   bool init = true;
@@ -188,6 +196,8 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
   const int genlencp = genlen; // this is the kind of shit you get when you plan ahead poorly
   word_t *word;
   wordlist_t *wl = NULL;
+  wordlist_t *wl_end = NULL;
+  wordlist_t *wl_start = NULL;
   
   *ret = NULL;
   
@@ -208,6 +218,10 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
   
   i = 0;
   
+  wl_start = wl_end = wl;
+  while(wl_end->next)
+    wl_end=wl_end->next;
+
   while (genlen > 0)
   {
     if (init)
@@ -215,16 +229,20 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
       while (init)
       {
         ng_ind = sample(rs, 0, ngsize-1);
-        init = ngram_check_ngram_for_null(ng + ng_ind);
+        t_ng = ng + ng_ind;
+        init = ngram_check_ngram_for_null(t_ng);
       }
-      
-      retlen += ngram_cp_ng_to_char(MIN(n, genlen), ng + ng_ind, &i, tmp, itmp);
+
+      tmp_ng.words = ngram_copy_wordlist(wl, t_ng->words);
+      tmp_ng.nextword = t_ng->nextword;
+
+      retlen += ngram_cp_ng_to_char(MIN(n, genlen), t_ng, &i, tmp, itmp);
       genlen -= n;
     }
     else
     {
       // Get next word and put it into tmp
-      word = ngram_get_rand_nextword(rs, ng + ng_ind);
+      word = ngram_get_rand_nextword(rs, &tmp_ng);
       if (word == NULL)
       {
         init = true;
@@ -232,7 +250,9 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
       }
       
       retlen += ngram_cp_word_to_char(word, &i, tmp, itmp);
-      ng_ind = ngram_get_new_ng_index(n, wl, ng, ngsize, ng_ind, word);
+      t_ng = ngram_get_new_ng(n, &wl_end, &tmp_ng, word, ngl->htab);
+      if(t_ng)
+        tmp_ng.nextword = t_ng->nextword;
       i++;
       genlen--;
     }
@@ -255,7 +275,7 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
   }
   
   
-  free_wordlist_keepwords(wl);
+  free_wordlist_keepwords(wl_start);
   free(tmp);
   free(itmp);
   
@@ -264,7 +284,7 @@ int ngram_gen(rng_state_t *rs, ngramlist_t *ngl, int genlen, char **ret)
 memerr:
   freeif(tmp);
   freeif(itmp);
-  free_wordlist_keepwords(wl);
+  free_wordlist_keepwords(wl_start);
   freeif(*ret);
 
   return -1;

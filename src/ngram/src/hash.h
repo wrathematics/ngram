@@ -30,9 +30,41 @@
 
 #include <stdint.h>
 
+#include "process.h"
 #include "lex.h"
 
 tok_t get_token(wordlist_t *word, const int num);
 tok_t get_token_str(const char *s, const int num);
+
+
+#define INITIAL_HASHTAB_SIZE 512
+
+typedef struct val_list_s{
+	struct val_list_s *next;
+	void *value;
+}val_list_t;
+
+typedef struct var_t{
+	tok_t rawhash;
+	val_list_t *vlist; // list of collisions for this slot
+}var_t;
+
+struct hashtable{
+	int filled; // filled slots
+	int size; // num slots
+	int n_vals; // total items including collisions
+	var_t **tab;
+};
+
+int init_hashtable(struct hashtable *tab, int initial_size);
+
+//int get_hashtable_index(tok_t k, struct hashtable *htab);
+int update_hashtable_value_ngram(ngram_t *ng, struct hashtable *htab);
+ngram_t* get_hashtable_value_ngram(ngram_t *ng, struct hashtable *htab);
+void free_hashtable_data(struct hashtable *htab, void (*freedata)(void*));
+
+int word_cmp(word_t *a, word_t *b); // compare for sort
+int word_eq(word_t *a, word_t *b); // quickly test equality; nonzero if equal
+int ngram_eq(void *a, void *b); // same, but for ngrams
 
 #endif

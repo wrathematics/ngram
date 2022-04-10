@@ -36,6 +36,7 @@
 #include "common_defs.h"
 
 //#define add_node(l) {vptr=l;if((l=malloc(sizeof(*l)))==NULL)exit(1);l->next=vptr;}
+#define add_node_ref(l) {vptr=*l;INIT_MEM((*l),1);(*l)->next=vptr;}
 #define add_node(l) {vptr=l;INIT_MEM(l,1);l->next=vptr;}
 #define free_list(l) {while(l){vptr=l->next;free(l);l=vptr;}}
 

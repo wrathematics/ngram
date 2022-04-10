@@ -53,6 +53,7 @@ typedef struct ngramlist_t{
 	int ngsize;
 	int n;
 	int *order;
+	struct hashtable *htab;
 } ngramlist_t;
 
 

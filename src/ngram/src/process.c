@@ -27,6 +27,7 @@
 
 #include <string.h>
 
+#include "hash.h"
 #include "process.h"
 #include "common_defs.h"
 
@@ -59,14 +60,7 @@ static int cmp_ngram(const void *a, const void *b){
 		return 1;
 #ifdef NEXTWORDS
 	else{
-		if((*na)->nextword->word.word == NULL)
-			return -1;
-		else if((*nb)->nextword->word.word == NULL)
-			return 1;
-		else if((*na)->nextword->word.word->tok<(*nb)->nextword->word.word->tok)
-			return -1;
-		else if((*na)->nextword->word.word->tok>(*nb)->nextword->word.word->tok)
-			return -1;
+		return word_cmp((*na)->nextword->word.word, (*nb)->nextword->word.word);
 	}
 #endif
 	return 0;
@@ -79,7 +73,7 @@ ngramlist_t* process(sentencelist_t *wordtok, int n)
 	int i, j, k, js, len, ngsize, endi;
 	int *sen_len = NULL;
 	wordlist_t *p, *q, *nw;
-	ngram_t *ng = NULL, *tmp = NULL, **sorted = NULL;
+	ngram_t *tmp = NULL;
 	ngramlist_t *ngl = NULL;
 
 	if (n<1)
@@ -108,12 +102,9 @@ ngramlist_t* process(sentencelist_t *wordtok, int n)
 	if (len<1)
 		goto memerr;
 
-	INIT_MEM(ng,len);
-	INIT_MEM(ngl->order,len);
-	ng->count = 0;
-
+	INIT_MEM(ngl->htab, 1);
+	init_hashtable(ngl->htab, len);
 	ZEROINIT_MEM(tmp,len);
-	INIT_MEM(sorted,len);
 
 	endi=0;
 	i=0;
@@ -123,33 +114,35 @@ ngramlist_t* process(sentencelist_t *wordtok, int n)
 
 		/* Add the final ngram to the start of tmp, no nextwords, words stored end:start */
 		nw = q = p = wordtok->words[j];
-		tmp[i].tok = get_token(p,n);
+		tmp[i].count = 1;
 		tmp[i].words = NULL;
 		for (k = 0;q && k<n;k++){
 			add_node(tmp[i].words);
 			tmp[i].words->word = q->word;
 			q = q->next;
 		}
+		tmp[i].tok = get_token(tmp[i].words,n);
 		tmp[i].nextword = NULL;
 #ifdef NEXTWORDS
 		add_node(tmp[i].nextword);
 		tmp[i].nextword->word.word = NULL;
 		tmp[i].nextword->word.count = 1;
 #endif
-		sorted[endi] = tmp+i;
+		update_hashtable_value_ngram(tmp+i, ngl->htab);
 
 		/* Add the remaining ngrams iteratively */
 		i = endi+1;
 		endi += sen_len[j];
 		for (;nw && i<endi;i++){
 			q = p = nw->next;
-			tmp[i].tok = get_token(p,n);
+			tmp[i].count = 1;
 			tmp[i].words = NULL;
 			for (k = 0;q && k<n;k++){
 				add_node(tmp[i].words);
 				tmp[i].words->word = q->word;
 				q = q->next;
 			}
+			tmp[i].tok = get_token(tmp[i].words,n);
 			tmp[i].nextword = NULL;
 #ifdef NEXTWORDS
 			add_node(tmp[i].nextword);
@@ -157,22 +150,33 @@ ngramlist_t* process(sentencelist_t *wordtok, int n)
 			tmp[i].nextword->word.count = 1;
 #endif
 
-			sorted[i] = tmp+i;
+			update_hashtable_value_ngram(tmp+i, ngl->htab);
 
 			nw = nw->next;
 		}
 	}
 
+	INIT_MEM(ngl->order,ngl->htab->n_vals);
+	ngsize = 0;
+	for (i = 0;i<len;i++){
+		if(tmp[i].count>0){
+			memcpy(tmp+ngsize,tmp+i,sizeof(*tmp));
+			ngl->order[ngsize] = ngsize; // everything should already be in order now. delete this var?
+			ngsize++;
+		}
+	}
+
+#if 0
 	qsort(sorted,len,sizeof(*sorted),cmp_ngram);
 
 	ngsize = 0;
 	for (i = 0;i<len;i = j) {
 		js = i;
-		for (j = i+1;j<len && sorted[j]->tok == sorted[i]->tok;j++){
+		for (j = i+1;j<len && ngram_eq(sorted[j], sorted[i]) ;j++){
 #ifdef NEXTWORDS
 			if ((sorted[js]->nextword->word.word != NULL &&
 				  sorted[j]->nextword->word.word != NULL &&
-				  sorted[j]->nextword->word.word->tok == sorted[js]->nextword->word.word->tok) || /* same string, or... */
+				  word_eq(sorted[j]->nextword->word.word, sorted[js]->nextword->word.word)) || /* same string, or... */
 				  sorted[j]->nextword->word.word == sorted[js]->nextword->word.word) /* both NULLs (sentence ends) */
 				sorted[js]->nextword->word.count++;
 			else {
@@ -196,12 +200,12 @@ ngramlist_t* process(sentencelist_t *wordtok, int n)
 		ngl->order[ngsize] = sorted[j-1]-tmp;
 		ngsize++;
 	}
+	free(sorted);
+#endif
 
 	free(sen_len);
-	free(sorted);
-	free(tmp);
 
-	ngl->ng = ng;
+	ngl->ng = tmp;
 	ngl->ngsize = ngsize;
 	ngl->n = n;
 
@@ -210,7 +214,7 @@ ngramlist_t* process(sentencelist_t *wordtok, int n)
 memerr:
 	freeif(sen_len);
 	freeif(ngl);
-	freeif(ng);
+	//freeif(ng);
 	if(tmp){
 		for(i=0;i<len;i++){
 			free_list(tmp[i].words);
@@ -220,6 +224,6 @@ memerr:
 		}
 		free(tmp);
 	}
-	freeif(sorted);
+	//freeif(sorted);
 	return NULL;
 }
