@@ -38,7 +38,7 @@
 #endif
 
 
-double unif_rand();
+extern double unif_rand(void);
 
 static uint32_t mix_96(uint32_t a, uint32_t b, uint32_t c)
 {
@@ -57,7 +57,7 @@ static uint32_t mix_96(uint32_t a, uint32_t b, uint32_t c)
 
 
 
-static uint32_t ngram_get_seed()
+static uint32_t ngram_get_seed(void)
 {
   uint32_t pid;
   uint32_t ret;
@@ -78,9 +78,9 @@ static uint32_t ngram_get_seed()
 
 
 
-uint32_t ngram_get_seed();
+extern uint32_t ngram_get_seed(void);
 
-SEXP R_ngram_get_seed()
+SEXP R_ngram_get_seed(void)
 {
   SEXP ret;
   PROTECT(ret = allocVector(INTSXP, 1));
@@ -90,4 +90,3 @@ SEXP R_ngram_get_seed()
   UNPROTECT(1);
   return ret;
 }
-

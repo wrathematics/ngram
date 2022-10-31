@@ -7,7 +7,7 @@
 
 extern SEXP R_ng_get_phrasetable(SEXP ng_ptr, SEXP ngsize_);
 extern SEXP R_ngram_gen(SEXP ngl_ptr, SEXP genlen, SEXP seed);
-extern SEXP R_ngram_get_seed();
+extern SEXP R_ngram_get_seed(void);
 extern SEXP R_ngram_wordcount(SEXP str, SEXP sep);
 extern SEXP R_stringsummary(SEXP string, SEXP wordlen_max_, SEXP senlen_max_, SEXP syllen_max_);
 extern SEXP R_ng_asweka(SEXP R_str, SEXP min_n_, SEXP max_n_, SEXP R_sep);

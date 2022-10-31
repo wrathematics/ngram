@@ -1,6 +1,6 @@
 # ngram
 
-* **Version:** 3.2.1
+* **Version:** 3.2.2
 * **License:** [BSD 2-Clause](https://opensource.org/licenses/BSD-2-Clause)
 * **Project home**: https://github.com/wrathematics/ngram
 * **Bug reports**: https://github.com/wrathematics/ngram/issues
