@@ -1,7 +1,7 @@
 # ngram
 
 * **Version:** 3.2.2
-* **License:** [BSD 2-Clause](https://opensource.org/licenses/BSD-2-Clause)
+* **License:** [BSD 2-Clause](https://opensource.org/license/bsd-2-clause/)
 * **Project home**: https://github.com/wrathematics/ngram
 * **Bug reports**: https://github.com/wrathematics/ngram/issues
 * **Author:** Drew Schmidt and Christian Heckendorf
