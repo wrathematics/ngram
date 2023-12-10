@@ -114,5 +114,5 @@ memerr:
 	freeif(starts);
 	freeif(lens);
 	free_sentencelist(sl,free_wordlist);
-	error(errstr);
+	Rf_error("%s", errstr);
 }
